@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 천안여고 AI 박람회 · 부스 운영 신청</title>
+<meta name="description" content="참된 데이터, 착한 알고리즘, 아름다운 상상 — 2026 천안여자고등학교 AI 박람회 학생 부스 운영 신청">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+<style>
+:root{
+  --navy:#040A26; --navy2:#0A1647; --royal:#1D3FAE; --royal2:#2E5BFF; --sky:#7CC8FF; --ice:#E8F4FF;
+  --gold:#F7C948; --gold2:#FFB800; --rose:#FF6FA3; --white:#fff;
+  --text:#EAF1FF; --muted:#A9B8DD; --line:rgba(160,190,255,.18); --card:rgba(255,255,255,.06);
+  --r:20px; --shadow:0 20px 60px rgba(0,0,0,.35);
+  --c1:#FF6FA3; --c2:#7CC8FF; --c3:#8F7CFF; --c4:#FFB547; --c5:#4BE3B0; --c6:#F7C948;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden;word-break:keep-all}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.en{font-family:"Space Grotesk",sans-serif;letter-spacing:.02em}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;z-index:999;background:#fff;color:#000;padding:8px}
+
+/* ---------- background layers ---------- */
+#bgCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.45}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;pointer-events:none;animation:float 18s ease-in-out infinite}
+.orb.a{width:520px;height:520px;background:var(--royal2);top:-120px;left:-140px}
+.orb.b{width:440px;height:440px;background:var(--rose);bottom:-160px;right:-120px;animation-delay:-6s;opacity:.22}
+.orb.c{width:360px;height:360px;background:var(--gold);top:40%;left:55%;animation-delay:-12s;opacity:.12}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.12)}}
+main,header,footer{position:relative;z-index:1}
+#cursorGlow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(124,200,255,.13),transparent 60%);transform:translate(-50%,-50%);transition:opacity .3s}
+
+/* ---------- nav ---------- */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+header.nav.scrolled{background:rgba(4,10,38,.72);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none;font-size:15px;white-space:nowrap}
+.brand svg{width:32px;height:32px}
+.nav ul{display:flex;gap:4px;list-style:none;margin-left:auto}
+.nav ul a{display:block;padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600;color:var(--muted);transition:.2s}
+.nav ul a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav .cta{padding:9px 18px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1300;font-weight:800;text-decoration:none;font-size:14px;box-shadow:0 6px 24px rgba(247,201,72,.35);white-space:nowrap}
+.menuBtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer}
+@media(max-width:900px){.nav ul{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:rgba(4,10,38,.96);padding:12px 24px;border-bottom:1px solid var(--line)}.nav ul.open{display:flex}.menuBtn{display:block}.nav .cta{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3}
+.hero .poster{background:radial-gradient(ellipse at 70% 30%,#1b3fae 0,#071040 55%,#040a26 100%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,10,38,.92) 0%,rgba(4,10,38,.55) 50%,rgba(4,10,38,.2) 100%),linear-gradient(0deg,var(--navy) 0%,transparent 35%)}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero .wrap{width:100%;padding-top:90px;padding-bottom:60px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border:1px solid rgba(247,201,72,.4);border-radius:999px;background:rgba(247,201,72,.08);font-size:13px;font-weight:700;color:var(--gold)}
+.eyebrow b{background:var(--gold);color:#1a1300;border-radius:999px;padding:2px 9px;font-size:12px}
+.hero h1{margin:22px 0 14px;font-size:clamp(44px,8.4vw,112px);line-height:1.02;font-weight:900;letter-spacing:-.045em}
+.hero h1 .l1{display:block;font-size:.42em;letter-spacing:-.02em;font-weight:800;color:var(--sky);margin-bottom:6px}
+.grad{background:linear-gradient(90deg,var(--gold) 0%,var(--rose) 25%,var(--sky) 50%,#fff 75%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shine 8s linear infinite}
+@keyframes shine{from{background-position:0 0}to{background-position:200% 0}}
+.motto{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 26px}
+.motto span{padding:9px 16px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-weight:700;font-size:15px;backdrop-filter:blur(6px)}
+.motto span i{font-style:normal;color:var(--gold);margin-right:6px}
+.hero p.lead{max-width:640px;font-size:clamp(16px,1.6vw,19px);color:#d5e2ff}
+.heroBtns{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;border:0;cursor:pointer;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s;font-size:16px}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1300;box-shadow:0 10px 30px rgba(247,201,72,.35)}
+.btn.gold:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(247,201,72,.5)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.16)}
+.btn.blue{background:linear-gradient(135deg,var(--royal2),var(--royal));color:#fff}
+.btn.sm{padding:9px 14px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.countdown{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap}
+.cd{min-width:84px;padding:12px 14px;border-radius:16px;background:rgba(4,10,38,.55);border:1px solid var(--line);text-align:center;backdrop-filter:blur(8px)}
+.cd b{display:block;font-size:30px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}
+.cd small{font-size:12px;color:var(--muted)}
+.cdLabel{width:100%;font-size:13px;color:var(--muted);font-weight:600}
+.scrollHint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:6px}
+.scrollHint i{width:22px;height:36px;border:2px solid var(--muted);border-radius:12px;position:relative}
+.scrollHint i::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--gold);animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(12px);opacity:0}}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);background:rgba(10,22,71,.6);overflow:hidden;padding:14px 0;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:40px;animation:marq 60s linear infinite;font-weight:700;color:var(--ice)}
+.marquee .track span::before{content:"✦";color:var(--gold);margin-right:14px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section.s{padding:110px 0}
+.sh{margin-bottom:48px}
+.sh .tag{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.18em}
+.sh h2{font-size:clamp(30px,4.4vw,52px);line-height:1.15;font-weight:900;letter-spacing:-.035em;margin:10px 0 12px}
+.sh p{color:var(--muted);max-width:720px;font-size:17px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:28px 22px;border-radius:var(--r);background:linear-gradient(160deg,rgba(46,91,255,.18),rgba(255,255,255,.03));border:1px solid var(--line);position:relative;overflow:hidden}
+.stat b{display:block;font-size:clamp(40px,5vw,64px);font-weight:900;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stat b em{font-style:normal;font-size:.45em;margin-left:4px;color:var(--sky)}
+.stat span{color:var(--muted);font-weight:600}
+.stat::after{content:"";position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(247,201,72,.25),transparent 70%)}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* school identity */
+.ident{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:stretch}
+.pillars{display:grid;gap:14px}
+.pillar{display:flex;gap:18px;padding:22px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);transition:transform .3s,border-color .3s}
+.pillar:hover{transform:translateX(6px);border-color:rgba(247,201,72,.5)}
+.pillar .big{flex:none;width:68px;height:68px;border-radius:18px;display:grid;place-items:center;font-size:30px;font-weight:900}
+.pillar:nth-child(1) .big{background:linear-gradient(135deg,var(--sky),var(--royal2));color:#fff}
+.pillar:nth-child(2) .big{background:linear-gradient(135deg,var(--c5),#1f9e7a);color:#fff}
+.pillar:nth-child(3) .big{background:linear-gradient(135deg,var(--rose),#c43c73);color:#fff}
+.pillar h3{font-size:20px;font-weight:800}
+.pillar p{color:var(--muted);font-size:15px}
+.symbols{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);min-height:420px;background:#081440}
+.symbols video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+.symbols .inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;background:linear-gradient(0deg,rgba(4,10,38,.95) 10%,rgba(4,10,38,.2) 70%)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid var(--line);font-size:13px;font-weight:700}
+@media(max-width:900px){.ident{grid-template-columns:1fr}}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.timeline::before{content:"";position:absolute;top:28px;left:5%;right:5%;height:2px;background:linear-gradient(90deg,var(--sky),var(--gold),var(--rose))}
+.tl{position:relative;padding-top:64px;text-align:center}
+.tl .dot{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:30px;height:30px;border-radius:50%;background:var(--navy);border:3px solid var(--gold);box-shadow:0 0 0 6px rgba(247,201,72,.15)}
+.tl.now .dot{background:var(--gold);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(247,201,72,.6)}100%{box-shadow:0 0 0 18px rgba(247,201,72,0)}}
+.tl b{display:block;font-size:20px;font-weight:900}
+.tl span{display:block;font-weight:700}
+.tl small{color:var(--muted)}
+@media(max-width:800px){.timeline{grid-template-columns:1fr;gap:6px}.timeline::before{top:0;bottom:0;left:15px;right:auto;width:2px;height:auto}.tl{padding:6px 0 18px 52px;text-align:left}.tl .dot{top:6px;left:15px}}
+
+/* areas */
+.areas{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.area{--c:var(--c1);position:relative;padding:26px;border-radius:24px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,transparent),rgba(255,255,255,.03) 60%);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);transform-style:preserve-3d;transition:transform .15s ease-out,box-shadow .3s;cursor:pointer;overflow:hidden}
+.area:hover{box-shadow:0 30px 60px color-mix(in srgb,var(--c) 25%,transparent)}
+.area .num{font-size:14px;font-weight:900;color:var(--c);letter-spacing:.1em}
+.area .ico{font-size:40px;line-height:1;margin:10px 0}
+.area h3{font-size:24px;font-weight:900;letter-spacing:-.02em}
+.area p{color:var(--muted);font-size:14px;margin:6px 0 14px}
+.area .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;border-top:1px solid var(--line);padding-top:12px}
+.bar{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;width:0;background:var(--c);border-radius:6px;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.area .shine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.18),transparent 45%);opacity:0;transition:opacity .3s}
+.area:hover .shine{opacity:1}
+@media(max-width:900px){.areas{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.areas{grid-template-columns:1fr}}
+
+/* programs */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;align-items:center}
+.fbtn{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;font-weight:700;font-size:14px;transition:.2s}
+.fbtn.on{background:#fff;color:var(--navy);border-color:#fff}
+.search{margin-left:auto;min-width:220px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.pcard{--c:var(--c1);padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);transition:transform .25s,background .25s;display:flex;flex-direction:column;gap:8px}
+.pcard:hover{transform:translateY(-4px);background:rgba(255,255,255,.09)}
+.pcard .top{display:flex;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:800}
+.pill{padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.1)}
+.pill.lv1{background:rgba(75,227,176,.18);color:#7ff5cd}.pill.lv2{background:rgba(124,200,255,.18);color:#a9dcff}.pill.lv3{background:rgba(255,111,163,.18);color:#ffa6c6}
+.pcard h4{font-size:17px;font-weight:800;line-height:1.35}
+.pcard p{font-size:14px;color:var(--muted);flex:1}
+.pcard .pick{align-self:flex-start;font-size:13px;font-weight:800;color:var(--gold);background:none;border:0;cursor:pointer;padding:0}
+.legend{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* form */
+.formShell{display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start}
+.steps{position:sticky;top:90px;padding:20px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.steps ol{list-style:none;display:grid;gap:4px;counter-reset:st}
+.steps li{counter-increment:st;display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;font-weight:700;color:var(--muted);cursor:pointer;font-size:15px}
+.steps li::before{content:counter(st);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);font-size:13px;flex:none}
+.steps li.on{background:rgba(255,255,255,.08);color:#fff}
+.steps li.on::before{border-color:var(--gold);background:var(--gold);color:#1a1300}
+.steps li.done::before{content:"✓";border-color:var(--c5);color:var(--c5)}
+.progress{height:6px;border-radius:6px;background:rgba(255,255,255,.1);margin:14px 0 6px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--gold));transition:width .4s}
+.steps small{color:var(--muted);font-size:12px}
+.panel{padding:30px;border-radius:24px;background:rgba(10,22,71,.72);border:1px solid var(--line);backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.step{display:none;animation:fadeUp .45s ease}
+.step.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.step h3{font-size:24px;font-weight:900;margin-bottom:4px}
+.step .hint{color:var(--muted);font-size:14px;margin-bottom:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label,.flabel{font-size:14px;font-weight:800}
+.field label .req,.flabel .req{color:var(--rose);margin-left:3px}
+.field .sub{font-size:12.5px;color:var(--muted);font-weight:500}
+input[type=text],input[type=number],input[type=password],input[type=url],input[type=datetime-local],select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(160,190,255,.28);background:rgba(4,10,38,.6);outline:none;transition:border-color .2s,box-shadow .2s}
+textarea{min-height:92px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(124,200,255,.15)}
+select option{background:#0A1647}
+.invalid{border-color:var(--rose)!important;box-shadow:0 0 0 4px rgba(255,111,163,.15)!important}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice span{display:flex;align-items:center;gap:8px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;font-weight:700;font-size:14px;transition:.15s;height:100%}
+.choice input:checked+span{border-color:var(--gold);background:rgba(247,201,72,.12);color:#fff}
+.choice input:focus-visible+span{outline:2px solid var(--sky)}
+.areaPick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.areaPick .choice span{flex-direction:column;align-items:flex-start;gap:2px;padding:14px}
+.areaPick .choice span em{font-style:normal;font-size:24px}
+.areaPick .choice span small{color:var(--muted);font-weight:500;font-size:12px}
+@media(max-width:700px){.areaPick{grid-template-columns:1fr 1fr}}
+.member{display:grid;grid-template-columns:90px 90px 90px 1fr 1fr 40px;gap:8px;margin-bottom:8px;align-items:center}
+.member .x{background:none;border:1px solid var(--line);border-radius:10px;height:44px;cursor:pointer;color:var(--muted)}
+@media(max-width:700px){.member{grid-template-columns:1fr 1fr 1fr;}.member .x{grid-column:3}}
+.supp{width:100%;border-collapse:collapse;font-size:14px}
+.supp th{text-align:left;color:var(--muted);font-weight:700;padding:6px}
+.supp td{padding:4px}
+.supp input{padding:9px 10px}
+.budgetBox{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);margin:10px 0 18px;font-weight:700;flex-wrap:wrap;gap:8px}
+.budgetBox.over{border-color:var(--rose);background:rgba(255,111,163,.08)}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.note{padding:14px 16px;border-radius:14px;background:rgba(124,200,255,.08);border:1px solid rgba(124,200,255,.25);font-size:14px;color:#d8ecff;margin-bottom:16px}
+.note.warn{background:rgba(255,111,163,.08);border-color:rgba(255,111,163,.35);color:#ffd5e4}
+.note.gold{background:rgba(247,201,72,.08);border-color:rgba(247,201,72,.35);color:#fff1c7}
+.review{display:grid;gap:10px;font-size:14px}
+.review div{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.review b{color:var(--muted)}
+.closedBanner{display:none}
+.closed .closedBanner{display:block}
+@media(max-width:900px){.formShell{grid-template-columns:1fr}.steps{position:static}.steps ol{grid-template-columns:repeat(3,1fr)}.steps li{font-size:12px;padding:6px}}
+
+/* check & admin */
+.twoCol{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:900px){.twoCol{grid-template-columns:1fr}}
+.statusBadge{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:800;font-size:14px}
+.st-접수{background:rgba(124,200,255,.2);color:#bfe3ff}.st-검토중{background:rgba(143,124,255,.22);color:#d3c9ff}.st-보완요청{background:rgba(255,181,71,.22);color:#ffd59a}
+.st-선정{background:rgba(75,227,176,.22);color:#9ff7d8}.st-미선정{background:rgba(255,255,255,.12);color:#ccc}.st-취소{background:rgba(255,111,163,.18);color:#ffb3cf}
+.result{margin-top:16px}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:14px;margin-top:10px}
+.kv b{color:var(--muted)}
+.admin{display:none}
+.admin.on{display:block}
+.astats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.astats div{padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.astats b{font-size:28px;font-weight:900;display:block}
+.astats span{color:var(--muted);font-size:13px}
+@media(max-width:700px){.astats{grid-template-columns:1fr 1fr}}
+.areaBars{display:grid;gap:8px;margin:10px 0 20px}
+.areaBars .row{display:grid;grid-template-columns:170px 1fr 70px;gap:10px;align-items:center;font-size:14px;font-weight:700}
+.areaBars .track{height:12px;border-radius:10px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+.areaBars .track i{position:absolute;inset:0 auto 0 0;border-radius:10px}
+.areaBars .track u{position:absolute;top:-3px;bottom:-3px;width:2px;background:#fff;opacity:.7}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.tools select,.tools input{width:auto;padding:9px 12px}
+.tableWrap{overflow:auto;border-radius:16px;border:1px solid var(--line);max-height:620px}
+table.list{width:100%;border-collapse:collapse;font-size:14px;min-width:900px}
+table.list th{position:sticky;top:0;background:#0d1b55;text-align:left;padding:10px;font-weight:800;color:var(--muted);z-index:1}
+table.list td{padding:10px;border-top:1px solid var(--line);vertical-align:top}
+table.list tr:hover td{background:rgba(255,255,255,.04);cursor:pointer}
+.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(2,6,24,.75);backdrop-filter:blur(6px);padding:20px}
+.modal.on{display:grid}
+.modal .box{width:min(900px,100%);max-height:90vh;overflow:auto;padding:28px;border-radius:24px;background:#0b1749;border:1px solid var(--line);box-shadow:var(--shadow)}
+.modal .box h3{font-size:22px;font-weight:900}
+.detail{display:grid;gap:4px;font-size:14px;margin-top:14px}
+.detail .sec{margin-top:14px;font-weight:900;color:var(--gold)}
+.detail div.r{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);white-space:pre-wrap}
+.detail div.r b{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(120px);z-index:200;padding:14px 20px;border-radius:14px;background:#fff;color:var(--navy);font-weight:800;box-shadow:var(--shadow);transition:transform .35s;max-width:90vw}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.success{text-align:center;padding:20px 0}
+.success .code{display:inline-block;margin:16px 0;padding:18px 28px;border-radius:20px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1300;font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:.08em}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:150}
+footer{padding:50px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer a{color:var(--sky)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#apply">신청서로 바로 가기</a>
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+<div id="cursorGlow" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="천안여고 AI 박람회 처음으로">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#F7C948"/><stop offset="1" stop-color="#FF6FA3"/></linearGradient></defs><path d="M20 36 C20 30 20 26 20 22 M20 22 C10 22 4 14 6 6 C12 4 17 8 20 13 C23 8 28 4 34 6 C36 14 30 22 20 22Z" fill="url(#lg)" stroke="#fff" stroke-width="1.2"/><circle cx="12" cy="12" r="1.6" fill="#fff"/><circle cx="20" cy="15" r="1.6" fill="#fff"/><circle cx="28" cy="12" r="1.6" fill="#fff"/><path d="M12 12 L20 15 L28 12" stroke="#fff" stroke-width=".8" fill="none"/></svg>
+      <span>천안여고 AI 박람회 <span class="en" style="color:var(--gold)">2026</span></span>
+    </a>
+    <button class="menuBtn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+    <ul id="menu">
+      <li><a href="#about">박람회 소개</a></li>
+      <li><a href="#areas">진로 영역</a></li>
+      <li><a href="#programs">예시 프로그램</a></li>
+      <li><a href="#apply">부스 신청</a></li>
+      <li><a href="#check">신청 확인</a></li>
+      <li><a href="#teacher">선생님</a></li>
+    </ul>
+    <a class="cta" href="#apply">부스 신청하기 →</a>
+  </div>
+</header>
+
+<main id="top">
+<!-- ================= HERO ================= -->
+<section class="hero" aria-label="박람회 메인">
+  <div class="poster" aria-hidden="true"></div>
+  <video id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="eyebrow reveal"><b>D-<span id="dApply">--</span></b> 부스 운영팀 모집 중 · 1·2학년 누구나</span>
+    <h1 class="reveal d1"><span class="l1">2026 천안여자고등학교</span><span class="grad">AI 박람회</span></h1>
+    <div class="motto reveal d2">
+      <span><i>참</i>참된 데이터</span><span><i>착</i>착한 알고리즘</span><span><i>美</i>아름다운 상상</span>
+    </div>
+    <p class="lead reveal d2">내 꿈의 직업에서 AI는 어떻게 쓰일까요? 1년 동안 바이브 코딩·인공지능 캠프·디지털새싹·융합수업에서 배운 AI로 <b>내가 직접 체험 부스를 만들고 운영</b>합니다. 30개 부스, 600명의 관람객이 여러분의 AI를 기다립니다.</p>
+    <div class="heroBtns reveal d3">
+      <a class="btn gold" href="#apply">🚀 부스 운영 신청하기</a>
+      <a class="btn ghost" href="#programs">예시 프로그램 67개 보기</a>
+      <a class="btn ghost" href="#check">내 신청 확인</a>
+    </div>
+    <div class="countdown reveal d3" aria-live="polite">
+      <div class="cdLabel">박람회 개막까지 · 2026. 12. 31.(목)</div>
+      <div class="cd"><b id="cdD">--</b><small>일</small></div>
+      <div class="cd"><b id="cdH">--</b><small>시간</small></div>
+      <div class="cd"><b id="cdM">--</b><small>분</small></div>
+      <div class="cd"><b id="cdS">--</b><small>초</small></div>
+    </div>
+  </div>
+  <div class="scrollHint" aria-hidden="true"><i></i>SCROLL</div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="marquee"></div></div>
+
+<!-- ================= ABOUT ================= -->
+<section class="s" id="about">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">ABOUT THE EXPO</div>
+      <h2>배운 AI를, 나의 진로로 <span class="grad">켜다</span></h2>
+      <p>관람만 하는 박람회가 아닙니다. 학생이 진로 영역 하나를 골라 팀을 꾸리고, AI 체험 부스를 직접 기획·제작·운영합니다. 방문자는 6~8분 동안 직접 판단하고, AI를 학습시키고, AI가 틀리는 순간을 발견합니다.</p>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><b><span class="count" data-to="30">0</span><em>개</em></b><span>학생 운영 부스</span></div>
+      <div class="stat reveal d1"><b><span class="count" data-to="600">0</span><em>명</em></b><span>1·2학년 관람객</span></div>
+      <div class="stat reveal d2"><b><span class="count" data-to="6">0</span><em>영역</em></b><span>진로 연계 부스 존</span></div>
+      <div class="stat reveal d3"><b><span class="count" data-to="67">0</span><em>개</em></b><span>예시 프로그램</span></div>
+    </div>
+
+    <div style="height:80px"></div>
+    <div class="ident">
+      <div class="reveal">
+        <div class="sh" style="margin-bottom:22px">
+          <div class="tag en">CHEONAN GIRLS' HIGH × AI</div>
+          <h2 style="font-size:clamp(26px,3.4vw,40px)">교훈이 곧 AI 윤리입니다</h2>
+          <p>1952년 개교한 천안여고의 교훈 ‘참되고, 착하고, 아름답게’를 AI 시대의 세 가지 약속으로 바꿨습니다. 모든 부스는 이 세 가지를 지킵니다.</p>
+        </div>
+        <div class="pillars">
+          <div class="pillar"><div class="big">참</div><div><h3>참된 데이터</h3><p>AI의 답을 그대로 믿지 않고 출처를 확인합니다. 데이터가 어디서 왔는지, AI가 언제 틀리는지 방문자에게 보여 줍니다.</p></div></div>
+          <div class="pillar"><div class="big">착</div><div><h3>착한 알고리즘</h3><p>개인정보는 모으지 않고, 편향과 공정성을 따지며, 모두가 안전하게 체험할 수 있게 설계합니다.</p></div></div>
+          <div class="pillar"><div class="big">美</div><div><h3>아름다운 상상</h3><p>AI로 만든 결과물에는 ‘AI 생성’을 표시하고, 마지막 한 단어는 사람이 고칩니다. 상상은 우리가, 도구는 AI가.</p></div></div>
+        </div>
+      </div>
+      <div class="symbols reveal d2">
+        <video id="treeVideo" autoplay muted loop playsinline aria-hidden="true"></video>
+        <div class="inner">
+          <div class="tag en" style="color:var(--gold);font-weight:800;letter-spacing:.18em;font-size:13px">OUR SYMBOLS</div>
+          <h3 style="font-size:26px;font-weight:900;margin-top:6px">은행잎 하나하나가 뉴런이 되는 곳</h3>
+          <p style="color:#cfdcff;font-size:15px;margin-top:6px">교목 은행나무의 노란 잎은 연결되어 생각하는 신경망으로, 교화 장미는 사람을 향한 따뜻한 AI로. 흑성산 기슭에서 피는 꿈을 AI로 펼칩니다.</p>
+          <div class="chips"><span class="chip">🌳 교목 은행나무</span><span class="chip">🌹 교화 장미</span><span class="chip">⛰ 흑성산 기슭</span><span class="chip">🕯 진향(眞香) 참된 향기</span><span class="chip en">SINCE 1952</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:90px"></div>
+    <div class="sh reveal"><div class="tag en">SCHEDULE</div><h2 style="font-size:clamp(26px,3.4vw,40px)">일정</h2></div>
+    <div class="timeline">
+      <div class="tl reveal" data-date="2026-11-12"><div class="dot"></div><b class="en">11.12</b><span>신청 안내 시작</span><small>예시집 공개·팀 구성</small></div>
+      <div class="tl reveal d1" data-date="2026-11-24"><div class="dot"></div><b class="en">11.24</b><span>신청 마감</span><small>이 사이트에서 제출</small></div>
+      <div class="tl reveal d2" data-date="2026-11-27"><div class="dot"></div><b class="en">11.27</b><span>선정·컨설팅</span><small>보완 요청은 ‘신청 확인’에서</small></div>
+      <div class="tl reveal d3" data-date="2026-12-22"><div class="dot"></div><b class="en">12.22</b><span>제작·리허설</span><small>준비물 구입·8분 리허설</small></div>
+      <div class="tl reveal d3" data-date="2026-12-31"><div class="dot"></div><b class="en">12.31</b><span>AI 박람회</span><small>1부 1학년 · 2부 2학년 관람</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AREAS ================= -->
+<section class="s" id="areas" style="background:linear-gradient(180deg,transparent,rgba(10,22,71,.6),transparent)">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">6 CAREER ZONES</div>
+      <h2>어느 진로 존에서 부스를 열까?</h2>
+      <p>들었던 강좌가 아니라 <b>‘내 진로’</b>로 고르세요. 빅데이터 강좌를 들었어도 간호사가 꿈이면 ①에서 ‘병원 데이터’ 부스를 만들면 됩니다. 막대는 실시간 신청 현황 / 목표 부스 수입니다.</p>
+    </div>
+    <div class="areas" id="areaCards"></div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMS ================= -->
+<section class="s" id="programs">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">67 EXAMPLE PROGRAMS</div>
+      <h2>예시 프로그램에서 시작해 <span class="grad">우리 것</span>으로</h2>
+      <p>예시를 그대로 해도 되지만, 우리 팀이 배운 내용으로 한 가지 이상 바꾸면 훨씬 좋은 부스가 됩니다. 카드를 누르면 신청서에 바로 들어갑니다.</p>
+    </div>
+    <div class="filters" id="pFilters"></div>
+    <div class="filters" id="lvFilters"></div>
+    <div class="pgrid" id="pGrid"></div>
+    <p class="legend">난이도 — <span class="pill lv1">입문</span> 1학년 누구나·준비 2주 · <span class="pill lv2">중급</span> 바이브 코딩 앱 포함·준비 3주 · <span class="pill lv3">심화</span> 디지털새싹·융합수업 참가자 또는 2학년 추천 &nbsp;|&nbsp; 유형 — S 소프트웨어(5만) · C 콘텐츠·출력(13만) · P 피지컬·센서(18만) · H 측정·헬스(12만) · M 메이커(12만)</p>
+  </div>
+</section>
+
+<!-- ================= APPLY ================= -->
+<section class="s" id="apply">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">BOOTH APPLICATION</div>
+      <h2>부스 운영 신청서</h2>
+      <p>팀 대표 1명이 제출합니다(팀 3~4명). 작성 중인 내용은 이 기기에 자동 저장됩니다. 제출하면 <b>접수번호</b>가 나오니 꼭 캡처해 두세요.</p>
+    </div>
+    <div id="closedNote" class="note warn" style="display:none"></div>
+    <div class="formShell">
+      <aside class="steps" aria-label="신청 단계">
+        <ol id="stepList">
+          <li data-s="0">팀 정보</li><li data-s="1">진로 영역</li><li data-s="2">부스 기획</li>
+          <li data-s="3">체험 시나리오</li><li data-s="4">준비물·광고</li><li data-s="5">안전·제출</li>
+        </ol>
+        <div class="progress"><i id="progBar"></i></div>
+        <small id="saveState">자동 저장 대기 중</small>
+      </aside>
+
+      <form class="panel" id="appForm" novalidate>
+        <div id="editBanner" class="note gold" style="display:none"></div>
+
+        <!-- STEP 1 -->
+        <div class="step on" data-step="0">
+          <h3>① 팀 정보</h3>
+          <p class="hint">대표 학생의 정보로 신청 확인을 하니 정확하게 적어 주세요. 연락처는 받지 않습니다.</p>
+          <div class="grid4">
+            <div class="field"><label for="grade">학년<span class="req">*</span></label><select id="grade" name="grade" required><option value="">선택</option><option value="1">1학년</option><option value="2">2학년</option></select></div>
+            <div class="field"><label for="leader_class">반<span class="req">*</span></label><input type="number" id="leader_class" name="leader_class" min="1" max="15" required></div>
+            <div class="field"><label for="leader_no">번호<span class="req">*</span></label><input type="number" id="leader_no" name="leader_no" min="1" max="40" required></div>
+            <div class="field"><label for="leader_name">대표자 이름<span class="req">*</span></label><input type="text" id="leader_name" name="leader_name" maxlength="20" required></div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label for="team_name">팀 이름<span class="req">*</span></label><input type="text" id="team_name" name="team_name" maxlength="40" placeholder="예: 하트비트랩" required></div>
+            <div class="field"><label for="leader_role">대표자 역할<span class="req">*</span></label><select id="leader_role" name="leader_role" required><option value="">선택</option><option>기획(PM)</option><option>개발</option><option>디자인·홍보</option><option>운영·진행</option></select></div>
+          </div>
+          <div class="flabel">팀원 (대표 제외 2~3명)<span class="req">*</span> <span class="sub" style="font-weight:500;color:var(--muted)">학년·반·번호·이름·역할</span></div>
+          <div id="members" style="margin-top:8px"></div>
+          <button type="button" class="btn ghost sm" id="addMember">+ 팀원 추가</button>
+          <div class="note" style="margin-top:16px">역할은 바이브 코딩 수업의 4역할(기획·개발·디자인·운영)을 그대로 씁니다. 당일엔 A·B조로 나눠 교대 운영하니 4명 팀을 추천합니다.</div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step="1">
+          <h3>② 진로 영역</h3>
+          <p class="hint">진로 영역은 당일 부스 위치(존)가 됩니다. 1지망은 꼭, 2지망은 선택입니다.</p>
+          <div class="flabel">1지망 진로 영역<span class="req">*</span></div>
+          <div class="areaPick" id="area1Pick" style="margin:8px 0 18px"></div>
+          <div class="field"><label for="area2">2지망 진로 영역</label><select id="area2" name="area2"></select></div>
+          <div class="field"><label for="careers">우리 팀의 희망 진로(직업)<span class="req">*</span><span class="sub">팀원별로 쉼표로 구분 — 예: 간호사, 의공학자, 임상병리사</span></label><input type="text" id="careers" name="careers" maxlength="200" required></div>
+          <div class="field"><label for="career_ai">그 직업에서 AI는 어떻게 쓰이나요?<span class="req">*</span><span class="sub">실제 현장 사례 1개 이상 — 커리어넷·기사·영상 출처를 함께</span></label><textarea id="career_ai" name="career_ai" maxlength="800" required placeholder="예: 병동에서는 환자 모니터가 심박 이상을 감지하면 간호사에게 경보를 보낸다. (출처: …)"></textarea></div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step="2">
+          <h3>③ 부스 기획</h3>
+          <p class="hint">무엇을 배웠고, 그걸로 어떤 체험을 만들지 적습니다.</p>
+          <div class="grid2">
+            <div class="field"><label for="booth_title">부스 이름<span class="req">*</span></label><input type="text" id="booth_title" name="booth_title" maxlength="60" required placeholder="예: 내 심장 데이터 랩"></div>
+            <div class="field"><label for="booth_type">부스 유형(예산 기준)<span class="req">*</span></label><select id="booth_type" name="booth_type" required><option value="">선택</option><option value="S">S 소프트웨어·웹앱형 (한도 5만 원)</option><option value="C">C 콘텐츠·출력형 (13만 원)</option><option value="P">P 피지컬·센서형 (18만 원)</option><option value="H">H 측정·헬스형 (12만 원)</option><option value="M">M 메이커·모형형 (12만 원)</option></select></div>
+          </div>
+          <div class="field"><label for="one_line">한 줄 소개<span class="req">*</span><span class="sub">방문자가 무엇을 하고 무엇을 깨닫는지</span></label><input type="text" id="one_line" name="one_line" maxlength="120" required placeholder="예: 내 심박을 직접 재고, AI 판정을 의심해 보는 6분 의공학 체험"></div>
+          <div class="field"><label for="example_ref">참고한 예시 프로그램</label><select id="example_ref" name="example_ref"></select><span class="sub">예시를 고르지 않고 직접 기획해도 됩니다.</span></div>
+          <div class="flabel">출발 활동 (배운 곳, 여러 개 선택)<span class="req">*</span></div>
+          <div class="choices" id="startActs" style="margin:8px 0 14px"></div>
+          <div class="field"><label for="learned">배운 내용을 어떻게 연결했나요?<span class="req">*</span><span class="sub">어떤 수업·강좌에서 무엇을 배웠고, 부스의 어느 부분에 쓰는지 / 예시를 골랐다면 무엇을 바꿨는지</span></label><textarea id="learned" name="learned" maxlength="1200" required></textarea></div>
+          <div class="field"><label for="ai_principle">방문자가 바꿔 볼 수 있는 ‘AI의 원리’<span class="req">*</span><span class="sub">데이터·규칙·기준값·가중치 중 무엇을 방문자가 직접 바꾸나요?</span></label><textarea id="ai_principle" name="ai_principle" maxlength="600" required></textarea></div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" data-step="3">
+          <h3>④ 체험 시나리오</h3>
+          <p class="hint">한 방문자가 들어와서 나갈 때까지를 단계별로 적어 주세요. 1인 6~8분을 권장합니다.</p>
+          <div class="grid3">
+            <div class="field"><label for="minutes">1회 체험 시간(분)<span class="req">*</span></label><input type="number" id="minutes" name="minutes" min="2" max="15" required></div>
+            <div class="field"><label for="capacity">동시 체험 인원<span class="req">*</span></label><input type="number" id="capacity" name="capacity" min="1" max="20" required></div>
+            <div class="field"><label for="hourly">시간당 예상 방문자</label><input type="text" id="hourly" name="hourly" readonly></div>
+          </div>
+          <div class="field"><label for="sc_greet">맞이 (30초)<span class="req">*</span><span class="sub">첫 질문·예측하기</span></label><textarea id="sc_greet" name="sc_greet" maxlength="500" required></textarea></div>
+          <div class="field"><label for="sc_do">체험 (3~4분)<span class="req">*</span><span class="sub">방문자가 직접 고르고, 정하고, AI를 학습시키는 순간</span></label><textarea id="sc_do" name="sc_do" maxlength="900" required></textarea></div>
+          <div class="field"><label for="sc_fail">AI가 틀리는 순간 (1분)<span class="req">*</span><span class="sub">오답·편향·한계를 일부러 보여 주는 장면</span></label><textarea id="sc_fail" name="sc_fail" maxlength="600" required></textarea></div>
+          <div class="field"><label for="sc_end">정리·진로 카드 (1분)<span class="req">*</span><span class="sub">방문자가 가져가는 것(카드·출력물·QR)과 진로 연결</span></label><textarea id="sc_end" name="sc_end" maxlength="600" required></textarea></div>
+          <div class="flabel">사용할 AI 도구<span class="req">*</span></div>
+          <div class="choices" id="aiTools" style="margin:8px 0 14px"></div>
+          <div class="field"><label for="tool_etc">기타 도구</label><input type="text" id="tool_etc" name="tool_etc" maxlength="200"></div>
+          <div class="field"><label for="prompt">핵심 프롬프트 (바이브 코딩 6대 요소)<span class="sub">[역할] [목표] [사용자] [기능] [디자인] [제약]</span></label><textarea id="prompt" name="prompt" maxlength="2000" style="min-height:140px;font-family:ui-monospace,Consolas,monospace;font-size:13px">[역할]
+[목표]
+[사용자]
+[기능]
+[디자인]
+[제약] 외부 AI 호출 없음, 개인정보 입력칸 없음</textarea></div>
+          <div class="field"><label for="proto">프로토타입 링크(있으면)</label><input type="url" id="proto" name="proto" maxlength="300" placeholder="https://"></div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step" data-step="4">
+          <h3>⑤ 준비물 · 기자재 · AI 광고</h3>
+          <p class="hint">학교 예산으로 사 주는 준비물입니다. 노트북·태블릿·마이크로비트·TV 같은 고가 장비는 사지 않고 빌려 줍니다.</p>
+          <table class="supp" aria-label="준비물 목록">
+            <thead><tr><th style="width:38%">품목</th><th style="width:12%">수량</th><th style="width:18%">단가(원)</th><th>구매 링크</th><th></th></tr></thead>
+            <tbody id="suppBody"></tbody>
+          </table>
+          <button type="button" class="btn ghost sm" id="addSupp" style="margin-top:8px">+ 품목 추가</button>
+          <div class="budgetBox" id="budgetBox"><span>합계 <b id="budgetSum">0</b>원</span><span id="budgetLimit">유형 한도: 유형을 먼저 고르세요</span></div>
+          <div class="flabel">빌려야 할 학교 기자재</div>
+          <div class="choices" id="lendItems" style="margin:8px 0 14px"></div>
+          <div class="grid2">
+            <div class="field"><label for="power">전기·인터넷</label><select id="power" name="power"><option value="">선택</option><option>전기만 필요</option><option>전기+인터넷 필요</option><option>둘 다 필요 없음</option></select></div>
+            <div class="field"><label for="space">공간 요청</label><select id="space" name="space"><option value="">선택</option><option>책상 2개(기본)</option><option>책상 3~4개</option><option>움직이는 공간 필요(로봇·운동)</option><option>어두운 곳·조용한 곳</option></select></div>
+          </div>
+          <div class="field"><label for="plan_b">Plan B<span class="req">*</span><span class="sub">인터넷이 끊기거나 기기가 고장 나면?</span></label><textarea id="plan_b" name="plan_b" maxlength="600" required></textarea></div>
+          <div class="grid2">
+            <div class="field"><label for="ad_type">AI 광고 형식<span class="req">*</span></label><select id="ad_type" name="ad_type" required><option value="">선택</option><option>포스터</option><option>15초 영상</option><option>숏폼(세로 영상)</option><option>징글(광고 음악)</option><option>포스터+영상</option></select></div>
+            <div class="field"><label for="ad_copy">광고 핵심 문구<span class="req">*</span></label><input type="text" id="ad_copy" name="ad_copy" maxlength="80" required placeholder="AI 초안을 사람이 고친 최종 문구"></div>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step" data-step="5">
+          <h3>⑥ 안전·윤리 약속과 제출</h3>
+          <p class="hint">모두 체크해야 제출할 수 있습니다. 리허설 때 선생님이 하나씩 확인합니다.</p>
+          <div class="choices" id="ethics" style="grid-template-columns:1fr;margin-bottom:16px"></div>
+          <div class="note warn" id="sensorNote" style="display:none">센서를 몸에 붙이는 부스: 방문자는 손가락 광학 맥박 센서처럼 전극 없는 방식만 씁니다. 센서가 몸에 닿는 동안 노트북은 충전기를 뽑고 배터리로 쓰고, 심박조율기 등 몸에 심은 의료기기가 있는 방문자는 참여하지 않도록 입구에 안내합니다.</div>
+          <div class="grid2">
+            <div class="field"><label for="pin">확인 비밀번호 (숫자 4자리)<span class="req">*</span><span class="sub">신청 확인·수정에 씁니다. 생일 등 쉬운 번호는 피하세요.</span></label><input type="password" id="pin" inputmode="numeric" maxlength="4" autocomplete="new-password"></div>
+            <div class="field"><label for="pin2">비밀번호 다시 입력<span class="req">*</span></label><input type="password" id="pin2" inputmode="numeric" maxlength="4" autocomplete="new-password"></div>
+          </div>
+          <div class="field"><label class="choice" style="display:block"><input type="checkbox" id="pledge"><span>우리 팀은 박람회 당일까지 책임감 있게 부스를 준비하고, 끝난 뒤 인계 노트를 제출하겠습니다.</span></label></div>
+          <h4 style="margin:18px 0 8px;font-weight:900">제출 전 한눈에 보기</h4>
+          <div class="review" id="review"></div>
+        </div>
+
+        <div class="nav2">
+          <button type="button" class="btn ghost" id="prevBtn">← 이전</button>
+          <div style="display:flex;gap:8px">
+            <button type="button" class="btn ghost sm" id="resetBtn" title="작성 내용 지우기">초기화</button>
+            <button type="button" class="btn blue" id="nextBtn">다음 →</button>
+            <button type="submit" class="btn gold" id="submitBtn" style="display:none">🚀 신청서 제출</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHECK ================= -->
+<section class="s" id="check" style="background:linear-gradient(180deg,transparent,rgba(10,22,71,.6),transparent)">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">CHECK MY APPLICATION</div>
+      <h2>신청 확인 · 수정 · 취소</h2>
+      <p>접수번호, 대표자 이름, 확인 비밀번호로 심사 상태와 선생님 의견을 볼 수 있습니다. ‘접수’ 상태는 마감 전까지, ‘보완요청’ 상태는 마감 뒤에도 수정할 수 있습니다.</p>
+    </div>
+    <div class="twoCol">
+      <form class="panel reveal" id="checkForm" novalidate>
+        <div class="field"><label for="ck_code">접수번호</label><input type="text" id="ck_code" placeholder="AI26-XXXXX" maxlength="10" style="text-transform:uppercase"></div>
+        <div class="field"><label for="ck_name">대표자 이름</label><input type="text" id="ck_name" maxlength="20"></div>
+        <div class="field"><label for="ck_pin">확인 비밀번호 4자리</label><input type="password" id="ck_pin" inputmode="numeric" maxlength="4"></div>
+        <button class="btn gold" type="submit" style="width:100%">조회하기</button>
+      </form>
+      <div class="panel reveal d1" id="checkResult"><p style="color:var(--muted)">조회 결과가 여기에 나옵니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEACHER ================= -->
+<section class="s" id="teacher">
+  <div class="wrap">
+    <div class="sh reveal">
+      <div class="tag en">TEACHER ONLY</div>
+      <h2>선생님 전용 · 신청 목록</h2>
+      <p>비밀번호를 입력하면 전체 신청서를 보고, 상태·의견을 바꾸고, 엑셀로 내려받을 수 있습니다.</p>
+    </div>
+    <form class="panel reveal" id="loginForm" style="max-width:460px" novalidate>
+      <div class="field"><label for="adminPw">관리 비밀번호</label><input type="password" id="adminPw" autocomplete="current-password"></div>
+      <button class="btn blue" type="submit" style="width:100%">들어가기</button>
+    </form>
+    <div class="admin" id="adminPanel">
+      <div class="tools">
+        <button class="btn gold sm" id="xlsxBtn">📥 엑셀 다운로드</button>
+        <button class="btn ghost sm" id="refreshBtn">↻ 새로고침</button>
+        <button class="btn ghost sm" id="cfgBtn">⚙ 신청 설정</button>
+        <button class="btn ghost sm" id="logoutBtn">로그아웃</button>
+      </div>
+      <div class="astats" id="astats"></div>
+      <h3 style="font-weight:900;margin-top:10px">영역별 신청 / 목표</h3>
+      <div class="areaBars" id="areaBars"></div>
+      <div class="tools">
+        <select id="fArea"><option value="">전체 영역</option></select>
+        <select id="fStatus"><option value="">전체 상태</option><option>접수</option><option>검토중</option><option>보완요청</option><option>선정</option><option>미선정</option><option>취소</option></select>
+        <select id="fGrade"><option value="">전체 학년</option><option value="1">1학년</option><option value="2">2학년</option></select>
+        <input type="text" id="fText" placeholder="팀·부스·이름 검색">
+        <span id="fCount" style="color:var(--muted);font-size:14px"></span>
+      </div>
+      <div class="tableWrap"><table class="list"><thead><tr><th>접수번호</th><th>상태</th><th>학년</th><th>대표</th><th>팀</th><th>부스</th><th>1지망</th><th>유형</th><th>예산</th><th>제출</th></tr></thead><tbody id="adminRows"></tbody></table></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle"><div class="box" id="modalBox"></div></div>
+<div class="toast" id="toast" role="status"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<footer>
+  <div class="wrap">
+    <div><b style="color:#fff">2026 천안여자고등학교 AI 박람회</b><br>주관 1학년부 · 참되고, 착하고, 아름답게</div>
+    <div>신청 내용은 박람회 운영(선정·준비물 구입)에만 쓰고, 행사 종료 후 파기합니다.<br>배경 영상·이미지: AI 생성(Higgsfield)</div>
+  </div>
+</footer>
+
+<script>
+/* ================== 설정 ================== */
+const SB_URL = "https://tntywsmcdnxtqrejawbh.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRudHl3c21jZG54dHFyZWphd2JoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMDA1NDAsImV4cCI6MjEwODU3NjU0MH0.d7aXbEOQDNO9rWLQzjL7iq31xZHgiLkcTO4PLLEe2ro";
+const EXPO_DATE = new Date("2026-12-31T09:00:00+09:00");
+const DEFAULT_DEADLINE = new Date("2026-11-24T23:59:59+09:00");
+/* 같은 폴더의 assets/ 파일을 먼저 쓰고, 없으면 Higgsfield 원본 주소를 씁니다 */
+const MEDIA = {
+  hero: ["assets/hero.mp4", "https://d8j0ntlcm91z4.cloudfront.net/user_3FbbP9nGEx1ZGPmwNvdArD3Boyr/hf_20261109_074706_c5479580-251c-43a8-9b9f-11a6237861fb.mp4"],
+  heroPoster: ["assets/hero.png", "https://d8j0ntlcm91z4.cloudfront.net/user_3FbbP9nGEx1ZGPmwNvdArD3Boyr/hf_20261109_074201_4e7c2099-ec56-46cb-b679-d623ca1bd564.png"],
+  tree: ["assets/tree.mp4", "https://d8j0ntlcm91z4.cloudfront.net/user_3FbbP9nGEx1ZGPmwNvdArD3Boyr/hf_20261109_075122_813c9b11-11ee-4eee-8fe0-6a150c8f2190.mp4"]
+};
+
+/* ================== 데이터 ================== */
+const AREAS = [
+  {k:"bio", n:"①", name:"의료·바이오·헬스", ico:"🧬", c:"var(--c1)", target:8, jobs:"의사·간호사·약사·의공학자·제약 연구원·영양사", camp:"의공학·제약·디지털헬스"},
+  {k:"eng", n:"②", name:"공학·피지컬 AI", ico:"🤖", c:"var(--c2)", target:4, jobs:"로봇·자동차·반도체·에너지·건축 엔지니어", camp:"자율주행·로봇·미래신산업"},
+  {k:"sw",  n:"③", name:"SW·AI 개발", ico:"💻", c:"var(--c3)", target:6, jobs:"앱·게임 개발자·AI 엔지니어·보안 전문가", camp:"앱·게임·프롬프트·머신러닝"},
+  {k:"media",n:"④", name:"미디어·콘텐츠·디자인", ico:"🎬", c:"var(--c4)", target:5, jobs:"광고·PD·웹툰·작곡·UX 디자이너", camp:"게임·리터러시·바이브 코딩 캔바·수노"},
+  {k:"biz", n:"⑤", name:"경제·경영·데이터", ico:"📊", c:"var(--c5)", target:3, jobs:"마케터·데이터 분석가·금융·창업가", camp:"빅데이터·데이터 마스터"},
+  {k:"soc", n:"⑥", name:"사회·법·교육·윤리", ico:"⚖️", c:"var(--c6)", target:4, jobs:"판사·변호사·경찰·기자·교사·통번역사", camp:"AI 리터러시·프롬프트"}
+];
+const AREA = Object.fromEntries(AREAS.map(a=>[a.k,a]));
+const LV = {1:"입문",2:"중급",3:"심화"};
+const P = [
+ ["bio","내 심장 데이터 랩","H",3,"맥박을 재고 운동 전후를 비교, 규칙 AI의 판정을 손가락 흔들기로 속여 본다"],
+ ["bio","긴장도 측정소(GSR)","P",3,"피부전도 값으로 ‘긴장’ 기준값을 방문자가 정하고 오판 수를 비교"],
+ ["bio","AI 신약 후보 스크리닝","S",2,"분자 카드 20장을 사람 vs 규칙 앱이 거르고 AlphaFold로 단백질 구조 보기"],
+ ["bio","응급실 트리아지 챌린지","C",1,"환자 카드 8장을 위급 순으로 배치하고 점수 앱과 비교, AI가 놓친 환자 토론"],
+ ["bio","회복력 측정소","H",1,"걷기 30초 전후 맥박으로 회복률을 계산해 산점도에 내 점 찍기"],
+ ["bio","스마트워치 vs 측정기","H",2,"같은 맥박을 세 가지로 재서 웨어러블이 틀리는 상황 찾기"],
+ ["bio","유전자 가위 오타 찾기","S",2,"DNA 서열에서 가이드 RNA와 1~2글자 다른 표적 이탈 위치를 앱이 찾아냄"],
+ ["bio","디자이너 베이비 법정","C",1,"AI 유전 예측 가상 광고를 보고 역할 카드로 1분 변론·투표"],
+ ["bio","급식 영양 밸런스 AI","S",2,"티처블 머신이 급식 메뉴를 분류하고 영양소 균형 막대를 보여 줌"],
+ ["bio","모두를 위한 AI(접근성)","S",2,"안대를 쓰고 AI 사물 인식 음성 안내만으로 물건 찾기"],
+ ["bio","검사 결과의 확률 렌즈","S",3,"정확도 99% 검사의 함정을 1만 명 점 그림으로 확인(조건부확률)"],
+ ["eng","넘어짐 감지 AIoT 밴드","P",3,"내 동작 5번을 CreateAI에 학습시켜 보호자 알림 울리기"],
+ ["eng","손동작 스마트 조명","P",3,"제스처 3개로 조명 색을 바꾸고 내 동작을 새로 추가"],
+ ["eng","데이터 램프(Orange3)","P",3,"밝기·소리 데이터로 의사결정나무를 만들어 램프 모드 자동 변경"],
+ ["eng","자율주행 트랙","P",3,"SAE 레벨 카드 맞히고 라인트레이서의 센서를 가려 보기"],
+ ["eng","AI 불량품 검수 라인","M",2,"카메라 AI가 부품 정상·불량 판정, 방문자가 ‘새 불량’으로 통과 시험"],
+ ["eng","표정 읽는 로봇 친구","P",3,"웃는 얼굴·찡그린 얼굴에 로봇이 반응, 안경·마스크면 어떻게?"],
+ ["eng","태양광 각도 예측","P",3,"각도별 광센서 값으로 예측선을 그리고 내가 고른 각도로 실측 비교"],
+ ["eng","자율주행 눈 속이기","S",2,"표지판에 스티커를 붙여 AI 분류를 오판하게 만들기"],
+ ["eng","사람 CPU vs GPU","S",2,"1명 vs 10명 병렬 계산 대결로 AI 반도체 이해, 회로 시뮬레이터"],
+ ["eng","AI 구조 설계 루프","M",2,"빨대 다리를 만들고 AI 개선 제안으로 2차 제작, 하중 비교"],
+ ["eng","로봇 댄스 코딩","P",3,"AI 비트에 맞춰 서보 로봇 동작 블록 3개로 춤 짜기"],
+ ["sw","5분 앱 주문소","S",2,"방문자가 주문한 앱을 바이브 코딩으로 즉석 제작해 QR로 전달"],
+ ["sw","데이터 편향 실험실","S",2,"오른손만 배운 AI에 왼손 데이터를 더해 정확도 변화 확인"],
+ ["sw","퀵 드로우 분석관","S",1,"20초 그림을 신경망이 맞히고 세계 사람들의 그림과 비교"],
+ ["sw","사람 신경망","S",1,"방문자 3명이 뉴런이 되어 판정, TensorFlow Playground로 확장"],
+ ["sw","AI 오목 대결","S",2,"규칙 기반 오목 AI와 대결하며 AI의 점수 히트맵 보기"],
+ ["sw","버그 헌터","S",1,"버그 3개 심은 앱에서 버그를 찾고 ‘버그 틀’로 AI에게 수정 요청"],
+ ["sw","A/B 테스트 연구소","S",2,"두 화면 중 무작위 하나를 보여 주고 실시간 클릭률 비교"],
+ ["sw","신고앱 라이브 대시보드","S",3,"Apps Script 신고앱으로 직접 신고하면 시트 차트가 실시간 갱신"],
+ ["sw","SDGs 앱 데모데이","C",2,"1학년 SDGs 앱을 써 보고 가상 투자 스티커 배분"],
+ ["sw","AI 진로 상담 에이전트","S",2,"교사 계정 챗봇 답을 커리어넷으로 검증하는 환각 찾기 미션"],
+ ["sw","프롬프트 배틀","S",1,"같은 목표를 CRAFT 프롬프트로 겨루고 관객 투표"],
+ ["media","AI 광고 스튜디오 30초","C",2,"카피·장면·징글을 고르고 고쳐 8분 만에 30초 광고 완성"],
+ ["media","진로 숏폼 영상관","C",2,"3칸 스토리보드로 15초 진로 숏폼을 찍고 AI 자막 입히기"],
+ ["media","AI 작곡 응원가","C",1,"키워드 3개로 가사를 짓고 두 장르 응원가 비교 투표"],
+ ["media","즉석 미니게임 기획소","S",2,"주인공·목표·방해물 카드 조합으로 미니게임 플레이"],
+ ["media","AI 웹툰 스티커","C",1,"내 진로 캐릭터 설정과 4컷 콘티로 스티커 만들기"],
+ ["media","AI 그림책 공방","C",1,"초등 동생을 위한 6쪽 그림책을 이야기 카드로 짜서 출력"],
+ ["media","내 그림이 움직인다","C",2,"종이 캐릭터 그림을 AI가 관절을 찾아 춤추게 만들기"],
+ ["media","AI 희곡 극장","C",1,"상황 카드로 AI가 쓴 1분 희곡을 낭독하고 사람 각색과 비교"],
+ ["media","AI 지휘자 무대","S",1,"웹캠 앞 팔 동작으로 가상 오케스트라 지휘, 포즈 인식 원리"],
+ ["media","UI 리디자인 숍","S",2,"불편한 앱 화면의 문제 3개를 찾고 디자인 원칙으로 고친 화면 비교"],
+ ["media","미래 직업 브랜드 엽서","C",2,"진로 키워드로 브랜드 색·글꼴을 추천받아 10년 뒤 명함·엽서 인화"],
+ ["biz","추천 알고리즘의 비밀","S",2,"간식 별점으로 나와 비슷한 사람을 찾아 추천, 필터 버블 체험"],
+ ["biz","투자왕 vs AI 규칙","S",2,"이름 가린 차트로 매수·매도 5번, 이동평균 규칙과 수익 비교(가상)"],
+ ["biz","그래프 거짓말 탐지","C",1,"같은 데이터로 만든 왜곡 그래프 6장에서 속임수 찾기"],
+ ["biz","리셀 타이밍 예측","S",3,"한정판 가상 가격 데이터로 언제 팔지 예측선과 대결"],
+ ["biz","다회용기 수요 예측기","S",3,"요일·날씨 조건으로 필요량을 예측하고 Orange3 회귀와 비교"],
+ ["biz","AI 장학위원회","S",1,"가상 지원자 10명 심사 후 AI 점수 규칙 속 숨은 차별 찾기"],
+ ["biz","4분 브랜드 런칭","C",1,"AI 이름·로고 시안을 고르고 고쳐 즉석 선호 조사"],
+ ["biz","급식 잔반 예측","S",2,"메뉴별 잔반 데이터로 다음 주 잔반을 예측하고 식단 바꾸기"],
+ ["biz","나는 어느 소비자 유형?","S",3,"설문 5문항으로 군집화 그림에서 내 위치와 페르소나 확인"],
+ ["biz","AI 심사위원 vs 사람 투자자","C",2,"창업 피칭 4개에 가상 투자금을 나누고 AI 평가와 비교"],
+ ["biz","공공데이터 입지 선정","C",2,"천안 지도에서 북카페 자리를 감 vs 데이터 가중치로 고르기"],
+ ["soc","AI 판사 vs 사람 판사","C",2,"가상 사건을 판결하고 AI와 비교, 숨은 사정과 편향 찾기"],
+ ["soc","가짜뉴스 탐정","C",1,"기사·사진 6개 중 AI 생성·조작물을 출처 확인 도구로 찾기"],
+ ["soc","딥페이크 대처 센터","C",2,"교육용 딥페이크 단서 찾기와 피해 시 대처 순서 카드 배열"],
+ ["soc","암호 해독 작전","S",1,"시저 암호를 글자 빈도로 풀고 CyberChef로 1초 해독"],
+ ["soc","AI 방범 설계소","C",2,"가상 지도에 CCTV를 배치하고 사생활 경계선 정하기"],
+ ["soc","교내 홍보물 위치 추천","S",2,"동선 히트맵으로 포스터 위치를 고르고 알고리즘과 비교"],
+ ["soc","나만의 AI 튜터 퀴즈","S",2,"틀린 유형에 따라 다음 문제가 바뀌는 적응형 퀴즈"],
+ ["soc","AI 면접 코치","S",2,"1분 자기소개의 말 속도·습관어를 분석, 사람 면접관과 비교"],
+ ["soc","AI 통역사 vs 나","S",2,"사투리·관용어 문장의 AI 오역을 찾고 직접 번역 대결"],
+ ["soc","윤리 딜레마 투표소","C",1,"자율주행·의료·채용 AI 딜레마 5문항 투표와 세계 결과 비교"],
+ ["soc","뉴스 프레임 분석실","S",1,"같은 사건 다른 제목의 감성 점수를 비교하고 중립 제목 쓰기"],
+ ["soc","AI 골든벨","C",1,"매 정각 20명 AI 상식·윤리 퀴즈, 문제마다 다른 부스 소개"]
+].map((r,i)=>({id:i+1,a:r[0],t:r[1],ty:r[2],lv:r[3],d:r[4]}));
+P.forEach(p=>{const same=P.filter(q=>q.a===p.a);p.no=AREA[p.a].n+"-"+(same.indexOf(p)+1)});
+
+const START_ACTS = ["바이브 코딩 수업(1학년)","인공지능 캠프 강좌","디지털새싹 바이브코딩","디지털새싹 피지컬 AI","디지털새싹 데이터 마스터","인공지능 융합수업","정보·AI 교과 수업","다른 교과 수업","동아리 활동","개인 탐구·독서"];
+const AI_TOOLS = ["제미나이 캔버스(바이브 코딩)","티처블 머신","micro:bit CreateAI","MakeCode","Orange3","Quick, Draw!","TensorFlow Playground","AlphaFold DB","Apps Script","캔바","수노(교사 계정)","생성형 AI 채팅(교사 계정)","CyberChef","공공데이터·Colab"];
+const LEND = ["노트북","태블릿","마이크로비트 V2","웹캠","TV·모니터","블루투스 스피커","포토프린터(공통)","멀티탭"];
+const ETHICS = [
+ ["privacy","방문자의 이름·연락처·얼굴 사진을 저장하지 않는다(기록은 별명·숫자만)"],
+ ["label","AI로 만든 이미지·영상·음악·글에는 ‘AI 생성’을 표시한다"],
+ ["copyright","실존 인물·기존 캐릭터·브랜드 로고를 쓰지 않는다"],
+ ["age","수노·이미지 생성 등 연령 제한 도구는 교사 계정으로만 쓴다"],
+ ["notdx","측정·판정 결과는 ‘체험용이며 의료 진단·투자 권유가 아님’을 안내한다"],
+ ["photo","사진·영상을 찍는 경우 먼저 동의를 묻고, 행사 후 1주 안에 지운다"],
+ ["safe","전기·센서·도구 안전 수칙을 부스에 붙이고 리허설에서 확인받는다"],
+ ["fail","AI가 틀리는 순간을 방문자에게 숨기지 않고 보여 준다"]
+];
+const LIMIT = {S:50000,C:130000,P:180000,H:120000,M:120000};
+
+/* ================== 유틸 ================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const won=n=>(+n||0).toLocaleString("ko-KR");
+function toast(msg,ms=2600){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),ms)}
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const ERR = {CLOSED:"신청 기간이 아닙니다.",BAD_PIN:"확인 비밀번호는 숫자 4자리입니다.",TOO_LONG:"내용이 너무 깁니다. 조금 줄여 주세요.",FULL:"신청 가능 건수를 넘었습니다. 선생님께 문의하세요.",DUPLICATE:"이 대표 학생 이름으로 이미 신청서가 있습니다. ‘신청 확인’에서 수정하세요.",NOT_FOUND:"일치하는 신청서가 없습니다. 접수번호·이름·비밀번호를 확인하세요.",LOCKED:"잘못된 시도가 많아 10분간 잠겼습니다. 잠시 뒤 다시 시도하세요.",LOCKED_STATUS:"이미 심사가 끝났거나 수정할 수 없는 상태입니다.",BAD_PW:"관리 비밀번호가 틀렸습니다.",CODE_FAIL:"잠시 뒤 다시 제출해 주세요."};
+async function rpc(fn,args){
+  let res;
+  try{res=await fetch(`${SB_URL}/rest/v1/rpc/${fn}`,{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`},body:JSON.stringify(args||{})})}
+  catch(e){throw new Error("인터넷 연결을 확인하세요.")}
+  const txt=await res.text(); let body=null; try{body=txt?JSON.parse(txt):null}catch(e){body=txt}
+  if(!res.ok){const m=(body&&(body.message||body.hint))||txt||res.status;const key=Object.keys(ERR).find(k=>String(m).includes(k));
+    if(String(m).includes("Could not find the function")) throw new Error("서버 준비가 아직 안 됐습니다(Supabase 설정 필요).");
+    throw new Error(key?ERR[key]:("오류: "+m))}
+  return body;
+}
+
+/* ================== 미디어 ================== */
+function setVideo(el,list){
+  const srcs=list.filter(u=>u&&!u.startsWith("__"));
+  if(!el||!srcs.length) return;
+  srcs.forEach(u=>{const s=document.createElement("source");s.src=u;s.type="video/mp4";el.appendChild(s)});
+  el.addEventListener("error",()=>{},true);
+  const p=el.play(); if(p&&p.catch) p.catch(()=>{});
+}
+function setPoster(){const img=new Image();const [a,b]=MEDIA.heroPoster;img.onload=()=>{$(".hero .poster").style.background=`center/cover url("${img.src}")`};img.onerror=()=>{if(img.src.indexOf(b)<0){img.src=b}};img.src=a}
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){setVideo($("#heroVideo"),MEDIA.hero);setVideo($("#treeVideo"),MEDIA.tree)}
+setPoster();
+
+/* ================== 배경 신경망(은행잎) 캔버스 ================== */
+function ginkgo(ctx,x,y,s,rot,col,alpha){
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.globalAlpha=alpha;ctx.fillStyle=col;ctx.beginPath();
+  ctx.moveTo(0,s*.9);ctx.lineTo(0,s*.2);
+  ctx.bezierCurveTo(-s*.9,s*.1,-s*1.1,-s*.7,-s*.55,-s*.95);
+  ctx.quadraticCurveTo(-s*.2,-s*.7,0,-s*.85);ctx.quadraticCurveTo(s*.2,-s*.7,s*.55,-s*.95);
+  ctx.bezierCurveTo(s*1.1,-s*.7,s*.9,s*.1,0,s*.2);ctx.fill();
+  ctx.globalAlpha=alpha*.8;ctx.strokeStyle=col;ctx.lineWidth=Math.max(1,s*.08);ctx.beginPath();ctx.moveTo(0,s*.2);ctx.lineTo(0,s*.95);ctx.stroke();
+  ctx.restore();
+}
+function neuralField(canvas,{count,link,leafRatio,mouse=true,fixed=false}){
+  const ctx=canvas.getContext("2d");let W,H,dpr,pts=[],mx=-999,my=-999;
+  const cols=["#F7C948","#FFD873","#7CC8FF","#ffffff","#FF6FA3"];
+  function resize(){dpr=Math.min(devicePixelRatio||1,2);const r=fixed?{width:innerWidth,height:innerHeight}:canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(count*(W*H)/(1440*900));pts=Array.from({length:Math.max(18,Math.min(n,count*1.4))},()=>mk())}
+  function mk(){const leaf=Math.random()<leafRatio;return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.25+(leaf?.18:0),s:leaf?6+Math.random()*9:1+Math.random()*1.8,leaf,rot:Math.random()*6.28,vr:(Math.random()-.5)*.01,c:leaf?cols[Math.random()<.85?0:4]:cols[1+Math.floor(Math.random()*3)],ph:Math.random()*6.28}}
+  function step(t){ctx.clearRect(0,0,W,H);
+    for(const p of pts){p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;if(p.y>H+20)p.y=-20;if(p.y<-20)p.y=H+20;
+      if(mouse){const dx=p.x-mx,dy=p.y-my,d=dx*dx+dy*dy;if(d<14000){p.x+=dx/90;p.y+=dy/90}}}
+    for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<link){const o=(1-d/link)*.35;ctx.strokeStyle=`rgba(124,200,255,${o})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        if(((t/12+i*7)%100)<2&&o>.2){const k=((t/600)+i)%1;ctx.fillStyle="rgba(247,201,72,.9)";ctx.beginPath();ctx.arc(a.x+(b.x-a.x)*k,a.y+(b.y-a.y)*k,1.6,0,6.28);ctx.fill()}}}}
+    if(mouse&&mx>0){for(const p of pts){const dx=p.x-mx,dy=p.y-my,d=Math.sqrt(dx*dx+dy*dy);if(d<170){ctx.strokeStyle=`rgba(247,201,72,${(1-d/170)*.5})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mx,my);ctx.stroke()}}}
+    for(const p of pts){const tw=.6+.4*Math.sin(t/700+p.ph);if(p.leaf)ginkgo(ctx,p.x,p.y,p.s,p.rot,p.c,.75*tw);else{ctx.globalAlpha=tw;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);ctx.fill();ctx.globalAlpha=1}}
+    raf=requestAnimationFrame(step)}
+  let raf;addEventListener("resize",resize);
+  if(mouse){(fixed?window:canvas.parentElement).addEventListener("pointermove",e=>{const r=canvas.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});(fixed?window:canvas.parentElement).addEventListener("pointerleave",()=>{mx=my=-999})}
+  resize();if(!matchMedia("(prefers-reduced-motion: reduce)").matches)raf=requestAnimationFrame(step);else step(0);
+}
+neuralField($("#heroCanvas"),{count:70,link:130,leafRatio:.35});
+neuralField($("#bgCanvas"),{count:34,link:110,leafRatio:.18,mouse:false,fixed:true});
+addEventListener("pointermove",e=>{const g=$("#cursorGlow");g.style.left=e.clientX+"px";g.style.top=e.clientY+"px"});
+
+/* ================== 네비·스크롤 ================== */
+addEventListener("scroll",()=>$("#nav").classList.toggle("scrolled",scrollY>30),{passive:true});
+$("#menuBtn").onclick=()=>$("#menu").classList.toggle("open");
+$$("#menu a").forEach(a=>a.onclick=()=>$("#menu").classList.remove("open"));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)
+  e.target.querySelectorAll?.(".count").forEach(countUp)}}),{threshold:.15});
+function observeAll(){$$(".reveal:not(.in)").forEach(el=>io.observe(el))}
+function countUp(el){if(el._done)return;el._done=1;const to=+el.dataset.to,t0=performance.now(),dur=1600;(function f(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=Math.round(to*e).toLocaleString();if(k<1)requestAnimationFrame(f)})(t0)}
+
+/* marquee */
+(function(){const names=P.map(p=>p.t);const half=names.concat(names.slice(0,12)).map(n=>`<span>${esc(n)}</span>`).join("");$("#marquee").innerHTML=half+half})();
+
+/* countdown */
+let DEADLINE=DEFAULT_DEADLINE;
+function tick(){const now=new Date();let ms=Math.max(0,EXPO_DATE-now);const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),s=Math.floor(ms%6e4/1e3);
+  $("#cdD").textContent=d;$("#cdH").textContent=String(h).padStart(2,"0");$("#cdM").textContent=String(m).padStart(2,"0");$("#cdS").textContent=String(s).padStart(2,"0");
+  const da=Math.ceil((DEADLINE-now)/864e5);$("#dApply").textContent=da>0?da:(da===0?"DAY":"END")}
+tick();setInterval(tick,1000);
+$$(".tl").forEach(el=>{const d=new Date(el.dataset.date+"T23:59:59+09:00");if(new Date()<=d&&!$(".tl.now")){el.classList.add("now")}});
+
+/* ================== 진로 영역 카드 ================== */
+let STATUS={by_area:{},total:0,is_open:true};
+function renderAreas(){
+  $("#areaCards").innerHTML=AREAS.map(a=>{const n=STATUS.by_area[a.k]||0;const pct=Math.min(100,n/a.target*100);
+    return `<article class="area reveal" style="--c:${a.c}" data-k="${a.k}" tabindex="0" aria-label="${a.name} 예시 보기">
+      <div class="shine"></div><div class="num en">ZONE ${a.n}</div><div class="ico">${a.ico}</div><h3>${a.name}</h3>
+      <p>${a.jobs}<br><span style="opacity:.8">연결 강좌 · ${a.camp}</span></p>
+      <div class="meta"><span>예시 ${P.filter(p=>p.a===a.k).length}개</span><span>신청 ${n} / 목표 ${a.target}부스</span></div>
+      <div class="bar"><i data-w="${pct}"></i></div></article>`}).join("");
+  $$(".area").forEach(el=>{
+    el.addEventListener("pointermove",e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;el.style.transform=`perspective(800px) rotateY(${(x-.5)*10}deg) rotateX(${(.5-y)*10}deg) translateY(-4px)`;el.style.setProperty("--mx",x*100+"%");el.style.setProperty("--my",y*100+"%")});
+    el.addEventListener("pointerleave",()=>el.style.transform="");
+    const go=()=>{curArea=el.dataset.k;renderFilters();renderPrograms();$("#programs").scrollIntoView({behavior:"smooth"})};
+    el.onclick=go;el.onkeydown=e=>{if(e.key==="Enter")go()};
+  });
+  observeAll();
+  setTimeout(()=>$$(".area .bar i").forEach(i=>i.style.width=i.dataset.w+"%"),400);
+}
+async function loadStatus(){try{const s=await rpc("expo_public_status",{});if(s){STATUS=s;if(s.deadline)DEADLINE=new Date(s.deadline);tick();renderAreas();applyOpenState()}}catch(e){renderAreas()}}
+
+/* ================== 예시 프로그램 ================== */
+let curArea="",curLv=0,curQ="";
+function renderFilters(){
+  $("#pFilters").innerHTML=`<button class="fbtn ${curArea===""?"on":""}" data-a="">전체 67</button>`+AREAS.map(a=>`<button class="fbtn ${curArea===a.k?"on":""}" data-a="${a.k}">${a.n} ${a.name}</button>`).join("");
+  $("#lvFilters").innerHTML=[0,1,2,3].map(l=>`<button class="fbtn ${curLv===l?"on":""}" data-l="${l}">${l?LV[l]:"모든 난이도"}</button>`).join("")+`<input class="search" id="pSearch" type="search" placeholder="🔍 프로그램 검색" value="${esc(curQ)}" aria-label="프로그램 검색">`;
+  $$("#pFilters .fbtn").forEach(b=>b.onclick=()=>{curArea=b.dataset.a;renderFilters();renderPrograms()});
+  $$("#lvFilters .fbtn").forEach(b=>b.onclick=()=>{curLv=+b.dataset.l;renderFilters();renderPrograms()});
+  $("#pSearch").oninput=e=>{curQ=e.target.value;renderPrograms()};
+}
+function renderPrograms(){
+  const q=curQ.trim();const list=P.filter(p=>(!curArea||p.a===curArea)&&(!curLv||p.lv===curLv)&&(!q||(p.t+p.d).includes(q)));
+  $("#pGrid").innerHTML=list.map(p=>`<div class="pcard" style="--c:${AREA[p.a].c}">
+    <div class="top"><span class="pill">${p.no}</span><span class="pill lv${p.lv}">${LV[p.lv]}</span><span class="pill">유형 ${p.ty}</span></div>
+    <h4>${esc(p.t)}</h4><p>${esc(p.d)}</p><button class="pick" data-id="${p.id}">이 예시로 신청서 쓰기 →</button></div>`).join("")||`<p style="color:var(--muted)">조건에 맞는 프로그램이 없습니다.</p>`;
+  $$(".pick").forEach(b=>b.onclick=()=>pickExample(+b.dataset.id));
+}
+function pickExample(id){const p=P.find(x=>x.id===id);if(!p)return;
+  $("#example_ref").value=String(id);const r=$(`#area1Pick input[value="${p.a}"]`);if(r){r.checked=true}
+  if(!$("#booth_title").value)$("#booth_title").value=p.t;if(!$("#booth_type").value)$("#booth_type").value=p.ty;
+  if(!$("#one_line").value)$("#one_line").value=p.d;
+  syncArea2();updateBudget();saveDraft();toast(`‘${p.t}’을(를) 신청서에 넣었어요. 우리 팀만의 변형을 더해 보세요!`);
+  $("#apply").scrollIntoView({behavior:"smooth"});
+}
+
+/* ================== 신청서 ================== */
+let cur=0,editCtx=null;const steps=$$(".step");
+function choiceHTML(name,items,type="checkbox"){return items.map(([v,l])=>`<label class="choice"><input type="${type}" name="${name}" value="${esc(v)}"><span>${l}</span></label>`).join("")}
+$("#area1Pick").innerHTML=AREAS.map(a=>`<label class="choice"><input type="radio" name="area1" value="${a.k}"><span><em>${a.ico}</em><b>${a.n} ${a.name}</b><small>${a.jobs}</small></span></label>`).join("");
+$("#startActs").innerHTML=choiceHTML("start_acts",START_ACTS.map(x=>[x,x]));
+$("#aiTools").innerHTML=choiceHTML("ai_tools",AI_TOOLS.map(x=>[x,x]));
+$("#lendItems").innerHTML=choiceHTML("lend",LEND.map(x=>[x,x]));
+$("#ethics").innerHTML=choiceHTML("ethics",ETHICS.map(([k,l])=>[k,"✔ "+l]));
+$("#example_ref").innerHTML=`<option value="">직접 기획(예시 없음)</option>`+AREAS.map(a=>`<optgroup label="${a.n} ${a.name}">${P.filter(p=>p.a===a.k).map(p=>`<option value="${p.id}">${p.no} ${esc(p.t)}</option>`).join("")}</optgroup>`).join("");
+function syncArea2(){const a1=(document.querySelector('input[name=area1]:checked')||{}).value;const keep=$("#area2").value;
+  $("#area2").innerHTML=`<option value="">선택 안 함</option>`+AREAS.filter(a=>a.k!==a1).map(a=>`<option value="${a.k}">${a.n} ${a.name}</option>`).join("");if(keep&&keep!==a1)$("#area2").value=keep;
+  const sensor=a1==="bio"||["H","P"].includes($("#booth_type").value);$("#sensorNote").style.display=sensor?"block":"none"}
+$("#area1Pick").addEventListener("change",syncArea2);
+
+function memberRow(m={}){const d=document.createElement("div");d.className="member";
+  d.innerHTML=`<select aria-label="학년" data-f="g"><option value="">학년</option><option value="1">1학년</option><option value="2">2학년</option></select>
+  <input type="number" min="1" max="15" placeholder="반" aria-label="반" data-f="c"><input type="number" min="1" max="40" placeholder="번호" aria-label="번호" data-f="n">
+  <input type="text" maxlength="20" placeholder="이름" aria-label="이름" data-f="name"><select aria-label="역할" data-f="role"><option value="">역할</option><option>기획(PM)</option><option>개발</option><option>디자인·홍보</option><option>운영·진행</option></select>
+  <button type="button" class="x" aria-label="팀원 삭제">✕</button>`;
+  d.querySelector('[data-f=g]').value=m.g||"";d.querySelector('[data-f=c]').value=m.c||"";d.querySelector('[data-f=n]').value=m.n||"";d.querySelector('[data-f=name]').value=m.name||"";d.querySelector('[data-f=role]').value=m.role||"";
+  d.querySelector(".x").onclick=()=>{if($$("#members .member").length>1){d.remove();saveDraft()}else toast("팀원은 최소 2명이 필요합니다")};
+  $("#members").appendChild(d)}
+$("#addMember").onclick=()=>{if($$("#members .member").length>=3)return toast("팀원은 대표 포함 최대 4명입니다");memberRow({g:$("#grade").value});saveDraft()};
+
+function suppRow(s={}){const tr=document.createElement("tr");
+  tr.innerHTML=`<td><input type="text" maxlength="60" placeholder="예: 맥박 센서 모듈" data-f="item"></td><td><input type="number" min="0" max="999" data-f="qty"></td><td><input type="number" min="0" max="2000000" step="100" data-f="price"></td><td><input type="url" maxlength="300" placeholder="https://" data-f="link"></td><td><button type="button" class="btn ghost sm" aria-label="품목 삭제">✕</button></td>`;
+  Object.entries(s).forEach(([k,v])=>{const i=tr.querySelector(`[data-f=${k}]`);if(i)i.value=v});
+  tr.querySelector("button").onclick=()=>{tr.remove();updateBudget();saveDraft()};$("#suppBody").appendChild(tr)}
+$("#addSupp").onclick=()=>{if($$("#suppBody tr").length>=15)return toast("품목은 15개까지");suppRow();};
+function getSupplies(){return $$("#suppBody tr").map(tr=>({item:tr.querySelector("[data-f=item]").value.trim(),qty:+tr.querySelector("[data-f=qty]").value||0,price:+tr.querySelector("[data-f=price]").value||0,link:tr.querySelector("[data-f=link]").value.trim()})).filter(s=>s.item)}
+function updateBudget(){const sum=getSupplies().reduce((a,s)=>a+s.qty*s.price,0);$("#budgetSum").textContent=won(sum);const t=$("#booth_type").value;const lim=LIMIT[t];
+  $("#budgetLimit").textContent=lim?`유형 ${t} 한도 ${won(lim)}원 ${sum>lim?"· 초과 "+won(sum-lim)+"원 (컨설팅 때 조정)":"· 남은 금액 "+won(lim-sum)+"원"}`:"유형 한도: 부스 유형을 먼저 고르세요";
+  $("#budgetBox").classList.toggle("over",!!lim&&sum>lim);return sum}
+$("#booth_type").addEventListener("change",()=>{updateBudget();syncArea2()});
+function updateHourly(){const m=+$("#minutes").value,c=+$("#capacity").value;$("#hourly").value=m&&c?`약 ${Math.floor(60/m*c)}명 (1시간 운영 기준)`:""}
+$("#minutes").oninput=$("#capacity").oninput=updateHourly;
+
+const vals=name=>$$(`input[name="${name}"]:checked`).map(i=>i.value);
+function collect(){
+  const f=id=>$("#"+id).value.trim();
+  return {grade:f("grade"),leader_class:f("leader_class"),leader_no:f("leader_no"),leader_name:f("leader_name"),leader_role:f("leader_role"),team_name:f("team_name"),
+    members:$$("#members .member").map(d=>({g:d.querySelector("[data-f=g]").value,c:d.querySelector("[data-f=c]").value,n:d.querySelector("[data-f=n]").value,name:d.querySelector("[data-f=name]").value.trim(),role:d.querySelector("[data-f=role]").value})).filter(m=>m.name),
+    area1:(document.querySelector('input[name=area1]:checked')||{}).value||"",area2:f("area2"),careers:f("careers"),career_ai:f("career_ai"),
+    booth_title:f("booth_title"),booth_type:f("booth_type"),one_line:f("one_line"),example_ref:f("example_ref"),start_acts:vals("start_acts"),learned:f("learned"),ai_principle:f("ai_principle"),
+    minutes:f("minutes"),capacity:f("capacity"),sc_greet:f("sc_greet"),sc_do:f("sc_do"),sc_fail:f("sc_fail"),sc_end:f("sc_end"),ai_tools:vals("ai_tools"),tool_etc:f("tool_etc"),prompt:$("#prompt").value,proto:f("proto"),
+    supplies:getSupplies(),budget:updateBudget(),lend:vals("lend"),power:f("power"),space:f("space"),plan_b:f("plan_b"),ad_type:f("ad_type"),ad_copy:f("ad_copy"),
+    ethics:vals("ethics"),pledge:$("#pledge").checked};
+}
+function fill(d){
+  ["grade","leader_class","leader_no","leader_name","leader_role","team_name","careers","career_ai","booth_title","booth_type","one_line","example_ref","learned","ai_principle","minutes","capacity","sc_greet","sc_do","sc_fail","sc_end","tool_etc","proto","power","space","plan_b","ad_type","ad_copy"].forEach(k=>{if(d[k]!=null&&$("#"+k))$("#"+k).value=d[k]});
+  if(d.prompt!=null)$("#prompt").value=d.prompt;
+  $$('input[name=area1]').forEach(i=>i.checked=i.value===d.area1);syncArea2();if(d.area2)$("#area2").value=d.area2;
+  [["start_acts","start_acts"],["ai_tools","ai_tools"],["lend","lend"],["ethics","ethics"]].forEach(([n,k])=>$$(`input[name=${n}]`).forEach(i=>i.checked=(d[k]||[]).includes(i.value)));
+  $("#pledge").checked=!!d.pledge;
+  $("#members").innerHTML="";(d.members&&d.members.length?d.members:[{},{}]).forEach(memberRow);
+  $("#suppBody").innerHTML="";(d.supplies&&d.supplies.length?d.supplies:[{},{},{}]).forEach(suppRow);
+  updateBudget();updateHourly();
+}
+const DRAFT="expo26_draft";
+let saveT;function saveDraft(){clearTimeout(saveT);saveT=setTimeout(()=>{if(editCtx)return;const ok=store.set(DRAFT,{d:collect(),step:cur});$("#saveState").textContent=ok?"이 기기에 자동 저장됨 · "+new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"}):"이 브라우저는 자동 저장을 지원하지 않습니다"},500)}
+$("#appForm").addEventListener("input",saveDraft);$("#appForm").addEventListener("change",saveDraft);
+
+function req(id){const el=$("#"+id);const ok=!!el.value.trim();el.classList.toggle("invalid",!ok);return ok}
+function validate(s){
+  let ok=true,msg="";const need=ids=>ids.forEach(i=>{if(!req(i))ok=false});
+  if(s===0){need(["grade","leader_class","leader_no","leader_name","team_name","leader_role"]);
+    const c=+$("#leader_class").value,n=+$("#leader_no").value;if(c&&(c<1||c>15)){ok=false;$("#leader_class").classList.add("invalid")}if(n&&(n<1||n>40)){ok=false;$("#leader_no").classList.add("invalid")}
+    const ms=collect().members;if(ms.length<2){ok=false;msg="팀원 이름을 2명 이상 적어 주세요."}
+    if($("#leader_name").value.trim().length===1){ok=false;$("#leader_name").classList.add("invalid")}}
+  if(s===1){if(!document.querySelector('input[name=area1]:checked')){ok=false;msg="1지망 진로 영역을 골라 주세요."}need(["careers","career_ai"])}
+  if(s===2){need(["booth_title","booth_type","one_line","learned","ai_principle"]);if(!vals("start_acts").length){ok=false;msg="출발 활동을 하나 이상 고르세요."}}
+  if(s===3){need(["minutes","capacity","sc_greet","sc_do","sc_fail","sc_end"]);if(!vals("ai_tools").length&&!$("#tool_etc").value.trim()){ok=false;msg="사용할 AI 도구를 고르세요."}}
+  if(s===4){need(["plan_b","ad_type","ad_copy"]);if(!getSupplies().length){ok=false;msg="준비물을 1개 이상 적어 주세요(필요 없으면 ‘없음’, 0원)."}}
+  if(s===5){if(vals("ethics").length<ETHICS.length){ok=false;msg="안전·윤리 약속을 모두 체크해 주세요."}
+    if(!editCtx){const p=$("#pin").value,p2=$("#pin2").value;if(!/^\d{4}$/.test(p)){ok=false;$("#pin").classList.add("invalid");msg=msg||"확인 비밀번호는 숫자 4자리입니다."}else $("#pin").classList.remove("invalid");if(p!==p2){ok=false;$("#pin2").classList.add("invalid");msg=msg||"비밀번호가 서로 다릅니다."}else $("#pin2").classList.remove("invalid")}
+    if(!$("#pledge").checked){ok=false;msg=msg||"다짐에 체크해 주세요."}}
+  if(!ok)toast(msg||"빨간 칸을 채워 주세요.");return ok;
+}
+function go(s){cur=Math.max(0,Math.min(5,s));steps.forEach((el,i)=>el.classList.toggle("on",i===cur));
+  $$("#stepList li").forEach((li,i)=>{li.classList.toggle("on",i===cur);li.classList.toggle("done",i<cur)});
+  $("#progBar").style.width=((cur+1)/6*100)+"%";$("#prevBtn").style.visibility=cur?"visible":"hidden";
+  $("#nextBtn").style.display=cur<5?"":"none";$("#submitBtn").style.display=cur===5?"":"none";
+  $("#pin").closest(".grid2").style.display=editCtx?"none":"";
+  if(cur===5)renderReview();
+}
+$("#nextBtn").onclick=()=>{if(validate(cur)){go(cur+1);$("#apply").scrollIntoView({behavior:"smooth"})}};
+$("#prevBtn").onclick=()=>go(cur-1);
+$$("#stepList li").forEach(li=>li.onclick=()=>{const t=+li.dataset.s;if(t<=cur)return go(t);for(let i=cur;i<t;i++){if(!validate(i))return go(i)}go(t)});
+$("#resetBtn").onclick=()=>{openModal(`<h3 id="mTitle">작성 내용을 지울까요?</h3><p style="margin:10px 0 18px;color:var(--muted)">이 기기에 저장된 초안이 모두 지워집니다.</p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">취소</button><button class="btn gold" id="doReset">지우기</button></div>`);
+  $("#doReset").onclick=()=>{store.del(DRAFT);editCtx=null;$("#editBanner").style.display="none";$("#appForm").reset();fill({});go(0);closeModal();toast("초기화했습니다")}};
+function renderReview(){const d=collect();const ex=P.find(p=>String(p.id)===d.example_ref);
+  const rows=[["대표",`${d.grade}학년 ${d.leader_class}반 ${d.leader_no}번 ${d.leader_name} (${d.leader_role})`],["팀",`${d.team_name} · 팀원 ${d.members.map(m=>m.name).join(", ")}`],
+   ["진로 영역",`1지망 ${AREA[d.area1]?.name||"-"}${d.area2?" / 2지망 "+AREA[d.area2].name:""}`],["부스",`${d.booth_title} (유형 ${d.booth_type})`],["참고 예시",ex?`${ex.no} ${ex.t}`:"직접 기획"],
+   ["체험",`${d.minutes}분 · 동시 ${d.capacity}명`],["AI 도구",[...d.ai_tools,d.tool_etc].filter(Boolean).join(", ")],["준비물",`${d.supplies.length}개 · ${won(d.budget)}원`],["AI 광고",`${d.ad_type} · “${d.ad_copy}”`]];
+  $("#review").innerHTML=rows.map(([k,v])=>`<div><b>${k}</b><span>${esc(v)}</span></div>`).join("")}
+
+function applyOpenState(){const closed=!STATUS.is_open;const n=$("#closedNote");
+  if(closed&&!editCtx){n.style.display="block";n.textContent="지금은 신청 기간이 아닙니다. 이미 낸 신청서는 아래 ‘신청 확인’에서 볼 수 있습니다.";$("#submitBtn").disabled=true}
+  else{n.style.display="none";$("#submitBtn").disabled=false}}
+
+$("#appForm").addEventListener("submit",async e=>{e.preventDefault();for(let i=0;i<6;i++){if(!validate(i))return go(i)}
+  const d=collect();const btn=$("#submitBtn");btn.disabled=true;btn.textContent="제출 중…";
+  try{
+    if(editCtx){await rpc("expo_update",{p_code:editCtx.code,p_pin:editCtx.pin,p:d});const code=editCtx.code;editCtx=null;$("#editBanner").style.display="none";
+      showSuccess(code,true)}
+    else{const code=await rpc("expo_submit",{p:d,p_pin:$("#pin").value});store.del(DRAFT);showSuccess(code,false)}
+    loadStatus();
+  }catch(err){toast(err.message,4200)}finally{btn.disabled=false;btn.textContent="🚀 신청서 제출"}
+});
+function showSuccess(code,edited){confetti();
+  openModal(`<div class="success"><div style="font-size:54px">🎉</div><h3 id="mTitle" style="font-size:26px">${edited?"수정이 저장되었습니다!":"신청이 접수되었습니다!"}</h3>
+  <p style="color:var(--muted);margin-top:6px">아래 접수번호를 <b style="color:#fff">꼭 캡처</b>해 두세요. 신청 확인·수정에 필요합니다.</p>
+  <div class="code en" id="codeBox">${esc(code)}</div>
+  <p style="color:var(--muted);font-size:14px">접수번호 + 대표자 이름 + 확인 비밀번호 4자리로 조회합니다.</p>
+  <div style="display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap"><button class="btn ghost" id="copyCode">접수번호 복사</button><button class="btn gold" onclick="closeModal();document.getElementById('check').scrollIntoView({behavior:'smooth'})">신청 확인하러 가기</button></div></div>`);
+  $("#copyCode").onclick=async()=>{try{await navigator.clipboard.writeText(code);toast("복사했습니다")}catch(e){toast("길게 눌러 직접 복사해 주세요")}};
+  $("#ck_code").value=code;$("#ck_name").value=$("#leader_name").value;
+  if(!edited){$("#appForm").reset();fill({});go(0)}}
+
+/* ================== 모달 ================== */
+function openModal(html){$("#modalBox").innerHTML=html;$("#modal").classList.add("on");const f=$("#modalBox").querySelector("button,input,select");if(f)f.focus()}
+function closeModal(){$("#modal").classList.remove("on")}
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+/* ================== 신청 확인 ================== */
+const STLABEL={"접수":"제출 완료 — 마감 후 심사합니다","검토중":"선생님이 검토하고 있어요","보완요청":"보완이 필요해요 — 의견을 보고 수정해 주세요","선정":"축하합니다! 부스 운영팀으로 선정되었어요","미선정":"이번에는 선정되지 않았어요","취소":"신청을 취소했습니다"};
+$("#checkForm").addEventListener("submit",async e=>{e.preventDefault();const code=$("#ck_code").value.trim().toUpperCase(),name=$("#ck_name").value.trim(),pin=$("#ck_pin").value.trim();
+  if(!code||!name||!/^\d{4}$/.test(pin))return toast("접수번호·이름·비밀번호 4자리를 모두 입력하세요");
+  const box=$("#checkResult");box.innerHTML=`<p style="color:var(--muted)">조회 중…</p>`;
+  try{const r=await rpc("expo_lookup",{p_code:code,p_name:name,p_pin:pin});const d=r.data||{};const a=AREA[r.area1]||{};
+    const canEdit=["접수","보완요청"].includes(r.status);const canCancel=!["선정","미선정","취소"].includes(r.status);
+    box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="en" style="font-weight:900;font-size:22px">${esc(r.app_code)}</span><span class="statusBadge st-${esc(r.status)}">${esc(r.status)}</span></div>
+      <p style="margin-top:8px;font-weight:700">${STLABEL[r.status]||""}</p>
+      ${r.teacher_memo?`<div class="note gold" style="margin-top:12px"><b>선생님 의견</b><br>${esc(r.teacher_memo).replace(/\n/g,"<br>")}</div>`:""}
+      <div class="kv"><b>부스</b><span>${esc(r.booth_title)}</span><b>팀</b><span>${esc(r.team_name)} (${(d.members||[]).length+1}명)</span><b>진로 영역</b><span>${a.n||""} ${esc(a.name||r.area1)}</span><b>유형·예산</b><span>${esc(r.booth_type||"-")} · ${won(d.budget)}원</span><b>제출</b><span>${new Date(r.created_at).toLocaleString("ko-KR")}</span><b>최종 수정</b><span>${new Date(r.updated_at).toLocaleString("ko-KR")}</span></div>
+      <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap">
+        <button class="btn ghost sm" id="ckView">전체 내용 보기</button>
+        ${canEdit?`<button class="btn blue sm" id="ckEdit">수정하기</button>`:""}
+        ${canCancel?`<button class="btn ghost sm" id="ckCancel" style="color:#ffb3cf">신청 취소</button>`:""}</div>`;
+    $("#ckView").onclick=()=>openModal(detailHTML(r)+`<div style="text-align:right;margin-top:16px"><button class="btn gold" onclick="closeModal()">닫기</button></div>`);
+    if(canEdit)$("#ckEdit").onclick=()=>{editCtx={code:r.app_code,pin};fill(d);$("#editBanner").style.display="block";$("#editBanner").innerHTML=`✏️ <b>${esc(r.app_code)}</b> 신청서를 수정하는 중입니다. 마지막 단계에서 ‘제출’을 누르면 저장됩니다. <button type="button" class="btn ghost sm" id="cancelEdit" style="margin-left:6px">수정 그만두기</button>`;
+      $("#cancelEdit").onclick=()=>{editCtx=null;$("#editBanner").style.display="none";const dr=store.get(DRAFT);fill(dr?dr.d:{});go(0);applyOpenState()};
+      $("#submitBtn").disabled=false;$("#closedNote").style.display="none";go(0);$("#apply").scrollIntoView({behavior:"smooth"})};
+    if(canCancel)$("#ckCancel").onclick=()=>{openModal(`<h3 id="mTitle">신청을 취소할까요?</h3><p style="margin:10px 0 18px;color:var(--muted)">취소한 뒤에는 다시 신청서를 새로 내야 합니다.</p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">돌아가기</button><button class="btn gold" id="doCancel">취소하기</button></div>`);
+      $("#doCancel").onclick=async()=>{try{await rpc("expo_cancel",{p_code:r.app_code,p_pin:pin});closeModal();toast("신청을 취소했습니다");$("#checkForm").requestSubmit();loadStatus()}catch(err){toast(err.message)}}};
+  }catch(err){box.innerHTML=`<p style="color:#ffb3cf;font-weight:700">${esc(err.message)}</p>`}
+});
+function detailHTML(r){const d=r.data||{};const ex=P.find(p=>String(p.id)===String(d.example_ref));const a1=AREA[r.area1]||{},a2=AREA[r.area2]||{};
+  const R=(k,v)=>`<div class="r"><b>${k}</b><span>${esc(v??"")}</span></div>`;
+  return `<h3 id="mTitle">${esc(r.booth_title)} <span class="statusBadge st-${esc(r.status)}" style="font-size:13px;vertical-align:middle">${esc(r.status)}</span></h3>
+  <p class="en" style="color:var(--muted)">${esc(r.app_code)} · ${esc(r.team_name)}</p>
+  <div class="detail">
+  <div class="sec">① 팀</div>${R("대표",`${r.grade}학년 ${r.leader_class}반 ${r.leader_no}번 ${r.leader_name} (${d.leader_role||""})`)}${R("팀원",(d.members||[]).map(m=>`${m.g||""}-${m.c||""}-${m.n||""} ${m.name} (${m.role||"-"})`).join("\n"))}
+  <div class="sec">② 진로</div>${R("영역",`1지망 ${a1.n||""} ${a1.name||r.area1}${r.area2?` / 2지망 ${a2.n} ${a2.name}`:""}`)}${R("희망 진로",d.careers)}${R("현장의 AI",d.career_ai)}
+  <div class="sec">③ 기획</div>${R("부스 유형",r.booth_type)}${R("한 줄 소개",d.one_line)}${R("참고 예시",ex?`${ex.no} ${ex.t}`:"직접 기획")}${R("출발 활동",(d.start_acts||[]).join(", "))}${R("배운 내용 연결",d.learned)}${R("바꿔 볼 AI 원리",d.ai_principle)}
+  <div class="sec">④ 시나리오</div>${R("시간·인원",`${d.minutes||"-"}분 · 동시 ${d.capacity||"-"}명`)}${R("맞이",d.sc_greet)}${R("체험",d.sc_do)}${R("AI가 틀리는 순간",d.sc_fail)}${R("정리·진로 카드",d.sc_end)}${R("AI 도구",[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "))}${R("프롬프트",d.prompt)}${R("프로토타입",d.proto)}
+  <div class="sec">⑤ 준비</div>${R("준비물",(d.supplies||[]).map(s=>`${s.item} × ${s.qty} @ ${won(s.price)}원${s.link?"  "+s.link:""}`).join("\n"))}${R("합계",won(d.budget)+"원")}${R("대여 기자재",(d.lend||[]).join(", "))}${R("전기·인터넷",d.power)}${R("공간",d.space)}${R("Plan B",d.plan_b)}${R("AI 광고",`${d.ad_type||""} · ${d.ad_copy||""}`)}
+  <div class="sec">⑥ 안전·윤리</div>${R("약속",(d.ethics||[]).length+" / "+ETHICS.length+" 체크")}${r.teacher_memo?R("선생님 의견",r.teacher_memo):""}
+  </div>`}
+
+/* ================== 선생님 ================== */
+let ADMIN_PW=null,ROWS=[];
+AREAS.forEach(a=>$("#fArea").insertAdjacentHTML("beforeend",`<option value="${a.k}">${a.n} ${a.name}</option>`));
+$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();const pw=$("#adminPw").value;if(!pw)return;
+  try{ROWS=await rpc("expo_admin_list",{p_pw:pw})||[];ADMIN_PW=pw;$("#adminPw").value="";$("#loginForm").style.display="none";$("#adminPanel").classList.add("on");renderAdmin();toast("선생님 모드로 들어왔습니다")}
+  catch(err){toast(err.message)}});
+$("#logoutBtn").onclick=()=>{ADMIN_PW=null;ROWS=[];$("#adminPanel").classList.remove("on");$("#loginForm").style.display="";$("#adminRows").innerHTML=""};
+$("#refreshBtn").onclick=async()=>{try{ROWS=await rpc("expo_admin_list",{p_pw:ADMIN_PW})||[];renderAdmin();toast("새로고침 완료")}catch(err){toast(err.message)}};
+["fArea","fStatus","fGrade","fText"].forEach(id=>$("#"+id).addEventListener("input",renderTable));
+function renderAdmin(){const act=ROWS.filter(r=>r.status!=="취소");const sel=ROWS.filter(r=>r.status==="선정").length;const sum=act.reduce((a,r)=>a+(+(r.data||{}).budget||0),0);
+  $("#astats").innerHTML=`<div><b>${act.length}</b><span>유효 신청(취소 제외)</span></div><div><b>${sel}</b><span>선정 / 목표 30</span></div><div><b>${act.filter(r=>r.grade==1).length} · ${act.filter(r=>r.grade==2).length}</b><span>1학년 · 2학년</span></div><div><b>${won(sum)}</b><span>신청 예산 합계(원)</span></div>`;
+  const max=Math.max(10,...AREAS.map(a=>act.filter(r=>r.area1===a.k).length));
+  $("#areaBars").innerHTML=AREAS.map(a=>{const n=act.filter(r=>r.area1===a.k).length,s=act.filter(r=>r.area1===a.k&&r.status==="선정").length;
+    return `<div class="row"><span>${a.n} ${a.name}</span><div class="track"><i style="width:${n/max*100}%;background:${a.c};opacity:.45"></i><i style="width:${s/max*100}%;background:${a.c}"></i><u style="left:${a.target/max*100}%"></u></div><span>${n}건 · 선정 ${s}/${a.target}</span></div>`}).join("")+`<small style="color:var(--muted)">연한 막대 = 신청, 진한 막대 = 선정, 흰 선 = 목표 부스 수</small>`;
+  renderTable()}
+function filtered(){const a=$("#fArea").value,s=$("#fStatus").value,g=$("#fGrade").value,q=$("#fText").value.trim();
+  return ROWS.filter(r=>(!a||r.area1===a)&&(!s||r.status===s)&&(!g||String(r.grade)===g)&&(!q||[r.team_name,r.booth_title,r.leader_name,r.app_code,...((r.data||{}).members||[]).map(m=>m.name)].join(" ").includes(q)))}
+function renderTable(){const list=filtered();$("#fCount").textContent=`${list.length}건`;
+  $("#adminRows").innerHTML=list.map(r=>`<tr data-code="${esc(r.app_code)}"><td class="en">${esc(r.app_code)}</td><td><span class="statusBadge st-${esc(r.status)}" style="font-size:12px">${esc(r.status)}</span></td><td>${r.grade}</td><td>${r.leader_class}-${r.leader_no} ${esc(r.leader_name)}</td><td>${esc(r.team_name)}</td><td>${esc(r.booth_title)}</td><td>${esc((AREA[r.area1]||{}).n||"")} ${esc((AREA[r.area1]||{}).name||r.area1)}</td><td>${esc(r.booth_type||"")}</td><td>${won((r.data||{}).budget)}</td><td>${new Date(r.created_at).toLocaleDateString("ko-KR")}</td></tr>`).join("")||`<tr><td colspan="10" style="color:var(--muted);text-align:center;padding:30px">신청서가 없습니다.</td></tr>`;
+  $$("#adminRows tr[data-code]").forEach(tr=>tr.onclick=()=>openAdminDetail(tr.dataset.code))}
+function openAdminDetail(code){const r=ROWS.find(x=>x.app_code===code);if(!r)return;
+  openModal(detailHTML(r)+`<div class="panel" style="margin-top:18px;padding:18px"><div class="grid2"><div class="field"><label for="mStatus">심사 상태</label><select id="mStatus">${["접수","검토중","보완요청","선정","미선정","취소"].map(s=>`<option ${s===r.status?"selected":""}>${s}</option>`).join("")}</select></div><div class="field"><label>바로 넣기</label><div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="btn ghost sm" data-m="‘AI가 틀리는 순간’을 더 구체적으로 써 주세요.">틀리는 순간</button><button type="button" class="btn ghost sm" data-m="준비물 예산이 유형 한도를 넘습니다. 대여로 바꿀 수 있는 품목을 확인해 주세요.">예산</button><button type="button" class="btn ghost sm" data-m="체험 시간이 8분을 넘습니다. 한 단계를 줄여 주세요.">시간</button></div></div></div>
+  <div class="field"><label for="mMemo">학생에게 보일 선생님 의견</label><textarea id="mMemo" maxlength="1000">${esc(r.teacher_memo||"")}</textarea></div>
+  <div style="display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap"><button class="btn ghost sm" id="mDel" style="color:#ffb3cf">신청서 삭제</button><div style="display:flex;gap:8px"><button class="btn ghost" onclick="closeModal()">닫기</button><button class="btn gold" id="mSave">저장</button></div></div></div>`);
+  $$("#modalBox [data-m]").forEach(b=>b.onclick=()=>{const t=$("#mMemo");t.value=(t.value?t.value+"\n":"")+b.dataset.m});
+  $("#mSave").onclick=async()=>{try{await rpc("expo_admin_update",{p_pw:ADMIN_PW,p_code:code,p_status:$("#mStatus").value,p_memo:$("#mMemo").value});r.status=$("#mStatus").value;r.teacher_memo=$("#mMemo").value;closeModal();renderAdmin();toast("저장했습니다");loadStatus()}catch(err){toast(err.message)}};
+  $("#mDel").onclick=async()=>{if($("#mDel").dataset.sure!=="1"){$("#mDel").dataset.sure="1";$("#mDel").textContent="한 번 더 누르면 삭제";return}
+    try{await rpc("expo_admin_delete",{p_pw:ADMIN_PW,p_code:code});ROWS=ROWS.filter(x=>x.app_code!==code);closeModal();renderAdmin();toast("삭제했습니다");loadStatus()}catch(err){toast(err.message)}}}
+$("#cfgBtn").onclick=()=>{const dl=new Date(DEADLINE.getTime()+9*36e5).toISOString().slice(0,16);
+  openModal(`<h3 id="mTitle">신청 설정</h3><div class="field" style="margin-top:14px"><label class="choice" style="display:block"><input type="checkbox" id="cOpen" ${STATUS.is_open||new Date()<=DEADLINE?"checked":""}><span>신청 받기 (끄면 마감)</span></label></div>
+  <div class="field"><label for="cDl">마감 일시 (한국 시간)</label><input type="datetime-local" id="cDl" value="${dl}"></div>
+  <div class="field"><label for="cPw">새 관리 비밀번호 (바꿀 때만, 4~30자)</label><input type="password" id="cPw" autocomplete="new-password"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">닫기</button><button class="btn gold" id="cSave">저장</button></div>`);
+  $("#cSave").onclick=async()=>{const v=$("#cDl").value;const np=$("#cPw").value.trim();if(np&&np.length<4)return toast("비밀번호는 4자 이상");
+    try{const s=await rpc("expo_admin_config",{p_pw:ADMIN_PW,p_open:$("#cOpen").checked,p_deadline:v?new Date(v+":00+09:00").toISOString():null,p_new_pw:np||null});if(np)ADMIN_PW=np;STATUS=s;DEADLINE=new Date(s.deadline);tick();applyOpenState();renderAreas();closeModal();toast("설정을 저장했습니다")}catch(err){toast(err.message)}}};
+
+$("#xlsxBtn").onclick=()=>{if(!window.XLSX)return toast("엑셀 도구를 불러오는 중입니다. 잠시 뒤 다시 누르세요.");
+  const list=filtered();if(!list.length)return toast("내려받을 신청서가 없습니다");
+  const rows=list.map(r=>{const d=r.data||{};const ex=P.find(p=>String(p.id)===String(d.example_ref));const m=d.members||[];
+    return {"접수번호":r.app_code,"상태":r.status,"선생님 의견":r.teacher_memo||"","제출 일시":new Date(r.created_at).toLocaleString("ko-KR"),"수정 일시":new Date(r.updated_at).toLocaleString("ko-KR"),
+      "학년":r.grade,"반":r.leader_class,"번호":r.leader_no,"대표자":r.leader_name,"대표 역할":d.leader_role||"","팀명":r.team_name,"인원":m.length+1,
+      "팀원":m.map(x=>`${x.g||""}-${x.c||""}-${x.n||""} ${x.name}(${x.role||"-"})`).join(" / "),
+      "1지망":(AREA[r.area1]||{}).name||r.area1,"2지망":(AREA[r.area2]||{}).name||"","희망 진로":d.careers||"","현장의 AI":d.career_ai||"",
+      "부스 이름":r.booth_title,"부스 유형":r.booth_type||"","한 줄 소개":d.one_line||"","참고 예시":ex?`${ex.no} ${ex.t}`:"직접 기획","출발 활동":(d.start_acts||[]).join(", "),
+      "배운 내용 연결":d.learned||"","바꿔 볼 AI 원리":d.ai_principle||"","체험 시간(분)":+d.minutes||"","동시 인원":+d.capacity||"",
+      "맞이":d.sc_greet||"","체험":d.sc_do||"","AI가 틀리는 순간":d.sc_fail||"","정리·진로 카드":d.sc_end||"","AI 도구":[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "),"프롬프트":d.prompt||"","프로토타입":d.proto||"",
+      "준비물 합계(원)":+d.budget||0,"유형 한도(원)":LIMIT[r.booth_type]||"","대여 기자재":(d.lend||[]).join(", "),"전기·인터넷":d.power||"","공간":d.space||"","Plan B":d.plan_b||"","광고 형식":d.ad_type||"","광고 문구":d.ad_copy||"","윤리 체크":`${(d.ethics||[]).length}/${ETHICS.length}`}});
+  const supp=[];list.forEach(r=>((r.data||{}).supplies||[]).forEach(s=>supp.push({"접수번호":r.app_code,"팀명":r.team_name,"부스":r.booth_title,"상태":r.status,"품목":s.item,"수량":s.qty,"단가":s.price,"금액":s.qty*s.price,"구매 링크":s.link})));
+  const act=list.filter(r=>r.status!=="취소");
+  const sumRows=AREAS.map(a=>({"진로 영역":`${a.n} ${a.name}`,"목표 부스":a.target,"신청":act.filter(r=>r.area1===a.k).length,"선정":act.filter(r=>r.area1===a.k&&r.status==="선정").length,"1학년":act.filter(r=>r.area1===a.k&&r.grade==1).length,"2학년":act.filter(r=>r.area1===a.k&&r.grade==2).length,"신청 예산(원)":act.filter(r=>r.area1===a.k).reduce((s,r)=>s+(+(r.data||{}).budget||0),0)}));
+  const wb=XLSX.utils.book_new();
+  const ws1=XLSX.utils.json_to_sheet(rows);ws1["!cols"]=Object.keys(rows[0]).map(k=>({wch:["맞이","체험","AI가 틀리는 순간","정리·진로 카드","배운 내용 연결","프롬프트","현장의 AI","Plan B","팀원","선생님 의견"].includes(k)?40:14}));ws1["!autofilter"]={ref:ws1["!ref"]};
+  XLSX.utils.book_append_sheet(wb,ws1,"신청서 전체");
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(sumRows),"영역별 요약");
+  if(supp.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(supp),"준비물 구매 목록");
+  const stamp=new Date().toLocaleDateString("ko-KR").replace(/\. /g,"").replace(".","");
+  XLSX.writeFile(wb,`AI박람회_부스신청_${stamp}.xlsx`);toast("엑셀 파일을 내려받았습니다")};
+
+/* ================== 축하 효과 ================== */
+function confetti(){const c=$("#confetti"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#F7C948","#FF6FA3","#7CC8FF","#ffffff","#4BE3B0"];
+  const ps=Array.from({length:160},()=>({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*16,vy:-Math.random()*16-4,s:4+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[Math.floor(Math.random()*5)],leaf:Math.random()<.35}));
+  let f=0;(function draw(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.vx*=.99;p.r+=p.vr;if(p.leaf)ginkgo(x,p.x,p.y,p.s*1.3,p.r,"#F7C948",1);else{x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()}});if(++f<200)requestAnimationFrame(draw);else x.clearRect(0,0,c.width,c.height)})()}
+
+/* ================== 시작 ================== */
+renderAreas();renderFilters();renderPrograms();
+const dr=store.get(DRAFT);fill(dr?dr.d:{});go(0);if(dr&&dr.d&&dr.d.team_name){$("#saveState").textContent="이 기기에 저장된 초안을 불러왔습니다"}
+observeAll();loadStatus();
+</script>
+</body>
+</html>
