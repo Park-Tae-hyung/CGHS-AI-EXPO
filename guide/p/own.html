@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>나만의 주제로 부스 만들기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>:root{--paper:#fffdf8;--grid:#eef1f8;--ink:#26314F;--ink2:#56648C;--line:#dfe4ef;--royal:#1D3FAE;--blue:#2E5BFF;--gold:#E9A400;
+ --pink:#ffd3e1;--pink-d:#c93d6e;--lilac:#e2d8ff;--lilac-d:#6a4cc2;--mint:#cdeee0;--mint-d:#1f7f62;--butter:#ffecb0;--butter-d:#94680a;--sky:#d3e8ff;--sky-d:#2a67b3;--peach:#ffdcc7;--peach-d:#b4541c;
+ --a:var(--sky);--d:var(--sky-d);--fs:16px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;font-family:"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif;font-size:var(--fs);line-height:1.75;color:var(--ink);background:var(--paper);
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;word-break:keep-all;overflow-wrap:anywhere}
+body.big{--fs:18.5px}
+a{color:var(--d)}
+h1,h2,h3,h4{line-height:1.3;margin:0;letter-spacing:-.01em}
+.a-bio{--a:var(--pink);--d:var(--pink-d)}.a-eng{--a:var(--sky);--d:var(--sky-d)}.a-sw{--a:var(--lilac);--d:var(--lilac-d)}
+.a-media{--a:var(--peach);--d:var(--peach-d)}.a-biz{--a:var(--butter);--d:var(--butter-d)}.a-soc{--a:var(--mint);--d:var(--mint-d)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:30;background:rgba(255,253,248,.95);backdrop-filter:blur(6px);border-bottom:2px dashed var(--line)}
+.topbar .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:8px 14px}
+.brand{font-weight:900;font-size:17px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.tabs{display:flex;gap:6px;overflow-x:auto;flex:1;padding:2px}
+.tabs a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--a);border-radius:10px 10px 4px 4px;padding:3px 11px;font-weight:800;font-size:14px}
+.tb-btn{flex:0 0 auto;border:2px solid var(--ink);background:#fff;border-radius:20px;padding:2px 12px;font-weight:800;cursor:pointer;font-size:13px}
+/* cover */
+.cover{max-width:960px;margin:30px auto 10px;padding:0 20px}
+.cover-card{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:26px 26px 26px 6px;padding:36px 32px 28px;box-shadow:8px 8px 0 var(--lilac)}
+.tape{position:absolute;top:-15px;left:50%;width:150px;height:28px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(45deg,rgba(124,200,255,.8) 0 10px,rgba(200,228,255,.8) 10px 20px)}
+.cover h1{font-size:clamp(32px,6vw,52px);font-weight:900;margin:6px 0 8px}
+.cover h1 span{display:block;color:var(--blue)}
+.cover p.sub{font-size:18px;max-width:40em;margin:0 0 14px}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
+.howto div{border:2px solid var(--line);border-radius:14px;padding:10px 12px;background:#fbfcff;font-size:14.5px}
+.howto b{display:block;font-size:15.5px}
+.toc{margin:22px 0 0}
+.toc h3{font-size:17px;margin:14px 0 6px;display:flex;gap:8px;align-items:center}
+.toc h3 i{font-style:normal;background:var(--a);border-radius:8px;padding:0 8px}
+.toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:2px 14px}
+.toc li a{display:flex;gap:8px;text-decoration:none;color:var(--ink);padding:5px 2px;border-bottom:1.5px dotted var(--line);font-size:15px}
+.toc li a b{min-width:42px;text-align:center;background:var(--a);border-radius:8px;font-size:13px;padding-top:2px}
+.toc li a em{font-style:normal;color:var(--ink2);font-size:12.5px;margin-left:auto;white-space:nowrap}
+/* chapter */
+.chap{max-width:960px;margin:40px auto;padding:0 20px}
+.chap-cover{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:24px 24px 24px 6px;padding:26px 26px 22px;box-shadow:7px 7px 0 var(--a);display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start}
+.chap-num{background:var(--a);border:2.5px solid var(--ink);border-radius:18px;text-align:center;padding:8px 4px;font-weight:900;font-size:26px;line-height:1.1}
+.chap-num small{display:block;font-size:12px;font-weight:700}
+.chap-cover h2{font-size:clamp(24px,4vw,32px);font-weight:900}
+.chap-cover .hook{font-size:16.5px;margin:6px 0 10px;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{border:1.8px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;background:#fff}
+.chips li.c{background:var(--a)}
+.bigq{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:var(--a);border:2px dashed var(--d);font-weight:800;font-size:17.5px}
+.bigq small{display:block;font-size:12.5px;color:var(--d);font-weight:800}
+.sec{margin-top:22px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:18px 20px}
+.sec>h3{font-size:19px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec>h3 .sn{display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:9px;background:var(--a);border:2px solid var(--ink);font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}.chap-cover{grid-template-columns:1fr}.chap-num{width:90px}}
+.goals li{margin:3px 0}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin:0}
+.word{border:1.8px solid var(--line);border-radius:12px;padding:8px 12px;background:#fbfcff}
+.word dt{font-weight:900;color:var(--d)}
+.word dd{margin:2px 0 0;font-size:14.5px}
+table.tb{width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0}
+table.tb th,table.tb td{border:1.5px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+table.tb th{background:#f4f6fb;font-weight:800}
+table.tb td.n{text-align:right;white-space:nowrap}
+.sum{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px;padding:8px 12px;border-radius:12px;background:#f4f6fb;font-weight:800;font-size:14.5px}
+.sum.ok{background:#e8f5e9;color:#1b5e20}.sum.over{background:#ffebee;color:#b71c1c}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags a,.tags span{display:inline-block;border:1.6px solid var(--line);background:#fbfcff;border-radius:10px;padding:2px 10px;font-size:13.5px;text-decoration:none;color:var(--ink);font-weight:700}
+.study li{margin:6px 0}
+.study b{color:var(--d)}
+.study a{font-size:13px;margin-left:4px}
+/* steps */
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:st}
+ol.steps>li{counter-increment:st;position:relative;border:2px solid var(--line);border-radius:16px;padding:14px 16px 12px 62px;margin:12px 0;background:#fff;break-inside:avoid-page}
+ol.steps>li::before{content:counter(st);position:absolute;left:14px;top:12px;width:34px;height:34px;border-radius:10px;background:var(--a);border:2px solid var(--ink);display:grid;place-items:center;font-weight:900}
+ol.steps h4{font-size:17px;font-weight:900;margin-bottom:6px;padding-right:96px}
+ol.steps p{margin:4px 0}
+.done{position:absolute;right:12px;top:12px;font-size:12.5px;font-weight:800;border:1.6px solid var(--line);border-radius:999px;padding:1px 10px;background:#fbfcff;cursor:pointer;user-select:none}
+.done input{vertical-align:-2px;margin:0 4px 0 0}
+.tip{margin-top:8px;padding:8px 12px;border-radius:12px;background:#eef6ff;border:1.6px solid #c9defa;font-size:14.5px}
+.tip b{color:#2a67b3}
+.warn{margin-top:8px;padding:8px 12px;border-radius:12px;background:#fff1f3;border:1.6px solid #f6c7d2;font-size:14.5px}
+.warn b{color:#c93d6e}
+.think{margin-top:8px;border:1.6px dashed var(--d);border-radius:12px;padding:6px 12px;background:#fffdf3;font-size:14.5px}
+.think summary{cursor:pointer;font-weight:800;color:var(--d)}
+/* inquiry */
+.inq{display:grid;grid-template-columns:150px 1fr;gap:0;border:2px solid var(--line);border-radius:14px;overflow:hidden}
+.inq>div{padding:8px 12px;border-bottom:1.5px solid var(--line)}
+.inq>div:nth-child(odd){background:var(--a);font-weight:900}
+.inq>div:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:760px){.inq{grid-template-columns:1fr}}
+/* run */
+.say{margin:8px 0;padding:10px 14px;border-left:5px solid var(--d);background:#fffaf0;border-radius:0 12px 12px 0;font-weight:700}
+.fail{padding:10px 14px;border-radius:12px;background:#fff1f3;border:2px solid #f6c7d2}
+.fail b{color:#c93d6e}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.roles div{border:1.6px solid var(--line);border-radius:12px;padding:8px 10px;background:#fbfcff;font-size:14px}
+.roles b{display:block}
+@media(max-width:760px){.roles{grid-template-columns:1fr 1fr}}
+.week{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.week div{border:2px solid var(--line);border-radius:14px;padding:10px 12px;background:#fbfcff;font-size:14.5px}
+.week b{display:block;color:var(--d);font-size:15px}
+@media(max-width:760px){.week{grid-template-columns:1fr 1fr}}
+.apply dl{margin:0;display:grid;gap:8px}
+.apply dt{font-weight:900;font-size:14px;color:var(--d)}
+.apply dd{margin:0;padding:8px 64px 8px 12px;border:1.6px dashed var(--line);border-radius:10px;background:#fffef8;font-size:14.5px;position:relative}
+.cpy{border:1.6px solid var(--ink);background:#fff;border-radius:8px;font-size:12px;font-weight:800;padding:1px 8px;cursor:pointer}
+.apply dd .cpy{position:absolute;right:8px;top:6px}
+.refs li{margin:3px 0;font-size:14.5px}
+.refs i{font-style:normal;font-size:12px;border-radius:6px;padding:0 6px;margin-right:6px;background:var(--a);font-weight:800}
+.dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.dl a{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);background:#fff;border-radius:12px;padding:6px 12px;font-weight:900;text-decoration:none;color:var(--ink);font-size:14px}
+.dl a.pri{background:var(--gold);}
+/* ----- figures ----- */
+figure.gfig{margin:12px 0 6px;break-inside:avoid}
+figure.gfig figcaption{font-size:12.5px;color:var(--ink2);margin-top:4px;text-align:center}
+.svgfig{width:100%;height:auto;display:block;background:#fff;border:1.6px solid var(--line);border-radius:14px}
+.f-chart .svgfig{max-width:620px;margin:0 auto}.f-sketch .svgfig,.f-diagram .svgfig,.f-orange .svgfig{max-width:820px;margin:0 auto}
+.mkc{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;padding:12px;border:1.6px solid var(--line);border-radius:14px;background:#f6f7fb}
+.mkg{display:flex;flex-direction:column}
+.mb{--bc:#1E90FF;display:flex;flex-direction:column;align-items:flex-start}
+.mbh{background:var(--bc);color:#fff;font-weight:800;font-size:13.5px;padding:6px 12px;border-radius:5px;margin-top:-1px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18);white-space:nowrap}
+.mb.hat>.mbh{border-radius:18px 18px 5px 5px;padding-top:10px}
+.mb.c>.mbh{border-radius:5px 5px 0 0}
+.mb.hat.c>.mbh{border-radius:18px 18px 0 0}
+.mbk{border-left:14px solid var(--bc);padding:3px 0 3px 4px;min-height:16px}
+.mbf{background:var(--bc);height:12px;width:60px;border-radius:0 0 5px 5px}
+.bv{display:inline-block;background:#fff;color:#26314F;border-radius:10px;padding:0 7px;margin:0 2px;font-weight:800}
+.br{display:inline-block;background:rgba(255,255,255,.28);border:1.5px solid rgba(255,255,255,.6);border-radius:12px;padding:0 7px;margin:0 2px}
+.bd{display:inline-block;background:rgba(0,0,0,.18);border-radius:6px;padding:0 6px;margin:0 2px}
+/* TM */
+.tmui{border:1.6px solid var(--line);border-radius:14px;background:#eceff4;padding:10px;font-size:12.5px;font-family:Roboto,"Malgun Gothic","Noto Sans CJK KR",sans-serif}
+.tmh{display:flex;gap:10px;align-items:baseline;margin-bottom:8px}.tmh b{color:#1a73e8;font-size:15px}.tmh span{color:#555}
+.tmb{display:grid;grid-template-columns:1.5fr auto 1fr auto 1.2fr;gap:8px;align-items:center}
+.tmcol{display:flex;flex-direction:column;gap:8px}
+.tmcard{background:#fff;border-radius:8px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tmct{font-weight:700;font-size:13.5px}.tmct i{font-style:normal;color:#999}
+.tmcs{color:#666;margin:2px 0 4px}
+.tmth{display:flex;gap:3px;flex-wrap:wrap;align-items:center}.tmth span{width:20px;height:20px;border-radius:3px;display:inline-block}
+.tmth em{font-style:normal;font-size:11px;background:#e8f0fe;color:#1a73e8;border-radius:5px;padding:2px 6px;margin-left:4px}
+.tmadd{border:1.6px dashed #aaa;border-radius:8px;text-align:center;padding:6px;color:#777}
+.tmarrow{color:#999;font-size:18px}
+.tmmid,.tmprev{background:#fff;border-radius:8px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tmbtn{background:#e8f0fe;color:#1a73e8;border-radius:6px;padding:5px 8px;margin:6px 0;text-align:center;font-weight:700}
+.tmbtn.ghost{background:#f1f3f4;color:#333}
+.tmcam{background:#3c4043;color:#fff;border-radius:6px;padding:16px 6px;text-align:center;margin:6px 0}
+.tmout{font-weight:700;margin:4px 0}
+.tmbar{display:grid;grid-template-columns:62px 1fr;gap:4px;align-items:center;margin:3px 0}
+.tmbar span{font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tmbar i{display:block;height:16px;border-radius:4px;color:#fff;font-style:normal;font-size:11px;line-height:16px;padding-left:4px;min-width:26px}
+@media(max-width:700px){.tmb{grid-template-columns:1fr}.tmarrow{transform:rotate(90deg);text-align:center}}
+/* CreateAI */
+.caiui{border:1.6px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;font-size:13px}
+.caih{background:#2c3e8f;color:#fff;padding:8px 12px;display:flex;gap:10px;align-items:baseline}.caih span{opacity:.8;font-size:12px}
+.caib{padding:8px 12px}
+.cairow{display:grid;grid-template-columns:120px 1fr 110px;gap:8px;align-items:center;border-bottom:1px solid #eee;padding:6px 0}
+.cain b{display:block}.cain small{color:#777}.cairec{display:inline-block;margin-top:2px;font-size:11px;color:#c62828;font-weight:800}
+.caiw{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.caiw svg{width:100%;height:36px;background:#fafafa;border-radius:4px}
+.caip{background:#eee;border-radius:6px;height:18px;position:relative}.caip i{display:block;height:100%;background:#43a047;border-radius:6px}.caip span{position:absolute;right:6px;top:0;font-size:11px;font-weight:800}
+.caif{display:flex;gap:8px;justify-content:flex-end;padding:8px 12px;background:#f5f6fa}
+.cbtn{border:1.5px solid #2c3e8f;border-radius:999px;padding:3px 12px;font-weight:800;color:#2c3e8f;font-size:12px}.cbtn.pri{background:#2c3e8f;color:#fff}
+/* app wireframe */
+.appui{max-width:430px;margin:0 auto;border:2.5px solid var(--ink);border-radius:18px;background:#fff;overflow:hidden;box-shadow:5px 5px 0 var(--a)}
+.appui.wide{max-width:680px}
+.apbar{background:#26314F;color:#fff;display:flex;gap:6px;align-items:center;padding:7px 12px;font-size:13px;font-weight:800}
+.apbar i{width:9px;height:9px;border-radius:50%;background:#ff6b6b}.apbar i:nth-child(2){background:#ffd166}.apbar i:nth-child(3){background:#06d6a0}.apbar span{margin-left:6px}
+.apbody{padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.ap-h{font-weight:900;font-size:16px}.ap-p{color:var(--ink2)}
+.ap-in{display:flex;flex-direction:column;gap:2px}.ap-in label{font-weight:800;font-size:12.5px}.ap-in span{border:1.6px solid #c9cfdd;border-radius:8px;padding:5px 8px;min-height:30px;color:#8a97bb}
+.ap-sl label{font-weight:800;font-size:12.5px}.ap-tr{position:relative;height:8px;background:#e4e8f2;border-radius:6px;margin:8px 0 2px}.ap-tr i{display:block;height:100%;background:var(--blue);border-radius:6px}.ap-tr b{position:absolute;top:-6px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--blue);transform:translateX(-50%)}.ap-sl em{font-style:normal;font-size:12px;color:var(--ink2)}
+.ap-btn{border:2px solid var(--blue);color:var(--blue);border-radius:10px;padding:6px 10px;text-align:center;font-weight:900}.ap-btn.pri{background:var(--blue);color:#fff}
+.ap-row{display:flex;gap:8px}.ap-row>*{flex:1}
+.ap-big{text-align:center;padding:6px;border-radius:12px;background:#f4f6fb}.ap-big b{display:block;font-size:30px;font-weight:900;color:var(--blue)}.ap-big small{color:var(--ink2)}
+.ap-badge{align-self:center;padding:4px 14px;border-radius:999px;background:var(--bg);color:var(--fg);font-weight:900}
+.ap-bars div{display:grid;grid-template-columns:80px 1fr 40px;gap:6px;align-items:center;margin:3px 0;font-size:12.5px}.ap-bars i{display:block;height:14px;border-radius:5px}.ap-bars em{font-style:normal;font-weight:800;text-align:right}
+.ap-chart .svgfig{border:0}
+.ap-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}.ap-cards div{border:1.6px solid #c9cfdd;border-radius:8px;padding:6px;font-size:12px;text-align:center;font-weight:700}
+.ap-grid{display:grid;gap:3px}.ap-grid span{aspect-ratio:1;background:#eef1f8;border-radius:3px;font-size:10px;display:grid;place-items:center;font-weight:800}
+table.ap-tb{border-collapse:collapse;font-size:12px;width:100%}.ap-tb th,.ap-tb td{border:1px solid #dfe4ef;padding:3px 5px}.ap-tb th{background:#f4f6fb}
+.ap-tg{display:flex;gap:8px;align-items:center;font-weight:800}.ap-tg i{width:34px;height:18px;border-radius:10px;background:var(--blue);position:relative}.ap-tg i::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.ap-chips{display:flex;gap:5px;flex-wrap:wrap}.ap-chips span{border:1.6px solid #c9cfdd;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:800}.ap-chips span.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ap-note{font-size:12px;color:#b4541c;background:#fff4e8;border-radius:8px;padding:4px 8px}
+.ap-img{border:1.6px dashed #c9cfdd;border-radius:10px;padding:18px 8px;text-align:center;color:#8a97bb;font-weight:800}
+/* table fig */
+table.dtb{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+table.dtb th,table.dtb td{border:1.5px solid var(--line);padding:5px 8px;text-align:center}
+table.dtb th{background:var(--a)}
+/* flow */
+.flowf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:10px;border:1.6px solid var(--line);border-radius:14px;background:#fff}
+.fs{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-weight:800;font-size:13.5px;background:#fbfcff;max-width:190px;text-align:center}
+.fs i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--a);font-style:normal;font-size:12px;margin-right:5px}
+.fa{color:var(--d);font-size:18px}
+/* cards */
+.cardsf{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.ck{border:2.2px solid var(--ck);border-radius:12px;background:#fff;overflow:hidden;font-size:13px}
+.ckh{background:var(--ck);color:#fff;font-weight:900;padding:5px 10px}
+.ckl{padding:2px 10px}.ckl:first-of-type{padding-top:6px}
+.ckf{margin-top:6px;padding:4px 10px;background:#f4f6fb;font-size:12px;color:var(--ink2)}
+/* five */
+.fivef{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.fv{border:2.2px solid var(--fv);border-radius:14px;background:#fff;overflow:hidden}
+.fvt{background:var(--fv);color:#fff;font-weight:900;font-size:13px;padding:3px 10px}
+.fvh{font-weight:900;padding:6px 10px 0;font-size:14.5px}
+.fvd{padding:2px 10px 8px;font-size:13px;color:var(--ink2)}
+/* prompt & code */
+.promptf,.codef{border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff}
+.pfh{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--a);border-bottom:2px solid var(--ink)}
+.promptf pre,.codef pre{margin:0;padding:12px 14px;white-space:pre-wrap;font-family:"D2Coding","Nanum Gothic Coding",Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px;line-height:1.6}
+.codef pre{background:#1e2433;color:#e6edf7}
+/* print */
+@page{size:A4;margin:14mm 12mm 14mm 12mm}
+@media print{
+ body{background:#fff;font-size:13px}
+ .topbar,.no-print,.done,.cpy,.tb-btn{display:none!important}
+ .chap{margin:0 auto;max-width:none;padding:0}
+ .chap-cover{box-shadow:none}
+ .sec{break-inside:auto;border-width:1.5px;padding:12px 14px;margin-top:12px}
+ ol.steps>li{padding:10px 12px 8px 52px}
+ a{color:var(--ink);text-decoration:none}
+ .refs a::after{content:" ("attr(href)")";font-size:10.5px;color:#56648C;word-break:break-all}
+ .pbreak{break-before:page}
+}
+</style></head><body><section class="chap a-soc pbreak" id="own"><div class="chap-cover"><div class="chap-num"><small>주제</small>💡</div><div><h2>나만의 주제로 부스 만들기</h2><p class="hook">예시집에 없는 주제도 좋아요. 내 진로에서 출발한 주제가 가장 좋은 부스가 됩니다. 어떤 주제든 <b>주제 → AI 유형 → 체험 설계 → 도구 → 데이터 → 만들기 → 탐구 → 운영</b> 순서로 바꾸면 돼요.</p><div class="bigq"><small>신청 사이트 오른쪽 ‘만들기 가이드 → 나만의 주제’ 탭</small>주제와 진로를 입력하면 그 주제에 맞춘 준비·제작·운영 계획을 자동으로 만들어 주고, 계획서를 PDF로 저장할 수 있어요.</div></div></div><div class="sec"><h3><span class="sn">1</span>주제를 한 문장 질문으로</h3><p>두 가지 틀 중 하나를 골라 채워요.</p><div class="say">“(직업)은 (어떤 일)을 할 때 AI를 어떻게 쓸까?”</div><div class="say">“(우리 주변의 문제)를 AI가 풀 수 있을까? 풀지 못하는 부분은?”</div><figure class="gfig f-table"><table class="dtb"><thead><tr><th>너무 큼 (안 됨)</th><th>알맞음 (부스가 됨)</th></tr></thead><tbody><tr><td>AI와 의학의 미래</td><td>간호사는 병동 모니터의 경보를 어떻게 믿을까?</td></tr><tr><td>AI가 환경을 구할 수 있을까</td><td>우리 교실 불이 켜져 있어야 하는지 AI가 판단할 수 있을까?</td></tr><tr><td>인공지능과 예술</td><td>사람이 그린 그림과 AI 그림을 구별할 수 있을까?</td></tr><tr><td>AI 채용의 문제점</td><td>AI 면접관은 사투리를 쓰는 지원자를 공정하게 볼까?</td></tr></tbody></table><figcaption>판별법: 방문자가 8분 안에 직접 해 보고 답을 얻을 수 있으면 알맞아요</figcaption></figure></div><div class="sec"><h3><span class="sn">2</span>현장에서 AI가 하는 일 찾기</h3><ol><li><a href="https://www.career.go.kr/">커리어넷 직업정보</a>에서 하는 일·관련 학과를 확인해요.</li><li>뉴스에서 ‘직업명 + AI’, ‘분야 + 인공지능 도입’으로 검색해 실제 사례 1개를 찾아요(기관·방송사 자료 우선).</li><li>‘누가 · 어디서 · 어떤 AI를 · 무엇에 쓰나 + 출처’ 한 줄로 적어요 → 진로 카드 뒷면.</li><li>AI 챗봇의 답은 반드시 출처로 다시 확인해요(환각 검증).</li></ol></div><div class="sec"><h3><span class="sn">3</span>우리 주제는 어떤 AI인가 — 7가지 유형</h3><figure class="gfig f-table"><table class="dtb"><thead><tr><th>유형</th><th>AI가 답하는 질문</th><th>부스에서의 모양</th><th>주로 쓰는 도구</th><th>비슷한 예시</th></tr></thead><tbody><tr><td>분류</td><td>이건 무엇인가?</td><td>방문자가 보여 주면 AI가 맞힘 · 데이터를 더해 가르침</td><td>티처블 머신, CreateAI</td><td>②-5, ①-9, ③-2</td></tr><tr><td>예측</td><td>앞으로 얼마나?</td><td>방문자 감 vs AI 예측선 · 실제값 공개</td><td>스프레드시트, Orange3, 바이브 코딩</td><td>⑤-5, ②-7, ⑤-4</td></tr><tr><td>추천</td><td>무엇을 좋아할까?</td><td>내 취향 입력 → 비슷한 사람 찾기 → 추천 채점</td><td>바이브 코딩(거리 계산)</td><td>⑤-1, ④-11</td></tr><tr><td>판단·점수</td><td>누가 먼저? 통과인가?</td><td>사람 판단 vs 가중치 점수 · 가중치 바꿔 보기</td><td>바이브 코딩(슬라이더)</td><td>①-4, ⑥-1, ⑤-6</td></tr><tr><td>감지·측정</td><td>지금 상태는?</td><td>센서로 재고 기준값으로 판정 · 잡음으로 속이기</td><td>micro:bit + 센서</td><td>①-1, ②-3</td></tr><tr><td>생성</td><td>만들어 줘</td><td>AI 초안을 고르고 고쳐 완성</td><td>교사 계정 생성 AI + 캔바</td><td>④-1, ④-3, ④-5</td></tr><tr><td>게임·최적화</td><td>어디가 가장 좋은 수?</td><td>AI와 대결 · AI의 점수 지도 보기</td><td>바이브 코딩</td><td>③-5, ⑥-5</td></tr></tbody></table></figure><div class="tip"><b>💡</b> 하나로 정하기 어렵다면 “방문자가 가장 오래 손을 대는 부분이 어떤 유형인가”로 골라요. 비슷한 예시의 장을 열면 만드는 과정을 그대로 응용할 수 있어요.</div></div><div class="sec"><h3><span class="sn">4</span>5박자 체험 공식</h3><figure class="gfig f-five"><div class="fivef"><div class="fv" style="--fv:#2E5BFF"><div class="fvt">30초</div><div class="fvh">① 예측하기</div><div class="fvd">방문자에게 먼저 물을 질문</div></div><div class="fv" style="--fv:#1F9E7A"><div class="fvt">3분</div><div class="fvh">② 직접 해 보기</div><div class="fvd">고르고·정하고·가르치는 것</div></div><div class="fv" style="--fv:#6A4CC2"><div class="fvt">1분</div><div class="fvh">③ AI 원리 보기</div><div class="fvd">데이터·규칙·기준값 공개</div></div><div class="fv" style="--fv:#E2457A"><div class="fvt">1분</div><div class="fvh">④ AI가 틀리는 순간</div><div class="fvd">언제, 왜 틀리나</div></div><div class="fv" style="--fv:#E9A400"><div class="fvt">1분</div><div class="fvh">⑤ 진로 카드</div><div class="fvd">직업·현장 AI·관련 학과</div></div></div><figcaption>그림: 모든 예시 프로그램이 이 틀로 만들어졌어요</figcaption></figure><figure class="gfig f-table"><table class="dtb"><thead><tr><th>박자</th><th>예: ‘교실 에너지 지킴이’</th></tr></thead><tbody><tr><td>① 예측</td><td>“지금 이 교실, 불을 꺼도 될까요?”</td></tr><tr><td>② 직접</td><td>상황 카드(수업 중·쉬는 시간·빈 교실)를 골라 센서 앞에서 재현</td></tr><tr><td>③ 원리</td><td>밝기·소리 값과 ‘빈 교실’ 판정 기준선</td></tr><tr><td>④ 틀림</td><td>조용히 자습하는 교실을 ‘빈 교실’로 오판 → 불을 끔</td></tr><tr><td>⑤ 진로</td><td>에너지 관리 엔지니어 · 스마트 빌딩 · 전기공학과</td></tr></tbody></table></figure><div class="warn"><b>⚠</b> ④번이 없으면 ‘AI 자랑’이 되고, 있으면 ‘AI를 이해하는 체험’이 돼요. 가장 공들여 설계하세요.</div></div><div class="sec"><h3><span class="sn">5</span>도구 지도 — 하고 싶은 것 → 쓸 도구</h3><figure class="gfig f-table"><table class="dtb"><thead><tr><th>하고 싶은 것</th><th>쓸 도구</th><th>도구 장</th><th>유형</th></tr></thead><tbody><tr><td>카메라로 물건·그림·표정 알아보기</td><td>티처블 머신(이미지) + 바이브 코딩 앱</td><td>T2·T1</td><td>S</td></tr><tr><td>소리를 알아보게</td><td>티처블 머신(오디오)</td><td>T2</td><td>S</td></tr><tr><td>몸 동작을 알아보게</td><td>CreateAI 또는 티처블 머신(포즈)</td><td>T3·T2</td><td>P/S</td></tr><tr><td>맥박 등 몸의 신호 재기</td><td>광학 맥박 센서 + micro:bit</td><td>T4</td><td>H</td></tr><tr><td>빛·소리·온도·기울기 재기</td><td>micro:bit V2 내장 센서 + 데이터 로깅</td><td>T4·T5</td><td>P</td></tr><tr><td>물건을 움직이게(로봇·조명)</td><td>micro:bit + 서보·네오픽셀</td><td>T4</td><td>P</td></tr><tr><td>숫자 데이터로 예측·분류</td><td>Orange3 또는 바이브 코딩</td><td>T6·T1</td><td>S</td></tr><tr><td>퀴즈·게임·계산기·시뮬레이터</td><td>바이브 코딩(제미나이 캔버스)</td><td>T1</td><td>S</td></tr><tr><td>방문자 응답을 실시간으로 보기</td><td>구글 설문·시트, Apps Script</td><td>T7</td><td>S</td></tr><tr><td>광고·영상·음악·그림 만들기</td><td>캔바 + 교사 계정 생성 AI</td><td>T8</td><td>M</td></tr><tr><td>실물 모형·구조물</td><td>메이커 재료 + 기록 앱</td><td>T1</td><td>C</td></tr><tr><td>AI와 대화·상담</td><td>교사 계정 챗봇 + 검증 미션</td><td>T8</td><td>S</td></tr></tbody></table></figure><div class="tip"><b>💡 원칙</b> 가장 간단한 도구 하나로 시작해요. 센서·무선·생성 AI를 한 부스에 모두 넣으면 당일 고장 확률이 커져요.</div></div><div class="sec"><h3><span class="sn">6</span>데이터 마련하기</h3><figure class="gfig f-table"><table class="dtb"><thead><tr><th>방법</th><th>언제 · 얼마나</th><th>주의</th></tr></thead><tbody><tr><td>직접 모으기(사진·측정·설문)</td><td>분류는 종류당 사진 30장 이상, 설문 40명 이상, 센서는 상황당 100개 이상</td><td>이름·얼굴 없이, 설문은 익명, 학습 사진은 팀원 것만</td></tr><tr><td>공공데이터</td><td>사회·경제·환경 주제, 필요한 열 3~5개만</td><td>공공데이터포털 출처를 판넬에 표기</td></tr><tr><td>가상 데이터(규칙 + 오차)</td><td>실제 데이터가 없거나 민감할 때, 예측은 100행 이상</td><td>‘가상 데이터’ 표시, 규칙을 팀이 설명할 수 있어야 함</td></tr></tbody></table></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="아래 규칙으로 100행짜리 CSV 가상 데이터를 만들어 줘.
+열: 요일(월~금), 날씨(맑음/흐림/비), 기온(℃), 필요량(개)
+규칙: 기본 필요량 120개, 비 오는 날 −25, 기온 25℃ 이상이면 +15, 금요일 −10, 마지막에 −5~+5 사이 무작위 오차를 더해.
+표 아래에 규칙을 한 줄로 다시 적어 줘.">복사</button></div><pre>아래 규칙으로 100행짜리 CSV 가상 데이터를 만들어 줘.
+열: 요일(월~금), 날씨(맑음/흐림/비), 기온(℃), 필요량(개)
+규칙: 기본 필요량 120개, 비 오는 날 −25, 기온 25℃ 이상이면 +15, 금요일 −10, 마지막에 −5~+5 사이 무작위 오차를 더해.
+표 아래에 규칙을 한 줄로 다시 적어 줘.</pre></div><figcaption>그림: 가상 데이터 만들기 프롬프트 예시 — “기본값 + 조건별 변화 + 작은 무작위 오차”</figcaption></figure></div><div class="sec"><h3><span class="sn">7</span>유형별 바이브 코딩 프롬프트 틀</h3><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (대상)을 항목별 가중치 점수로 판단하고 사람의 판단과 비교하는 앱
+[기능] 1) 예시 데이터(아래 표)를 코드에 포함 2) 방문자가 먼저 선택 3) 항목별 가중치 슬라이더와 점수 계산식 표시 4) 사람과 AI의 결과를 나란히, 다른 것은 강조 5) 오늘 일치율 막대
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (대상)을 항목별 가중치 점수로 판단하고 사람의 판단과 비교하는 앱
+[기능] 1) 예시 데이터(아래 표)를 코드에 포함 2) 방문자가 먼저 선택 3) 항목별 가중치 슬라이더와 점수 계산식 표시 4) 사람과 AI의 결과를 나란히, 다른 것은 강조 5) 오늘 일치율 막대
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>판단·점수형 틀</figcaption></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (조건)으로 (숫자)를 예측하는 체험 앱
+[기능] 1) 데이터(표)를 점으로 찍고 예측선을 그린다 2) 방문자가 조건을 고르고 감으로 예측값 입력 3) 앱 예측값과 실제값 공개, 오차 표시 4) 데이터 범위 밖이면 ‘예측이 불확실해요’ 경고
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (조건)으로 (숫자)를 예측하는 체험 앱
+[기능] 1) 데이터(표)를 점으로 찍고 예측선을 그린다 2) 방문자가 조건을 고르고 감으로 예측값 입력 3) 앱 예측값과 실제값 공개, 오차 표시 4) 데이터 범위 밖이면 ‘예측이 불확실해요’ 경고
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>예측형 틀</figcaption></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (항목 n개) 별점으로 취향이 비슷한 사람을 찾아 추천하는 앱
+[기능] 1) 가상(또는 설문) 사용자 데이터를 코드에 포함 2) 방문자는 일부 항목에 별점 3) 거리 계산으로 가까운 3명 → 그들이 높게 준 항목 추천 4) ‘원리 보기’에서 이웃과 계산식 공개
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (항목 n개) 별점으로 취향이 비슷한 사람을 찾아 추천하는 앱
+[기능] 1) 가상(또는 설문) 사용자 데이터를 코드에 포함 2) 방문자는 일부 항목에 별점 3) 거리 계산으로 가까운 3명 → 그들이 높게 준 항목 추천 4) ‘원리 보기’에서 이웃과 계산식 공개
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>추천형 틀</figcaption></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (주제) 퀴즈/게임
+[기능] 1) 문제 은행(유형·난이도 태그)을 코드에 포함 2) 매번 무작위 n문제, 문제당 타이머 3) 정답 후 해설과 관련 진로 한 줄 4) 끝나면 점수와 별명 순위
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (주제) 퀴즈/게임
+[기능] 1) 문제 은행(유형·난이도 태그)을 코드에 포함 2) 매번 무작위 n문제, 문제당 타이머 3) 정답 후 해설과 관련 진로 한 줄 4) 끝나면 점수와 별명 순위
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>퀴즈·게임형 틀</figcaption></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (현상)을 슬라이더로 바꿔 보는 시뮬레이터
+[기능] 1) 조절 변수 슬라이더 2~3개 2) 결과를 그림·그래프로 즉시 다시 그림 3) 핵심 숫자 하나를 크게 4) ‘처음 값으로’ 버튼
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] (현상)을 슬라이더로 바꿔 보는 시뮬레이터
+[기능] 1) 조절 변수 슬라이더 2~3개 2) 결과를 그림·그래프로 즉시 다시 그림 3) 핵심 숫자 하나를 크게 4) ‘처음 값으로’ 버튼
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>시뮬레이터형 틀</figcaption></figure><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] 부스 방문자의 결과를 모아 보여 주는 화면
+[기능] 1) 별명과 결과 숫자 입력 2) 누적 막대·평균·순위 3) 화면이 켜져 있는 동안만 저장 4) 초기화 버튼(비밀번호)
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨">복사</button></div><pre>[역할] 박람회 부스용 교육 웹앱 개발자
+[목표] 부스 방문자의 결과를 모아 보여 주는 화면
+[기능] 1) 별명과 결과 숫자 입력 2) 누적 막대·평균·순위 3) 화면이 켜져 있는 동안만 저장 4) 초기화 버튼(비밀번호)
+[제약] 한 파일, 한국어, 외부 AI 호출 없음, 이름·연락처 입력칸 없음, 태블릿 가로 화면, 큰 글씨</pre></div><figcaption>결과판형 틀</figcaption></figure></div><div class="sec"><h3><span class="sn">8</span>준비물 · 시험 · 리허설</h3><p>준비물은 <b>사야 할 것</b>(소모품·부품·출력물)과 <b>빌릴 것</b>(노트북·태블릿·micro:bit·TV)으로 나누고, 사야 할 것만 예산표에 적어요. 유형별 한도: S 5만 · C 13만 · P 18만 · H 12만 · M 12만 원.</p><figure class="gfig f-table"><table class="dtb"><thead><tr><th>방문자(별명)</th><th>걸린 시간</th><th>막힌 곳</th><th>AI가 틀리는 순간을 이해했나</th><th>재미(1~5)</th><th>고칠 점</th></tr></thead><tbody><tr><td>하늘</td><td>7분 10초</td><td>기준값 슬라이더 위치</td><td>예</td><td>4</td><td>슬라이더 크게</td></tr><tr><td>별</td><td>9분</td><td>설명이 길었음</td><td>아니요</td><td>3</td><td>③ 원리 보기를 판넬로</td></tr><tr><td>…</td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><figcaption>그림: 친구 5명 시험 기록표</figcaption></figure></div><div class="sec"><h3><span class="sn">9</span>처음부터 끝까지 한 번에 — 변환 예시 ‘수의사: 반려견 표정으로 불편함을 알 수 있을까?’</h3><figure class="gfig f-flow"><div class="flowf"><div class="fs"><i>1</i>주제 문장</div><b class="fa">→</b><div class="fs"><i>2</i>현장 사례: 동물병원 통증 평가 연구</div><b class="fa">→</b><div class="fs"><i>3</i>AI 유형: 분류</div><b class="fa">→</b><div class="fs"><i>4</i>도구: 티처블 머신 + 앱</div><b class="fa">→</b><div class="fs"><i>5</i>데이터: 강아지 그림·인형 사진 클래스당 40장</div><b class="fa">→</b><div class="fs"><i>6</i>5박자 설계</div><b class="fa">→</b><div class="fs"><i>7</i>리허설</div></div><figcaption>그림: 주제가 부스가 되는 흐름</figcaption></figure><figure class="gfig f-tm"><div class="tmui"><div class="tmh"><b>Teachable Machine</b><span>이미지 프로젝트</span></div><div class="tmb"><div class="tmcol"><div class="tmcard"><div class="tmct">편안한 표정 <i>✎</i></div><div class="tmcs">이미지 샘플 40개</div><div class="tmth"><span style="background:#9ec9ff;opacity:0.55"></span><span style="background:#9ec9ff;opacity:0.6200000000000001"></span><span style="background:#9ec9ff;opacity:0.6900000000000001"></span><span style="background:#9ec9ff;opacity:0.76"></span><span style="background:#9ec9ff;opacity:0.8300000000000001"></span><span style="background:#9ec9ff;opacity:0.9000000000000001"></span><em>📷 웹캠</em><em>⬆ 업로드</em></div></div><div class="tmcard"><div class="tmct">불편한 표정 <i>✎</i></div><div class="tmcs">이미지 샘플 40개</div><div class="tmth"><span style="background:#ffb3c8;opacity:0.55"></span><span style="background:#ffb3c8;opacity:0.6200000000000001"></span><span style="background:#ffb3c8;opacity:0.6900000000000001"></span><span style="background:#ffb3c8;opacity:0.76"></span><span style="background:#ffb3c8;opacity:0.8300000000000001"></span><span style="background:#ffb3c8;opacity:0.9000000000000001"></span><em>📷 웹캠</em><em>⬆ 업로드</em></div></div><div class="tmcard"><div class="tmct">얼굴 없음 <i>✎</i></div><div class="tmcs">이미지 샘플 30개</div><div class="tmth"><span style="background:#b8f0d6;opacity:0.55"></span><span style="background:#b8f0d6;opacity:0.6200000000000001"></span><span style="background:#b8f0d6;opacity:0.6900000000000001"></span><span style="background:#b8f0d6;opacity:0.76"></span><span style="background:#b8f0d6;opacity:0.8300000000000001"></span><span style="background:#b8f0d6;opacity:0.9000000000000001"></span><em>📷 웹캠</em><em>⬆ 업로드</em></div></div><div class="tmadd">⊞ 클래스 추가</div></div><div class="tmarrow">→</div><div class="tmmid"><b>학습</b><div class="tmbtn">모델 학습시키기</div><small>고급 ▾ (에포크·배치 크기)</small></div><div class="tmarrow">→</div><div class="tmprev"><b>미리보기</b><div class="tmbtn ghost">⤴ 모델 내보내기</div><div class="tmcam">📷 웹캠 화면</div><div class="tmout">출력</div><div class="tmbar"><span>편안한 표정</span><i style="width:18%;background:#f57c00">18%</i></div><div class="tmbar"><span>불편한 표정</span><i style="width:77%;background:#e91e63">77%</i></div><div class="tmbar"><span>얼굴 없음</span><i style="width:5%;background:#3f51b5">5%</i></div></div></div></div><figcaption>그림: 그림 카드·인형 사진으로 만든 표정 분류 모델</figcaption></figure><figure class="gfig f-five"><div class="fivef"><div class="fv" style="--fv:#2E5BFF"><div class="fvt">30초</div><div class="fvh">예측</div><div class="fvd">이 강아지, 편할까요?</div></div><div class="fv" style="--fv:#1F9E7A"><div class="fvt">3분</div><div class="fvh">직접</div><div class="fvd">표정 카드 판단 → AI 판단 → 카드 추가 학습</div></div><div class="fv" style="--fv:#6A4CC2"><div class="fvt">1분</div><div class="fvh">원리</div><div class="fvd">클래스·샘플·확률 막대</div></div><div class="fv" style="--fv:#E2457A"><div class="fvt">1분</div><div class="fvh">틀림</div><div class="fvd">품종·털 색이 다르면 오판</div></div><div class="fv" style="--fv:#E9A400"><div class="fvt">1분</div><div class="fvh">진로</div><div class="fvd">수의사·동물행동 연구자 카드</div></div></div><figcaption>그림: 방문자 1명의 체험 흐름(시간표) — 시계를 보며 리허설해 보세요</figcaption></figure><ul><li><b>준비물</b>: 표정 그림 카드 출력 1만 원, 강아지 인형 2개 2만 원, 진로 카드 1만 원 (S형 한도 5만 원 안)</li><li><b>AI가 틀리는 순간</b>: 학습에 없던 털 색·품종 카드를 보여 주면 확률이 엉뚱해지는 장면</li><li><b>윤리</b>: 실제 반려동물 진료 판단에 쓰면 안 된다는 점을 마무리에서 말하기</li></ul></div><div class="sec"><h3><span class="sn">10</span>막혔을 때</h3><figure class="gfig f-table"><table class="dtb"><thead><tr><th>고민</th><th>해결</th></tr></thead><tbody><tr><td>주제가 너무 커요</td><td>‘8분 안에 방문자가 직접 해 볼 수 있는 것’ 하나만 남기고 나머지는 판넬로</td></tr><tr><td>데이터가 없어요</td><td>가상 데이터를 규칙으로 만들거나, 방문자가 데이터를 만드는 부스(분류 학습·설문)로</td></tr><tr><td>코딩을 못해요</td><td>프롬프트 틀 하나를 골라 빈칸만 채우기. 티처블 머신·Quick Draw처럼 완성된 도구를 빌려 써도 돼요</td></tr><tr><td>AI가 틀리는 순간이 안 나와요</td><td>데이터에 없는 것을 넣어 보세요: 다른 각도·조명, 처음 보는 물건, 범위 밖 숫자, 사투리·신조어</td></tr><tr><td>센서가 자꾸 안 돼요</td><td>센서는 운영자 시연으로, 방문자는 미리 측정한 데이터로 판정·기준값 조절 체험</td></tr><tr><td>체험이 8분을 넘어요</td><td>③ 원리 보기를 판넬로 돌리고 동시 체험 인원을 늘리기</td></tr><tr><td>연령 제한 도구가 필요해요</td><td>선생님께 교사 계정 운영 요청, 결과물은 미리 만들어 두기</td></tr><tr><td>팀원마다 진로가 달라요</td><td>공통 주제 하나 + 진로 카드를 팀원 수만큼</td></tr></tbody></table></figure></div><div class="sec"><h3><span class="sn">11</span>신청 전 자기 점검 10</h3><ul><li>☐ 주제가 한 문장 질문이다</li><li>☐ 현장 AI 사례 1개와 출처가 있다</li><li>☐ AI 유형을 하나로 말할 수 있다</li><li>☐ 5박자가 모두 채워져 있고, 특히 ‘AI가 틀리는 순간’이 있다</li><li>☐ 방문자가 직접 바꿔 볼 수 있는 것(데이터·규칙·기준값·가중치)이 있다</li><li>☐ 우리가 배운 내용이 어디에 쓰이는지 말할 수 있다</li><li>☐ 도구가 우리 팀 실력으로 3주 안에 가능하다</li><li>☐ 데이터에 개인정보가 없다</li><li>☐ 준비물이 유형 한도 안이다</li><li>☐ 인터넷·기기가 안 될 때의 Plan B가 있다</li></ul></div></section><section class="chap a-biz pbreak" id="common"><div class="chap-cover"><div class="chap-num"><small>공통</small>📅</div><div><h2>모든 부스의 공통 일정 · 운영 · 리허설</h2><p class="hook">어떤 부스든 같은 리듬으로 준비해요. 이 장은 팀장이 먼저 읽고 팀원과 나눠요.</p></div></div><div class="sec"><h3><span class="sn">1</span>공통 일정</h3><figure class="gfig f-table"><table class="dtb"><thead><tr><th>시기</th><th>할 일</th><th>끝났을 때 있어야 할 것</th></tr></thead><tbody><tr><td>신청 전 (11.12.~11.24.)</td><td>팀 3~4명 구성·역할, 예시 고르기 또는 주제 정하기, 종이로 체험 흐름 그리기</td><td>제출한 신청서, 종이 시제품</td></tr><tr><td>선정·컨설팅 (11.27.)</td><td>선생님 의견 확인(사이트 ‘신청 확인’), 보완 요청 반영</td><td>확정된 부스 기획</td></tr><tr><td>1주차 (11.30.~12.6.)</td><td>먼저 공부할 것, 데이터·카드·문제 만들기, 앱·코드 1차 완성, 준비물 구매 요청</td><td>처음부터 끝까지 한 번 돌아가는 1차 버전</td></tr><tr><td>2주차 (12.7.~12.13.)</td><td>준비물 조립, 버그 수정·디자인, 진로 카드·AI 광고 제작</td><td>완성본, 진로 카드 시안, 광고</td></tr><tr><td>3주차 (12.14.~12.22.)</td><td>다른 반 친구 5명 시험 체험, 시간 재며 리허설 2번, Plan B 준비</td><td>리허설 기록(시간·문제점·고친 점)</td></tr><tr><td>마무리 (12.23.~12.30.)</td><td>오프라인 파일 저장, 안내판·진로 카드 출력, 배터리 충전</td><td>부스 상자 1개에 모든 준비물</td></tr><tr><td>박람회 (12.31.)</td><td>1부 1학년 / 2부 2학년 관람, A·B조 교대 운영</td><td>방문자 수·자주 나온 질문 기록</td></tr><tr><td>행사 후 1주</td><td>인계 노트 작성, 방문자 사진·데이터 삭제</td><td>인계 노트</td></tr></tbody></table></figure></div><div class="sec"><h3><span class="sn">2</span>당일 운영 공통</h3><div class="roles"><div><b>진행</b>맞이·설명·대사, 시간 관리</div><div><b>체험 도우미</b>방문자 옆에서 조작 돕기</div><div><b>기기 담당</b>앱·센서·충전·Plan B 전환</div><div><b>기록</b>진로 카드·도장·대기 줄·방문자 수</div></div><ul><li><b>A·B조 교대</b>: 1부·2부 사이에 교대하며 ‘인계 메모’(기기 상태, 남은 카드 수)를 남겨요.</li><li><b>대기 줄 관리</b>: 안내판(체험 방법 3줄 + 예측 질문)이나 QR을 둬요. 줄이 5명을 넘으면 ‘축약판’(AI가 틀리는 순간 위주 3분)으로 바꿔요.</li><li><b>방문자 기록</b>: 별명과 숫자만. 이름·학번·얼굴 사진은 남기지 않아요.</li><li><b>공통 Plan B</b>: ① 인터넷이 끊기면 저장해 둔 HTML ② 기기 고장 시 미리 찍은 시연 영상 ③ 센서가 안 되면 미리 측정한 예시 데이터 ④ 모두 안 되면 종이 카드 버전.</li></ul><figure class="gfig f-booth"><svg viewBox="0 0 760 330" class="svgfig"><rect x="10" y="10" width="740" height="310" rx="16" fill="#fbfcff" stroke="#c9cfdd" stroke-width="2" stroke-dasharray="8 6"/><text x="24" y="34" font-size="14" fill="#56648C" font-weight="700">부스 위에서 본 모습 (교실 1/2 또는 책상 2~3개)</text><rect x="120" y="90" width="360" height="90" rx="10" fill="#FFF4D6" stroke="#9aa3b8" stroke-width="1.6"/><text x="300" y="140" font-size="13.5" text-anchor="middle" fill="#26314F" font-weight="700">체험 책상</text><rect x="520" y="70" width="170" height="40" rx="10" fill="#26314F" stroke="#9aa3b8" stroke-width="1.6"/><text x="605" y="95" font-size="13.5" text-anchor="middle" fill="#fff" font-weight="700">TV/모니터</text><rect x="60" y="250" width="240" height="50" rx="10" fill="#EEF3FF" stroke="#9aa3b8" stroke-width="1.6"/><text x="180" y="280" font-size="13.5" text-anchor="middle" fill="#26314F" font-weight="700">대기 줄 · 안내판</text><rect x="560" y="210" width="150" height="60" rx="10" fill="#E8F5E9" stroke="#9aa3b8" stroke-width="1.6"/><text x="635" y="245" font-size="13.5" text-anchor="middle" fill="#26314F" font-weight="700">운영석(기록)</text><circle cx="150" cy="205" r="13" fill="#7CC8FF"/><text x="150" y="235" font-size="12" text-anchor="middle" fill="#26314F">방문자</text><circle cx="260" cy="205" r="13" fill="#7CC8FF"/><text x="260" y="235" font-size="12" text-anchor="middle" fill="#26314F">방문자</text><circle cx="330" cy="62" r="13" fill="#E2457A"/><text x="330" y="92" font-size="12" text-anchor="middle" fill="#26314F">도우미</text><circle cx="620" cy="190" r="13" fill="#E2457A"/><text x="620" y="220" font-size="12" text-anchor="middle" fill="#26314F">진행</text></svg><figcaption>그림: 부스 배치 예시 — 방문자 동선이 한 방향으로 흐르게 두면 줄이 엉키지 않아요</figcaption></figure><figure class="gfig f-cards"><div class="cardsf"><div class="ck" style="--ck:#2E5BFF"><div class="ckh">진로 카드 (앞면)</div><div class="ckl">직업: 의공학자</div><div class="ckl">하는 일: 의료기기를 설계·시험</div><div class="ckl">AI 활용: 웨어러블 신호에서 이상 감지</div><div class="ckf">관련 학과: 의공학과·전자공학과</div></div><div class="ck" style="--ck:#E2457A"><div class="ckh">진로 카드 (뒷면)</div><div class="ckl">현장 사례 1줄 + 출처</div><div class="ckl">오늘 내가 바꿔 본 AI 원리: ____</div><div class="ckl">QR: 우리 부스 앱</div><div class="ckf">천안여고 AI 박람회 · ○○ 부스</div></div></div><figcaption>그림: 진로 카드 앞뒤 구성 예시 (명함 크기)</figcaption></figure></div><div class="sec"><h3><span class="sn">3</span>리허설 체크리스트 (3주차, 선생님 확인)</h3><ul><li>☐ 처음 온 친구가 6~8분 안에 끝냈다 (시간 기록)</li><li>☐ 방문자가 직접 고르거나 정하는 순간이 있다</li><li>☐ AI가 틀리는 순간을 보여 줬다</li><li>☐ 진로 카드에 직업 이름, AI 활용 사례, 관련 학과가 있다</li><li>☐ 인터넷을 끈 상태에서 Plan B로 진행해 봤다</li><li>☐ 안전·윤리 약속 8개를 부스에 붙였다</li><li>☐ AI로 만든 결과물에 ‘AI 생성’ 표시가 있다</li><li>☐ 팀원 모두가 부스의 AI 원리를 1분 안에 설명할 수 있다</li></ul></div></section>
+<script>
+document.addEventListener('click',e=>{const b=e.target.closest('.cpy');if(!b)return;const t=b.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent='복사됨 ✓';setTimeout(()=>b.textContent='복사',1500)}).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');b.textContent='복사됨 ✓'}catch(_){}a.remove()})});
+document.querySelectorAll('input[data-k]').forEach(c=>{try{c.checked=localStorage.getItem('gb_'+c.dataset.k)==='1'}catch(_){}c.addEventListener('change',()=>{try{localStorage.setItem('gb_'+c.dataset.k,c.checked?'1':'0')}catch(_){}})});
+const sz=document.getElementById('size');if(sz)sz.onclick=()=>document.body.classList.toggle('big');
+</script></body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>③-4 사람 신경망 — 부스 만들기 가이드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>:root{--paper:#fffdf8;--grid:#eef1f8;--ink:#26314F;--ink2:#56648C;--line:#dfe4ef;--royal:#1D3FAE;--blue:#2E5BFF;--gold:#E9A400;
+ --pink:#ffd3e1;--pink-d:#c93d6e;--lilac:#e2d8ff;--lilac-d:#6a4cc2;--mint:#cdeee0;--mint-d:#1f7f62;--butter:#ffecb0;--butter-d:#94680a;--sky:#d3e8ff;--sky-d:#2a67b3;--peach:#ffdcc7;--peach-d:#b4541c;
+ --a:var(--sky);--d:var(--sky-d);--fs:16px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;font-family:"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans CJK KR","Noto Sans KR",sans-serif;font-size:var(--fs);line-height:1.75;color:var(--ink);background:var(--paper);
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;word-break:keep-all;overflow-wrap:anywhere}
+body.big{--fs:18.5px}
+a{color:var(--d)}
+h1,h2,h3,h4{line-height:1.3;margin:0;letter-spacing:-.01em}
+.a-bio{--a:var(--pink);--d:var(--pink-d)}.a-eng{--a:var(--sky);--d:var(--sky-d)}.a-sw{--a:var(--lilac);--d:var(--lilac-d)}
+.a-media{--a:var(--peach);--d:var(--peach-d)}.a-biz{--a:var(--butter);--d:var(--butter-d)}.a-soc{--a:var(--mint);--d:var(--mint-d)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:30;background:rgba(255,253,248,.95);backdrop-filter:blur(6px);border-bottom:2px dashed var(--line)}
+.topbar .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:8px 14px}
+.brand{font-weight:900;font-size:17px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.tabs{display:flex;gap:6px;overflow-x:auto;flex:1;padding:2px}
+.tabs a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--a);border-radius:10px 10px 4px 4px;padding:3px 11px;font-weight:800;font-size:14px}
+.tb-btn{flex:0 0 auto;border:2px solid var(--ink);background:#fff;border-radius:20px;padding:2px 12px;font-weight:800;cursor:pointer;font-size:13px}
+/* cover */
+.cover{max-width:960px;margin:30px auto 10px;padding:0 20px}
+.cover-card{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:26px 26px 26px 6px;padding:36px 32px 28px;box-shadow:8px 8px 0 var(--lilac)}
+.tape{position:absolute;top:-15px;left:50%;width:150px;height:28px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(45deg,rgba(124,200,255,.8) 0 10px,rgba(200,228,255,.8) 10px 20px)}
+.cover h1{font-size:clamp(32px,6vw,52px);font-weight:900;margin:6px 0 8px}
+.cover h1 span{display:block;color:var(--blue)}
+.cover p.sub{font-size:18px;max-width:40em;margin:0 0 14px}
+.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:16px}
+.howto div{border:2px solid var(--line);border-radius:14px;padding:10px 12px;background:#fbfcff;font-size:14.5px}
+.howto b{display:block;font-size:15.5px}
+.toc{margin:22px 0 0}
+.toc h3{font-size:17px;margin:14px 0 6px;display:flex;gap:8px;align-items:center}
+.toc h3 i{font-style:normal;background:var(--a);border-radius:8px;padding:0 8px}
+.toc ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:2px 14px}
+.toc li a{display:flex;gap:8px;text-decoration:none;color:var(--ink);padding:5px 2px;border-bottom:1.5px dotted var(--line);font-size:15px}
+.toc li a b{min-width:42px;text-align:center;background:var(--a);border-radius:8px;font-size:13px;padding-top:2px}
+.toc li a em{font-style:normal;color:var(--ink2);font-size:12.5px;margin-left:auto;white-space:nowrap}
+/* chapter */
+.chap{max-width:960px;margin:40px auto;padding:0 20px}
+.chap-cover{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:24px 24px 24px 6px;padding:26px 26px 22px;box-shadow:7px 7px 0 var(--a);display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start}
+.chap-num{background:var(--a);border:2.5px solid var(--ink);border-radius:18px;text-align:center;padding:8px 4px;font-weight:900;font-size:26px;line-height:1.1}
+.chap-num small{display:block;font-size:12px;font-weight:700}
+.chap-cover h2{font-size:clamp(24px,4vw,32px);font-weight:900}
+.chap-cover .hook{font-size:16.5px;margin:6px 0 10px;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{border:1.8px solid var(--ink);border-radius:999px;padding:1px 10px;font-size:13px;font-weight:800;background:#fff}
+.chips li.c{background:var(--a)}
+.bigq{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:var(--a);border:2px dashed var(--d);font-weight:800;font-size:17.5px}
+.bigq small{display:block;font-size:12.5px;color:var(--d);font-weight:800}
+.sec{margin-top:22px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:18px 20px}
+.sec>h3{font-size:19px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec>h3 .sn{display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:9px;background:var(--a);border:2px solid var(--ink);font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}.chap-cover{grid-template-columns:1fr}.chap-num{width:90px}}
+.goals li{margin:3px 0}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin:0}
+.word{border:1.8px solid var(--line);border-radius:12px;padding:8px 12px;background:#fbfcff}
+.word dt{font-weight:900;color:var(--d)}
+.word dd{margin:2px 0 0;font-size:14.5px}
+table.tb{width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0}
+table.tb th,table.tb td{border:1.5px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+table.tb th{background:#f4f6fb;font-weight:800}
+table.tb td.n{text-align:right;white-space:nowrap}
+.sum{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px;padding:8px 12px;border-radius:12px;background:#f4f6fb;font-weight:800;font-size:14.5px}
+.sum.ok{background:#e8f5e9;color:#1b5e20}.sum.over{background:#ffebee;color:#b71c1c}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags a,.tags span{display:inline-block;border:1.6px solid var(--line);background:#fbfcff;border-radius:10px;padding:2px 10px;font-size:13.5px;text-decoration:none;color:var(--ink);font-weight:700}
+.study li{margin:6px 0}
+.study b{color:var(--d)}
+.study a{font-size:13px;margin-left:4px}
+/* steps */
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:st}
+ol.steps>li{counter-increment:st;position:relative;border:2px solid var(--line);border-radius:16px;padding:14px 16px 12px 62px;margin:12px 0;background:#fff;break-inside:avoid-page}
+ol.steps>li::before{content:counter(st);position:absolute;left:14px;top:12px;width:34px;height:34px;border-radius:10px;background:var(--a);border:2px solid var(--ink);display:grid;place-items:center;font-weight:900}
+ol.steps h4{font-size:17px;font-weight:900;margin-bottom:6px;padding-right:96px}
+ol.steps p{margin:4px 0}
+.done{position:absolute;right:12px;top:12px;font-size:12.5px;font-weight:800;border:1.6px solid var(--line);border-radius:999px;padding:1px 10px;background:#fbfcff;cursor:pointer;user-select:none}
+.done input{vertical-align:-2px;margin:0 4px 0 0}
+.tip{margin-top:8px;padding:8px 12px;border-radius:12px;background:#eef6ff;border:1.6px solid #c9defa;font-size:14.5px}
+.tip b{color:#2a67b3}
+.warn{margin-top:8px;padding:8px 12px;border-radius:12px;background:#fff1f3;border:1.6px solid #f6c7d2;font-size:14.5px}
+.warn b{color:#c93d6e}
+.think{margin-top:8px;border:1.6px dashed var(--d);border-radius:12px;padding:6px 12px;background:#fffdf3;font-size:14.5px}
+.think summary{cursor:pointer;font-weight:800;color:var(--d)}
+/* inquiry */
+.inq{display:grid;grid-template-columns:150px 1fr;gap:0;border:2px solid var(--line);border-radius:14px;overflow:hidden}
+.inq>div{padding:8px 12px;border-bottom:1.5px solid var(--line)}
+.inq>div:nth-child(odd){background:var(--a);font-weight:900}
+.inq>div:nth-last-child(-n+2){border-bottom:0}
+@media(max-width:760px){.inq{grid-template-columns:1fr}}
+/* run */
+.say{margin:8px 0;padding:10px 14px;border-left:5px solid var(--d);background:#fffaf0;border-radius:0 12px 12px 0;font-weight:700}
+.fail{padding:10px 14px;border-radius:12px;background:#fff1f3;border:2px solid #f6c7d2}
+.fail b{color:#c93d6e}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.roles div{border:1.6px solid var(--line);border-radius:12px;padding:8px 10px;background:#fbfcff;font-size:14px}
+.roles b{display:block}
+@media(max-width:760px){.roles{grid-template-columns:1fr 1fr}}
+.week{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.week div{border:2px solid var(--line);border-radius:14px;padding:10px 12px;background:#fbfcff;font-size:14.5px}
+.week b{display:block;color:var(--d);font-size:15px}
+@media(max-width:760px){.week{grid-template-columns:1fr 1fr}}
+.apply dl{margin:0;display:grid;gap:8px}
+.apply dt{font-weight:900;font-size:14px;color:var(--d)}
+.apply dd{margin:0;padding:8px 64px 8px 12px;border:1.6px dashed var(--line);border-radius:10px;background:#fffef8;font-size:14.5px;position:relative}
+.cpy{border:1.6px solid var(--ink);background:#fff;border-radius:8px;font-size:12px;font-weight:800;padding:1px 8px;cursor:pointer}
+.apply dd .cpy{position:absolute;right:8px;top:6px}
+.refs li{margin:3px 0;font-size:14.5px}
+.refs i{font-style:normal;font-size:12px;border-radius:6px;padding:0 6px;margin-right:6px;background:var(--a);font-weight:800}
+.dl{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.dl a{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--ink);background:#fff;border-radius:12px;padding:6px 12px;font-weight:900;text-decoration:none;color:var(--ink);font-size:14px}
+.dl a.pri{background:var(--gold);}
+/* ----- figures ----- */
+figure.gfig{margin:12px 0 6px;break-inside:avoid}
+figure.gfig figcaption{font-size:12.5px;color:var(--ink2);margin-top:4px;text-align:center}
+.svgfig{width:100%;height:auto;display:block;background:#fff;border:1.6px solid var(--line);border-radius:14px}
+.f-chart .svgfig{max-width:620px;margin:0 auto}.f-sketch .svgfig,.f-diagram .svgfig,.f-orange .svgfig{max-width:820px;margin:0 auto}
+.mkc{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;padding:12px;border:1.6px solid var(--line);border-radius:14px;background:#f6f7fb}
+.mkg{display:flex;flex-direction:column}
+.mb{--bc:#1E90FF;display:flex;flex-direction:column;align-items:flex-start}
+.mbh{background:var(--bc);color:#fff;font-weight:800;font-size:13.5px;padding:6px 12px;border-radius:5px;margin-top:-1px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18);white-space:nowrap}
+.mb.hat>.mbh{border-radius:18px 18px 5px 5px;padding-top:10px}
+.mb.c>.mbh{border-radius:5px 5px 0 0}
+.mb.hat.c>.mbh{border-radius:18px 18px 0 0}
+.mbk{border-left:14px solid var(--bc);padding:3px 0 3px 4px;min-height:16px}
+.mbf{background:var(--bc);height:12px;width:60px;border-radius:0 0 5px 5px}
+.bv{display:inline-block;background:#fff;color:#26314F;border-radius:10px;padding:0 7px;margin:0 2px;font-weight:800}
+.br{display:inline-block;background:rgba(255,255,255,.28);border:1.5px solid rgba(255,255,255,.6);border-radius:12px;padding:0 7px;margin:0 2px}
+.bd{display:inline-block;background:rgba(0,0,0,.18);border-radius:6px;padding:0 6px;margin:0 2px}
+/* TM */
+.tmui{border:1.6px solid var(--line);border-radius:14px;background:#eceff4;padding:10px;font-size:12.5px;font-family:Roboto,"Malgun Gothic","Noto Sans CJK KR",sans-serif}
+.tmh{display:flex;gap:10px;align-items:baseline;margin-bottom:8px}.tmh b{color:#1a73e8;font-size:15px}.tmh span{color:#555}
+.tmb{display:grid;grid-template-columns:1.5fr auto 1fr auto 1.2fr;gap:8px;align-items:center}
+.tmcol{display:flex;flex-direction:column;gap:8px}
+.tmcard{background:#fff;border-radius:8px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tmct{font-weight:700;font-size:13.5px}.tmct i{font-style:normal;color:#999}
+.tmcs{color:#666;margin:2px 0 4px}
+.tmth{display:flex;gap:3px;flex-wrap:wrap;align-items:center}.tmth span{width:20px;height:20px;border-radius:3px;display:inline-block}
+.tmth em{font-style:normal;font-size:11px;background:#e8f0fe;color:#1a73e8;border-radius:5px;padding:2px 6px;margin-left:4px}
+.tmadd{border:1.6px dashed #aaa;border-radius:8px;text-align:center;padding:6px;color:#777}
+.tmarrow{color:#999;font-size:18px}
+.tmmid,.tmprev{background:#fff;border-radius:8px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tmbtn{background:#e8f0fe;color:#1a73e8;border-radius:6px;padding:5px 8px;margin:6px 0;text-align:center;font-weight:700}
+.tmbtn.ghost{background:#f1f3f4;color:#333}
+.tmcam{background:#3c4043;color:#fff;border-radius:6px;padding:16px 6px;text-align:center;margin:6px 0}
+.tmout{font-weight:700;margin:4px 0}
+.tmbar{display:grid;grid-template-columns:62px 1fr;gap:4px;align-items:center;margin:3px 0}
+.tmbar span{font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tmbar i{display:block;height:16px;border-radius:4px;color:#fff;font-style:normal;font-size:11px;line-height:16px;padding-left:4px;min-width:26px}
+@media(max-width:700px){.tmb{grid-template-columns:1fr}.tmarrow{transform:rotate(90deg);text-align:center}}
+/* CreateAI */
+.caiui{border:1.6px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;font-size:13px}
+.caih{background:#2c3e8f;color:#fff;padding:8px 12px;display:flex;gap:10px;align-items:baseline}.caih span{opacity:.8;font-size:12px}
+.caib{padding:8px 12px}
+.cairow{display:grid;grid-template-columns:120px 1fr 110px;gap:8px;align-items:center;border-bottom:1px solid #eee;padding:6px 0}
+.cain b{display:block}.cain small{color:#777}.cairec{display:inline-block;margin-top:2px;font-size:11px;color:#c62828;font-weight:800}
+.caiw{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.caiw svg{width:100%;height:36px;background:#fafafa;border-radius:4px}
+.caip{background:#eee;border-radius:6px;height:18px;position:relative}.caip i{display:block;height:100%;background:#43a047;border-radius:6px}.caip span{position:absolute;right:6px;top:0;font-size:11px;font-weight:800}
+.caif{display:flex;gap:8px;justify-content:flex-end;padding:8px 12px;background:#f5f6fa}
+.cbtn{border:1.5px solid #2c3e8f;border-radius:999px;padding:3px 12px;font-weight:800;color:#2c3e8f;font-size:12px}.cbtn.pri{background:#2c3e8f;color:#fff}
+/* app wireframe */
+.appui{max-width:430px;margin:0 auto;border:2.5px solid var(--ink);border-radius:18px;background:#fff;overflow:hidden;box-shadow:5px 5px 0 var(--a)}
+.appui.wide{max-width:680px}
+.apbar{background:#26314F;color:#fff;display:flex;gap:6px;align-items:center;padding:7px 12px;font-size:13px;font-weight:800}
+.apbar i{width:9px;height:9px;border-radius:50%;background:#ff6b6b}.apbar i:nth-child(2){background:#ffd166}.apbar i:nth-child(3){background:#06d6a0}.apbar span{margin-left:6px}
+.apbody{padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.ap-h{font-weight:900;font-size:16px}.ap-p{color:var(--ink2)}
+.ap-in{display:flex;flex-direction:column;gap:2px}.ap-in label{font-weight:800;font-size:12.5px}.ap-in span{border:1.6px solid #c9cfdd;border-radius:8px;padding:5px 8px;min-height:30px;color:#8a97bb}
+.ap-sl label{font-weight:800;font-size:12.5px}.ap-tr{position:relative;height:8px;background:#e4e8f2;border-radius:6px;margin:8px 0 2px}.ap-tr i{display:block;height:100%;background:var(--blue);border-radius:6px}.ap-tr b{position:absolute;top:-6px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--blue);transform:translateX(-50%)}.ap-sl em{font-style:normal;font-size:12px;color:var(--ink2)}
+.ap-btn{border:2px solid var(--blue);color:var(--blue);border-radius:10px;padding:6px 10px;text-align:center;font-weight:900}.ap-btn.pri{background:var(--blue);color:#fff}
+.ap-row{display:flex;gap:8px}.ap-row>*{flex:1}
+.ap-big{text-align:center;padding:6px;border-radius:12px;background:#f4f6fb}.ap-big b{display:block;font-size:30px;font-weight:900;color:var(--blue)}.ap-big small{color:var(--ink2)}
+.ap-badge{align-self:center;padding:4px 14px;border-radius:999px;background:var(--bg);color:var(--fg);font-weight:900}
+.ap-bars div{display:grid;grid-template-columns:80px 1fr 40px;gap:6px;align-items:center;margin:3px 0;font-size:12.5px}.ap-bars i{display:block;height:14px;border-radius:5px}.ap-bars em{font-style:normal;font-weight:800;text-align:right}
+.ap-chart .svgfig{border:0}
+.ap-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}.ap-cards div{border:1.6px solid #c9cfdd;border-radius:8px;padding:6px;font-size:12px;text-align:center;font-weight:700}
+.ap-grid{display:grid;gap:3px}.ap-grid span{aspect-ratio:1;background:#eef1f8;border-radius:3px;font-size:10px;display:grid;place-items:center;font-weight:800}
+table.ap-tb{border-collapse:collapse;font-size:12px;width:100%}.ap-tb th,.ap-tb td{border:1px solid #dfe4ef;padding:3px 5px}.ap-tb th{background:#f4f6fb}
+.ap-tg{display:flex;gap:8px;align-items:center;font-weight:800}.ap-tg i{width:34px;height:18px;border-radius:10px;background:var(--blue);position:relative}.ap-tg i::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.ap-chips{display:flex;gap:5px;flex-wrap:wrap}.ap-chips span{border:1.6px solid #c9cfdd;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:800}.ap-chips span.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.ap-note{font-size:12px;color:#b4541c;background:#fff4e8;border-radius:8px;padding:4px 8px}
+.ap-img{border:1.6px dashed #c9cfdd;border-radius:10px;padding:18px 8px;text-align:center;color:#8a97bb;font-weight:800}
+/* table fig */
+table.dtb{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+table.dtb th,table.dtb td{border:1.5px solid var(--line);padding:5px 8px;text-align:center}
+table.dtb th{background:var(--a)}
+/* flow */
+.flowf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:10px;border:1.6px solid var(--line);border-radius:14px;background:#fff}
+.fs{border:2px solid var(--ink);border-radius:12px;padding:6px 10px;font-weight:800;font-size:13.5px;background:#fbfcff;max-width:190px;text-align:center}
+.fs i{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--a);font-style:normal;font-size:12px;margin-right:5px}
+.fa{color:var(--d);font-size:18px}
+/* cards */
+.cardsf{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.ck{border:2.2px solid var(--ck);border-radius:12px;background:#fff;overflow:hidden;font-size:13px}
+.ckh{background:var(--ck);color:#fff;font-weight:900;padding:5px 10px}
+.ckl{padding:2px 10px}.ckl:first-of-type{padding-top:6px}
+.ckf{margin-top:6px;padding:4px 10px;background:#f4f6fb;font-size:12px;color:var(--ink2)}
+/* five */
+.fivef{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.fv{border:2.2px solid var(--fv);border-radius:14px;background:#fff;overflow:hidden}
+.fvt{background:var(--fv);color:#fff;font-weight:900;font-size:13px;padding:3px 10px}
+.fvh{font-weight:900;padding:6px 10px 0;font-size:14.5px}
+.fvd{padding:2px 10px 8px;font-size:13px;color:var(--ink2)}
+/* prompt & code */
+.promptf,.codef{border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff}
+.pfh{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--a);border-bottom:2px solid var(--ink)}
+.promptf pre,.codef pre{margin:0;padding:12px 14px;white-space:pre-wrap;font-family:"D2Coding","Nanum Gothic Coding",Consolas,"Noto Sans Mono CJK KR",monospace;font-size:13.5px;line-height:1.6}
+.codef pre{background:#1e2433;color:#e6edf7}
+/* print */
+@page{size:A4;margin:14mm 12mm 14mm 12mm}
+@media print{
+ body{background:#fff;font-size:13px}
+ .topbar,.no-print,.done,.cpy,.tb-btn{display:none!important}
+ .chap{margin:0 auto;max-width:none;padding:0}
+ .chap-cover{box-shadow:none}
+ .sec{break-inside:auto;border-width:1.5px;padding:12px 14px;margin-top:12px}
+ ol.steps>li{padding:10px 12px 8px 52px}
+ a{color:var(--ink);text-decoration:none}
+ .refs a::after{content:" ("attr(href)")";font-size:10.5px;color:#56648C;word-break:break-all}
+ .pbreak{break-before:page}
+}
+</style></head><body><section class="chap a-sw" id="sw-04"><div class="chap-cover"><div class="chap-num"><small>③ SW</small>4</div><div><h2>③-4 사람 신경망</h2><p class="hook">방문자 3명이 뉴런 명찰을 걸고 가격·거리·별점에 가중치 카드를 골라 맛집을 판정한 뒤, 틀린 만큼 가중치를 고쳐 정답 수를 늘리고 TensorFlow Playground로 층을 쌓아 보는 사람 신경망 놀이</p>
+   <ul class="chips"><li class="c">SW·AI 개발</li><li>입문</li><li>S형 · 소프트웨어 체험</li><li>1인 6분 · 동시 3명</li><li>준비물 한도 50,000원</li></ul>
+   <div class="bigq"><small>우리 부스의 탐구 질문</small>뉴런 3개가 모이면 “맛집”을 판정할 수 있을까? 학습이란 가중치를 어떻게 고치는 걸까?</div>
+   </div></div><div class="sec"><h3><span class="sn">1</span>이 부스를 만들면</h3><div class="two"><div><b>할 수 있게 되는 것</b><ul class="goals"><li>뉴런 = 입력×가중치의 합이 기준을 넘으면 1이라는 것을 계산으로 보인다</li><li>틀린 예시를 보고 가중치를 고치는 것이 “학습”임을 체험한다</li><li>층을 쌓으면 복잡한 경계를 만들 수 있음을 Playground로 확인한다</li></ul></div><div><b>현장의 AI · 진로 연결</b><p style="margin:4px 0">모든 딥러닝 모델은 이런 뉴런 수백만 개로 이루어져 있어요. 머신러닝 엔지니어는 가중치를 자동으로 고치는 학습 과정을 설계하고 조절해요.</p><div class="tags"><span>👩‍💼 AI 연구원 · 컴퓨터공학·수학</span><span>👩‍💼 머신러닝 엔지니어 · 컴퓨터공학·통계</span><span>👩‍💼 수학 교사 · 수학교육</span></div></div></div></div><div class="sec"><h3><span class="sn">2</span>내가 배운 것을 어디에 쓰나</h3><table class="tb"><tr><th style="width:34%">배운 곳</th><th>이 부스에서 쓰는 곳</th></tr><tr><td><b>캠프 머신러닝 강좌</b></td><td>뉴런·가중치 → 놀이</td></tr><tr><td><b>수학(일차식·가중합)</b></td><td>계산</td></tr><tr><td><b>활동기록지 09 TensorFlow Playground</b></td><td>층 비교</td></tr></table>
+   <h4 style="margin:14px 0 8px">📒 오늘의 단어장</h4><dl class="words"><div class="word"><dt>가중치</dt><dd>입력이 얼마나 중요한지를 나타내는 수. 음수면 “싫어하는” 조건.</dd></div><div class="word"><dt>기준값(편향)</dt><dd>가중합이 이 값을 넘으면 1(맛집).</dd></div><div class="word"><dt>은닉층</dt><dd>입력과 출력 사이의 층. 많을수록 복잡한 문제를 풀어요.</dd></div><div class="word"><dt>학습</dt><dd>틀린 만큼 가중치를 조금씩 고치는 것.</dd></div></dl></div><div class="sec"><h3><span class="sn">3</span>만들기 전에 먼저 공부하기</h3><ol class="study"><li><b>뉴런 계산</b> — 가중합 = 가격×w1 + 거리×w2 + 별점×w3 </li><li><b>신경망 영상</b> — nn-yt </li><li><b>TensorFlow Playground</b> — 나선형 데이터, 은닉층 0개 vs 2개 <a href="https://playground.tensorflow.org/" target="_blank" rel="noopener">TensorFlow Playground ↗</a></li><li><b>Playground 영상</b> — tfp-yt </li></ol></div><div class="sec"><h3><span class="sn">4</span>준비물 · 예산</h3><div class="two"><div><b>🛒 사야 할 것 (신청서 준비물 표에 적기)</b><table class="tb"><tr><th>품목</th><th>수량</th><th>예상 단가</th></tr><tr><td>가중치 카드(−2~+2) 3세트 코팅</td><td class="n">1</td><td class="n">6,000원</td></tr><tr><td>입력 카드(식당 8곳) 코팅</td><td class="n">1</td><td class="n">5,000원</td></tr><tr><td>뉴런 목걸이 명찰</td><td class="n">3</td><td class="n">1,500원</td></tr><tr><td>예시판 A2</td><td class="n">1</td><td class="n">6,000원</td></tr><tr><td>진로 카드 출력</td><td class="n">1</td><td class="n">8,000원</td></tr></table><div class="sum ok"><span>합계 약 29,500원</span><span>S형 한도 50,000원 안</span></div></div>
+   <div><b>📦 빌릴 것 (학교·디지털새싹·캠프 보유분)</b><div class="tags" style="margin:6px 0 12px"><span>노트북 1대(Playground)</span><span>태블릿 1대(뉴런 앱)</span></div><b>🌐 쓸 사이트·도구</b><div class="tags" style="margin-top:6px"><a href="https://playground.tensorflow.org/" target="_blank" rel="noopener">TensorFlow Playground</a><a href="https://gemini.google.com/" target="_blank" rel="noopener">Google Gemini (캔버스)</a></div></div></div></div><div class="sec"><h3><span class="sn">5</span>따라 만들기 <small style="font-weight:700;color:var(--ink2);font-size:13px">— 한 단계씩, 끝나면 ‘다 했어요’에 체크</small></h3><ol class="steps"><li><label class="done"><input type="checkbox" data-k="sw-04-s0">다 했어요</label><h4>맛집 예시 8개 만들기</h4><figure class="gfig f-table"><table class="dtb"><thead><tr><th>식당</th><th>가격(싸면 1~3)</th><th>거리(가까우면 1~3)</th><th>별점(1~3)</th><th>정답</th></tr></thead><tbody><tr><td>A</td><td>3</td><td>3</td><td>2</td><td>맛집</td></tr><tr><td>B</td><td>1</td><td>2</td><td>3</td><td>맛집</td></tr><tr><td>C</td><td>2</td><td>1</td><td>1</td><td>아님</td></tr><tr><td>D</td><td>3</td><td>1</td><td>1</td><td>아님</td></tr><tr><td>E</td><td>1</td><td>3</td><td>3</td><td>맛집</td></tr><tr><td>F</td><td>2</td><td>2</td><td>2</td><td>맛집</td></tr><tr><td>G</td><td>1</td><td>1</td><td>2</td><td>아님</td></tr><tr><td>H</td><td>3</td><td>2</td><td>1</td><td>아님</td></tr></tbody></table><figcaption>그림: 입력 카드 8장의 데이터 — 정답은 팀 회의로 정해요</figcaption></figure></li><li><label class="done"><input type="checkbox" data-k="sw-04-s1">다 했어요</label><h4>뉴런 1개 계산 연습</h4><figure class="gfig f-cards"><div class="cardsf"><div class="ck" style="--ck:#6A4CC2"><div class="ckh">뉴런 계산 카드</div><div class="ckl">식당 A: 가격3 · 거리3 · 별점2</div><div class="ckl">가중치: 1 · 1 · 2</div><div class="ckl">가중합 = 3×1 + 3×1 + 2×2 = 10</div><div class="ckl">기준값 8 → 10 &gt; 8 → 맛집!</div><div class="ckf">틀리면? 틀리게 만든 입력의 가중치를 1씩 고쳐요</div></div></div><figcaption>그림: 방문자에게 보여 줄 계산 예</figcaption></figure></li><li><label class="done"><input type="checkbox" data-k="sw-04-s2">다 했어요</label><h4>뉴런 앱 (도구 T1)</h4><figure class="gfig f-app"><div class="appui "><div class="apbar"><i></i><i></i><i></i><span>사람 신경망</span></div><div class="apbody"><div class="ap-sl"><label>가격 가중치</label><div class="ap-tr"><i style="width:62%"></i><b style="left:62%"></b></div><em>+1</em></div><div class="ap-sl"><label>거리 가중치</label><div class="ap-tr"><i style="width:50%"></i><b style="left:50%"></b></div><em>0</em></div><div class="ap-sl"><label>별점 가중치</label><div class="ap-tr"><i style="width:88%"></i><b style="left:88%"></b></div><em>+2</em></div><div class="ap-sl"><label>기준값</label><div class="ap-tr"><i style="width:55%"></i><b style="left:55%"></b></div><em>7</em></div><div class="ap-big"><b>맞힌 예시 6 / 8</b><small></small></div><div class="ap-grid" style="grid-template-columns:repeat(8,1fr)"><span style="background:#C8E6C9">A</span><span style="background:#C8E6C9">B</span><span style="background:#FFCDD2">C</span><span style="background:#C8E6C9">D</span><span style="background:#C8E6C9">E</span><span style="background:#C8E6C9">F</span><span style="background:#FFCDD2">G</span><span style="background:#C8E6C9">H</span></div></div></div><figcaption>그림: 바이브 코딩으로 만들 앱 화면 설계도(와이어프레임) — 프롬프트를 쓰기 전에 종이에 먼저 그려 보세요</figcaption></figure></li><li><label class="done"><input type="checkbox" data-k="sw-04-s3">다 했어요</label><h4>Playground 장면 연습</h4><figure class="gfig f-chart"><svg viewBox="0 0 420 200" class="svgfig"><line x1="46" y1="52" x2="166" y2="33" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="46" y1="52" x2="166" y2="71" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="46" y1="52" x2="166" y2="109" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="46" y1="52" x2="166" y2="147" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="46" y1="128" x2="166" y2="33" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="46" y1="128" x2="166" y2="71" stroke="#9ec9ff" stroke-width="2" opacity=".7"/><line x1="46" y1="128" x2="166" y2="109" stroke="#E2457A" stroke-width="3" opacity=".7"/><line x1="46" y1="128" x2="166" y2="147" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="33" x2="286" y2="33" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="166" y1="33" x2="286" y2="71" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="33" x2="286" y2="109" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="33" x2="286" y2="147" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="166" y1="71" x2="286" y2="33" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="71" x2="286" y2="71" stroke="#9ec9ff" stroke-width="2" opacity=".7"/><line x1="166" y1="71" x2="286" y2="109" stroke="#E2457A" stroke-width="3" opacity=".7"/><line x1="166" y1="71" x2="286" y2="147" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="109" x2="286" y2="33" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="109" x2="286" y2="71" stroke="#E2457A" stroke-width="3" opacity=".7"/><line x1="166" y1="109" x2="286" y2="109" stroke="#9ec9ff" stroke-width="2" opacity=".7"/><line x1="166" y1="109" x2="286" y2="147" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="147" x2="286" y2="33" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="166" y1="147" x2="286" y2="71" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="147" x2="286" y2="109" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="166" y1="147" x2="286" y2="147" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="286" y1="33" x2="406" y2="90" stroke="#E2457A" stroke-width="1" opacity=".7"/><line x1="286" y1="71" x2="406" y2="90" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="286" y1="109" x2="406" y2="90" stroke="#9ec9ff" stroke-width="1" opacity=".7"/><line x1="286" y1="147" x2="406" y2="90" stroke="#E2457A" stroke-width="1" opacity=".7"/><circle cx="46" cy="52" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="46" cy="128" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><text x="46" y="192" font-size="12" text-anchor="middle" fill="#56648C">입력 x1,x2</text><circle cx="166" cy="33" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="166" cy="71" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="166" cy="109" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="166" cy="147" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><text x="166" y="192" font-size="12" text-anchor="middle" fill="#56648C">은닉층1</text><circle cx="286" cy="33" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="286" cy="71" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="286" cy="109" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><circle cx="286" cy="147" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><text x="286" y="192" font-size="12" text-anchor="middle" fill="#56648C">은닉층2</text><circle cx="406" cy="90" r="13" fill="#fff" stroke="#2E5BFF" stroke-width="2.2"/><text x="406" y="192" font-size="12" text-anchor="middle" fill="#56648C">출력</text></svg></figure><figure class="gfig f-table"><table class="dtb"><thead><tr><th>설정</th><th>값</th></tr></thead><tbody><tr><td>데이터</td><td>나선형(Spiral)</td></tr><tr><td>입력</td><td>X1, X2</td></tr><tr><td>비교 1</td><td>은닉층 0개 → 경계가 직선뿐</td></tr><tr><td>비교 2</td><td>은닉층 2개 × 뉴런 4개 → 나선을 감쌈</td></tr><tr><td>학습률</td><td>0.03</td></tr></tbody></table><figcaption>그림: Playground 비교 설정</figcaption></figure></li></ol>
+   <h4 style="margin:14px 0 4px">📋 이 부스 앱의 바이브 코딩 프롬프트 (6대 요소)</h4><figure class="gfig f-prompt"><div class="promptf"><div class="pfh"><b>바이브 코딩 프롬프트</b><button type="button" class="cpy" data-copy="[역할] 고등학생 박람회 부스용 수학·AI 교육 앱 개발자
+[목표] 뉴런 하나의 가중합 판정을 슬라이더로 체험하는 앱
+[기능] 1) 아래 식당 8곳 데이터(가격·거리·별점 1~3, 정답)를 코드에 넣기 2) 가중치 3개(−2~+2, 정수)와 기준값 슬라이더 3) 식당마다 가중합 계산식과 판정 표시, 정답과 다르면 빨강 4) 맞힌 개수 크게 5) ‘한 번 학습’ 버튼: 틀린 예시 하나를 골라 가중치를 1씩 고치는 과정을 보여 주기
+[제약] HTML 한 파일, 한국어, 외부 AI 호출 없음
+(식당 데이터 붙여 넣기)">복사</button></div><pre>[역할] 고등학생 박람회 부스용 수학·AI 교육 앱 개발자
+[목표] 뉴런 하나의 가중합 판정을 슬라이더로 체험하는 앱
+[기능] 1) 아래 식당 8곳 데이터(가격·거리·별점 1~3, 정답)를 코드에 넣기 2) 가중치 3개(−2~+2, 정수)와 기준값 슬라이더 3) 식당마다 가중합 계산식과 판정 표시, 정답과 다르면 빨강 4) 맞힌 개수 크게 5) ‘한 번 학습’ 버튼: 틀린 예시 하나를 골라 가중치를 1씩 고치는 과정을 보여 주기
+[제약] HTML 한 파일, 한국어, 외부 AI 호출 없음
+(식당 데이터 붙여 넣기)</pre></div><figcaption>그림: 제미나이 캔버스에 붙여 넣을 프롬프트 — [ ] 안을 우리 팀 내용으로 바꾸세요</figcaption></figure></div><div class="sec"><h3><span class="sn">6</span>탐구 과정 — 부스를 만들며 직접 확인할 것</h3><div class="inq"><div>탐구 질문</div><div>은닉층을 늘리면 나선형 데이터의 오차(Test loss)는 얼마나 줄어들까?</div><div>가설</div><div>은닉층이 없으면 직선 경계뿐이라 오차가 크고, 2개 이상이면 크게 줄 것이다.</div><div>변인</div><div>독립변인: 은닉층 수(0/1/2/3) · 종속변인: 500 에포크 후 Test loss · 통제변인: 뉴런 수 4, 학습률</div><div>실험·데이터 수집</div><div>• Playground에서 조건별 3회 실행해 평균</div><div>분석</div><div>층 수–오차 그래프</div><div>결론 쓰는 법</div><div>“은닉층 0개 오차 ○, 2개 ○ — 층이 복잡한 경계를 만든다. 3개부터는 차이가 작다.”</div></div>
+   <figure class="gfig f-chart"><svg viewBox="0 0 420 220" class="svgfig"><line x1="46" y1="186" x2="406" y2="186" stroke="#9aa3b8"/><line x1="46" y1="14" x2="46" y2="186" stroke="#9aa3b8"/><text x="226" y="214" font-size="12" text-anchor="middle" fill="#56648C">은닉층 수</text><text x="12" y="100" font-size="12" text-anchor="middle" fill="#56648C" transform="rotate(-90 12 100)">오차</text><path d="M46 32.76363636363638 L158.5 89.05454545454546 L271 160.9818181818182 L383.5 167.23636363636365" fill="none" stroke="#2E5BFF" stroke-width="2.6" /><text x="379.5" y="159.23636363636365" font-size="12" text-anchor="end" fill="#2E5BFF" font-weight="700">Test loss</text></svg><figcaption>그림: 결과 예시</figcaption></figure></div><div class="sec"><h3><span class="sn">7</span>박람회 날 운영하기</h3><figure class="gfig f-five"><div class="fivef"><div class="fv" style="--fv:#2E5BFF"><div class="fvt">30초</div><div class="fvh">명찰</div><div class="fvd">방문자 3명 = 가격·거리·별점 뉴런</div></div><div class="fv" style="--fv:#1F9E7A"><div class="fvt">1분</div><div class="fvh">판정</div><div class="fvd">가중치 카드 고르기 → 8곳 판정</div></div><div class="fv" style="--fv:#6A4CC2"><div class="fvt">2분</div><div class="fvh">학습</div><div class="fvd">틀린 곳 보고 가중치 고치기</div></div><div class="fv" style="--fv:#E2457A"><div class="fvt">1분 30초</div><div class="fvh">층 쌓기</div><div class="fvd">Playground 0층 vs 2층</div></div><div class="fv" style="--fv:#E9A400"><div class="fvt">30초</div><div class="fvh">진로</div><div class="fvd">머신러닝 엔지니어 카드</div></div></div><figcaption>그림: 방문자 1명의 체험 흐름(시간표) — 시계를 보며 리허설해 보세요</figcaption></figure><div class="say">🎤 핵심 대사: “AI의 학습은 틀린 만큼 가중치를 조금씩 고치는 일이에요. 여러분이 방금 한 것처럼요.”</div><div class="fail"><b>🤖 AI가 틀리는 순간</b> — 뉴런 하나로는 “싸지만 너무 먼 곳”처럼 조건이 엇갈리는 식당을 다 맞히지 못해요.</div>
+   <h4 style="margin:14px 0 6px">역할 나누기</h4><div class="roles"><div><b>진행</b>맞이·설명·핵심 대사, 시간 관리</div><div><b>체험 도우미</b>방문자 옆에서 조작을 돕고 질문에 답하기</div><div><b>기기 담당</b>앱·센서·충전·Plan B 전환</div><div><b>기록</b>진로 카드·도장·대기 줄·방문자 수 기록</div></div></div><div class="sec"><h3><span class="sn">8</span>Plan B · 안전과 윤리</h3><div class="two"><div><b>🛟 이럴 땐 이렇게</b><ul><li>방문자가 1명이면 운영자 2명이 뉴런 역할을 해요.</li><li>Playground가 안 되면 캡처 화면으로 설명.</li></ul></div><div><b>🛡 꼭 지킬 것</b><ul><li>방문자 이름·학번·얼굴 사진은 남기지 않습니다(별명과 숫자만).</li><li>AI로 만든 결과물에는 ‘AI 생성’ 표시를 합니다.</li></ul></div></div></div><div class="sec"><h3><span class="sn">9</span>4주 준비 일정</h3><div class="week"><div><b>1주</b>예시 8개·카드 제작</div><div><b>2주</b>뉴런 앱, Playground 장면</div><div><b>3주</b>은닉층 탐구, 3인 리허설</div><div><b>마무리</b>명찰·카드 코팅</div></div></div><div class="sec apply"><h3><span class="sn">10</span>신청서 작성 예시 <small style="font-weight:700;color:var(--ink2);font-size:13px">— 그대로 베끼지 말고 우리 팀만의 변형을 더해 고쳐 쓰세요</small></h3><dl><div><dt>한 줄 소개</dt><dd>방문자 3명이 뉴런이 되어 가중치 카드로 맛집을 판정하고 가중치를 고쳐 학습한 뒤, TensorFlow Playground로 층을 쌓아 보는 사람 신경망 놀이<button type="button" class="cpy no-print" data-copy="방문자 3명이 뉴런이 되어 가중치 카드로 맛집을 판정하고 가중치를 고쳐 학습한 뒤, TensorFlow Playground로 층을 쌓아 보는 사람 신경망 놀이">복사</button></dd></div><div><dt>배운 내용을 어떻게 연결했나요?</dt><dd>캠프 머신러닝 강좌의 뉴런·가중치를 놀이로 바꾸고, 수학의 일차식·가중합으로 계산하며, 활동기록지 09의 TensorFlow Playground로 층의 효과를 보여 줍니다.<button type="button" class="cpy no-print" data-copy="캠프 머신러닝 강좌의 뉴런·가중치를 놀이로 바꾸고, 수학의 일차식·가중합으로 계산하며, 활동기록지 09의 TensorFlow Playground로 층의 효과를 보여 줍니다.">복사</button></dd></div><div><dt>방문자가 바꿔 볼 수 있는 ‘AI의 원리’</dt><dd>방문자가 가중치를 직접 바꾸며 판정 결과가 달라지는 것을 보고, 틀린 만큼 가중치를 고치는 것이 학습이며 층을 쌓으면 복잡한 문제를 푼다는 원리를 체험합니다.<button type="button" class="cpy no-print" data-copy="방문자가 가중치를 직접 바꾸며 판정 결과가 달라지는 것을 보고, 틀린 만큼 가중치를 고치는 것이 학습이며 층을 쌓으면 복잡한 문제를 푼다는 원리를 체험합니다.">복사</button></dd></div><div><dt>맞이 (30초)</dt><dd>방문자 3명에게 가격·거리·별점 뉴런 명찰을 걸어 줍니다.<button type="button" class="cpy no-print" data-copy="방문자 3명에게 가격·거리·별점 뉴런 명찰을 걸어 줍니다.">복사</button></dd></div><div><dt>체험 (3~4분)</dt><dd>가중치 카드로 식당 8곳을 판정하고, 틀린 곳을 보며 가중치를 고쳐 맞힌 수를 늘립니다.<button type="button" class="cpy no-print" data-copy="가중치 카드로 식당 8곳을 판정하고, 틀린 곳을 보며 가중치를 고쳐 맞힌 수를 늘립니다.">복사</button></dd></div><div><dt>AI가 틀리는 순간 (1분)</dt><dd>뉴런 하나로는 조건이 엇갈리는 식당을 맞히지 못하는 한계를 확인합니다.<button type="button" class="cpy no-print" data-copy="뉴런 하나로는 조건이 엇갈리는 식당을 맞히지 못하는 한계를 확인합니다.">복사</button></dd></div><div><dt>정리·진로 카드 (1분)</dt><dd>Playground에서 은닉층을 늘려 나선형 문제가 풀리는 모습을 본 뒤 머신러닝 엔지니어 진로 카드를 받습니다.<button type="button" class="cpy no-print" data-copy="Playground에서 은닉층을 늘려 나선형 문제가 풀리는 모습을 본 뒤 머신러닝 엔지니어 진로 카드를 받습니다.">복사</button></dd></div><div><dt>Plan B</dt><dd>인원이 적으면 운영자가 뉴런 역할을 하고, Playground 오류 시 캡처 화면으로 설명합니다.<button type="button" class="cpy no-print" data-copy="인원이 적으면 운영자가 뉴런 역할을 하고, Playground 오류 시 캡처 화면으로 설명합니다.">복사</button></dd></div></dl></div><div class="sec"><h3><span class="sn">11</span>더 해 보기 · 참고 자료</h3><ul><li>방문자가 정한 “우리 학교 맛집 기준” 데이터로 가중치 찾기 대회</li></ul><ul class="refs"><li><i>도구</i><a href="https://playground.tensorflow.org/" target="_blank" rel="noopener">TensorFlow Playground</a></li><li><i>영상</i><a href="https://www.youtube.com/watch?v=rti0Ozfeqn8" target="_blank" rel="noopener">Neural Networks Made Simple with TensorFlow Playground</a></li><li><i>영상</i><a href="https://www.youtube.com/watch?v=jPs3n9Vou9c" target="_blank" rel="noopener">추천 영상: 신경망은 어떻게 배울까</a></li><li><i>도구</i><a href="https://gemini.google.com/" target="_blank" rel="noopener">Google Gemini (캔버스)</a></li></ul></div></section>
+<script>
+document.addEventListener('click',e=>{const b=e.target.closest('.cpy');if(!b)return;const t=b.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent='복사됨 ✓';setTimeout(()=>b.textContent='복사',1500)}).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');b.textContent='복사됨 ✓'}catch(_){}a.remove()})});
+document.querySelectorAll('input[data-k]').forEach(c=>{try{c.checked=localStorage.getItem('gb_'+c.dataset.k)==='1'}catch(_){}c.addEventListener('change',()=>{try{localStorage.setItem('gb_'+c.dataset.k,c.checked?'1':'0')}catch(_){}})});
+const sz=document.getElementById('size');if(sz)sz.onclick=()=>document.body.classList.toggle('big');
+</script></body></html>
