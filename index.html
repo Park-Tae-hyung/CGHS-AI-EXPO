@@ -607,12 +607,6 @@ body.gOpen main{z-index:60}
           <div class="flabel">사용할 AI 도구<span class="req">*</span></div>
           <div class="choices" id="aiTools" style="margin:8px 0 14px"></div>
           <div class="field"><label for="tool_etc">기타 도구</label><input type="text" id="tool_etc" name="tool_etc" maxlength="200"></div>
-          <div class="field"><label for="prompt">핵심 프롬프트 (바이브 코딩 6대 요소)<span class="sub">[역할] [목표] [사용자] [기능] [디자인] [제약]</span></label><textarea id="prompt" name="prompt" maxlength="2000" style="min-height:140px;font-family:ui-monospace,Consolas,monospace;font-size:13px">[역할]
-[목표]
-[사용자]
-[기능]
-[디자인]
-[제약] 외부 AI 호출 없음, 개인정보 입력칸 없음</textarea></div>
           <div class="field"><label for="proto">프로토타입 링크(있으면)</label><input type="url" id="proto" name="proto" maxlength="300" placeholder="https://"></div>
         </div>
 
@@ -1047,16 +1041,15 @@ const vals=name=>$$(`input[name="${name}"]:checked`).map(i=>i.value);
 function collect(){
   const f=id=>$("#"+id).value.trim();
   return {grade:f("grade"),leader_class:f("leader_class"),leader_no:f("leader_no"),leader_name:f("leader_name"),leader_role:f("leader_role"),team_name:f("team_name"),
-    members:$$("#members .member").map(d=>({g:d.querySelector("[data-f=g]").value,c:d.querySelector("[data-f=c]").value,n:d.querySelector("[data-f=n]").value,name:d.querySelector("[data-f=name]").value.trim(),role:d.querySelector("[data-f=role]").value})).filter(m=>m.name),
+    members:$$("#members .member").map(d=>({g:d.querySelector("[data-f=g]").value||$("#grade").value,c:d.querySelector("[data-f=c]").value,n:d.querySelector("[data-f=n]").value,name:d.querySelector("[data-f=name]").value.trim(),role:d.querySelector("[data-f=role]").value})).filter(m=>m.name),
     area1:(document.querySelector('input[name=area1]:checked')||{}).value||"",area2:f("area2"),careers:f("careers"),career_ai:f("career_ai"),
     booth_title:f("booth_title"),booth_type:f("booth_type"),one_line:f("one_line"),example_ref:f("example_ref"),start_acts:vals("start_acts"),learned:f("learned"),ai_principle:f("ai_principle"),
-    minutes:f("minutes"),capacity:f("capacity"),sc_greet:f("sc_greet"),sc_do:f("sc_do"),sc_fail:f("sc_fail"),sc_end:f("sc_end"),ai_tools:vals("ai_tools"),tool_etc:f("tool_etc"),prompt:$("#prompt").value,proto:f("proto"),
+    minutes:f("minutes"),capacity:f("capacity"),sc_greet:f("sc_greet"),sc_do:f("sc_do"),sc_fail:f("sc_fail"),sc_end:f("sc_end"),ai_tools:vals("ai_tools"),tool_etc:f("tool_etc"),proto:f("proto"),
     supplies:getSupplies(),budget:updateBudget(),lend:vals("lend"),power:f("power"),space:f("space"),plan_b:f("plan_b"),ad_type:f("ad_type"),ad_copy:f("ad_copy"),
     ethics:vals("ethics"),pledge:$("#pledge").checked};
 }
 function fill(d){
   ["grade","leader_class","leader_no","leader_name","leader_role","team_name","careers","career_ai","booth_title","booth_type","one_line","example_ref","learned","ai_principle","minutes","capacity","sc_greet","sc_do","sc_fail","sc_end","tool_etc","proto","power","space","plan_b","ad_type","ad_copy"].forEach(k=>{if(d[k]!=null&&$("#"+k))$("#"+k).value=d[k]});
-  if(d.prompt!=null)$("#prompt").value=d.prompt;
   $$('input[name=area1]').forEach(i=>i.checked=i.value===d.area1);syncArea2();if(d.area2)$("#area2").value=d.area2;
   [["start_acts","start_acts"],["ai_tools","ai_tools"],["lend","lend"],["ethics","ethics"]].forEach(([n,k])=>$$(`input[name=${n}]`).forEach(i=>i.checked=(d[k]||[]).includes(i.value)));
   $("#pledge").checked=!!d.pledge;
@@ -1077,6 +1070,7 @@ function validate(s){
     if($("#leader_no").value.trim()&&!inR($("#leader_no").value,1,99)){ok=false;$("#leader_no").classList.add("invalid");msg=msg||"번호는 1~99 사이 숫자로 적어 주세요(학번 전체가 아니라 번호만)."}
     $$("#members [data-f=c],#members [data-f=n]").forEach(el=>{const v=el.value.trim();const bad=v&&!inR(v,1,el.dataset.f==="c"?30:99);el.classList.toggle("invalid",!!bad);if(bad){ok=false;msg=msg||"팀원의 반·번호를 확인해 주세요."}});
     const ms=collect().members;if(ms.length<2){ok=false;msg=msg||"팀원 이름을 2명 이상 적어 주세요."}
+    $$("#members .member").forEach(d=>{if(!d.querySelector("[data-f=name]").value.trim())return;["c","n"].forEach(k=>{const el=d.querySelector(`[data-f=${k}]`);if(!el.value.trim()){el.classList.add("invalid");ok=false;msg=msg||"팀원의 반·번호도 적어 주세요."}})});
     if($("#leader_name").value.trim().length===1){ok=false;$("#leader_name").classList.add("invalid")}}
   if(s===1){if(!document.querySelector('input[name=area1]:checked')){ok=false;msg="1지망 진로 영역을 골라 주세요."}need(["careers","career_ai"])}
   if(s===2){need(["booth_title","booth_type","one_line","learned","ai_principle"]);if(!vals("start_acts").length){ok=false;msg="출발 활동을 하나 이상 고르세요."}}
@@ -1095,7 +1089,7 @@ function go(s){cur=Math.max(0,Math.min(5,s));steps.forEach((el,i)=>el.classList.
   if(cur===5)renderReview();
   if(typeof guideSync==="function")guideSync();
 }
-$("#nextBtn").onclick=()=>{if(validate(cur)){go(cur+1);$("#apply").scrollIntoView({behavior:"smooth"})}};
+$("#nextBtn").onclick=()=>{if(validate(cur)){go(cur+1);const y=$("#apply .formShell").getBoundingClientRect().top+scrollY-84;scrollTo({top:y,behavior:"smooth"})}};
 $("#prevBtn").onclick=()=>go(cur-1);
 $$("#stepList li").forEach(li=>li.onclick=()=>{const t=+li.dataset.s;if(t<=cur)return go(t);for(let i=cur;i<t;i++){if(!validate(i))return go(i)}go(t)});
 $("#resetBtn").onclick=()=>{openModal(`<h3 id="mTitle">작성 내용을 지울까요?</h3><p style="margin:10px 0 18px;color:var(--muted)">이 기기에 저장된 초안이 모두 지워집니다.</p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn ghost" onclick="closeModal()">취소</button><button class="btn gold" id="doReset">지우기</button></div>`);
@@ -1166,7 +1160,7 @@ function detailHTML(r){const d=r.data||{};const ex=P.find(p=>String(p.id)===Stri
   <div class="sec">① 팀</div>${R("대표",`${r.grade}학년 ${r.leader_class}반 ${r.leader_no}번 ${r.leader_name} (${d.leader_role||""})`)}${R("팀원",(d.members||[]).map(m=>`${m.g||""}-${m.c||""}-${m.n||""} ${m.name} (${m.role||"-"})`).join("\n"))}
   <div class="sec">② 진로</div>${R("영역",`1지망 ${a1.n||""} ${a1.name||r.area1}${r.area2?` / 2지망 ${a2.n} ${a2.name}`:""}`)}${R("희망 진로",d.careers)}${R("현장의 AI",d.career_ai)}
   <div class="sec">③ 기획</div>${R("부스 유형",r.booth_type)}${R("한 줄 소개",d.one_line)}${R("참고 예시",ex?`${ex.no} ${ex.t}`:"직접 기획")}${R("출발 활동",(d.start_acts||[]).join(", "))}${R("배운 내용 연결",d.learned)}${R("바꿔 볼 AI 원리",d.ai_principle)}
-  <div class="sec">④ 시나리오</div>${R("시간·인원",`${d.minutes||"-"}분 · 동시 ${d.capacity||"-"}명`)}${R("맞이",d.sc_greet)}${R("체험",d.sc_do)}${R("AI가 틀리는 순간",d.sc_fail)}${R("정리·진로 카드",d.sc_end)}${R("AI 도구",[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "))}${R("프롬프트",d.prompt)}${R("프로토타입",d.proto)}
+  <div class="sec">④ 시나리오</div>${R("시간·인원",`${d.minutes||"-"}분 · 동시 ${d.capacity||"-"}명`)}${R("맞이",d.sc_greet)}${R("체험",d.sc_do)}${R("AI가 틀리는 순간",d.sc_fail)}${R("정리·진로 카드",d.sc_end)}${R("AI 도구",[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "))}${R("프로토타입",d.proto)}
   <div class="sec">⑤ 준비</div>${R("준비물",(d.supplies||[]).map(s=>`${s.item} × ${s.qty} @ ${won(s.price)}원${s.link?"  "+s.link:""}`).join("\n"))}${R("합계",won(d.budget)+"원")}${R("대여 기자재",(d.lend||[]).join(", "))}${R("전기·인터넷",d.power)}${R("공간",d.space)}${R("Plan B",d.plan_b)}${R("AI 광고",`${d.ad_type||""} · ${d.ad_copy||""}`)}
   <div class="sec">⑥ 안전·윤리</div>${R("약속",(d.ethics||[]).length+" / "+ETHICS.length+" 체크")}${r.teacher_memo?R("선생님 의견",r.teacher_memo):""}
   </div>`}
@@ -1209,20 +1203,21 @@ $("#cfgBtn").onclick=()=>{const dl=new Date(DEADLINE.getTime()+9*36e5).toISOStri
 
 $("#xlsxBtn").onclick=()=>{if(!window.XLSX)return toast("엑셀 도구를 불러오는 중입니다. 잠시 뒤 다시 누르세요.");
   const list=filtered();if(!list.length)return toast("내려받을 신청서가 없습니다");
+  const hak=(g,c,n)=>(g&&c&&n)?`${+g}${String(+c).padStart(2,"0")}${String(+n).padStart(2,"0")}`:"";
   const rows=list.map(r=>{const d=r.data||{};const ex=P.find(p=>String(p.id)===String(d.example_ref));const m=d.members||[];
     return {"접수번호":r.app_code,"상태":r.status,"선생님 의견":r.teacher_memo||"","제출 일시":new Date(r.created_at).toLocaleString("ko-KR"),"수정 일시":new Date(r.updated_at).toLocaleString("ko-KR"),
-      "학년":r.grade,"반":r.leader_class,"번호":r.leader_no,"대표자":r.leader_name,"대표 역할":d.leader_role||"","팀명":r.team_name,"인원":m.length+1,
-      "팀원":m.map(x=>`${x.g||""}-${x.c||""}-${x.n||""} ${x.name}(${x.role||"-"})`).join(" / "),
+      "학년":r.grade,"반":r.leader_class,"번호":r.leader_no,"학번":hak(r.grade,r.leader_class,r.leader_no),"대표자":r.leader_name,"대표 역할":d.leader_role||"","팀명":r.team_name,"인원":m.length+1,
+      "팀원":m.map(x=>`${hak(x.g||r.grade,x.c,x.n)} ${x.name}(${x.role||"-"})`.trim()).join(" / "),
       "1지망":(AREA[r.area1]||{}).name||r.area1,"2지망":(AREA[r.area2]||{}).name||"","희망 진로":d.careers||"","현장의 AI":d.career_ai||"",
       "부스 이름":r.booth_title,"부스 유형":r.booth_type||"","한 줄 소개":d.one_line||"","참고 예시":ex?`${ex.no} ${ex.t}`:"직접 기획","출발 활동":(d.start_acts||[]).join(", "),
       "배운 내용 연결":d.learned||"","바꿔 볼 AI 원리":d.ai_principle||"","체험 시간(분)":+d.minutes||"","동시 인원":+d.capacity||"",
-      "맞이":d.sc_greet||"","체험":d.sc_do||"","AI가 틀리는 순간":d.sc_fail||"","정리·진로 카드":d.sc_end||"","AI 도구":[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "),"프롬프트":d.prompt||"","프로토타입":d.proto||"",
+      "맞이":d.sc_greet||"","체험":d.sc_do||"","AI가 틀리는 순간":d.sc_fail||"","정리·진로 카드":d.sc_end||"","AI 도구":[...(d.ai_tools||[]),d.tool_etc].filter(Boolean).join(", "),"프로토타입":d.proto||"",
       "준비물 합계(원)":+d.budget||0,"유형 한도(원)":LIMIT[r.booth_type]||"","대여 기자재":(d.lend||[]).join(", "),"전기·인터넷":d.power||"","공간":d.space||"","Plan B":d.plan_b||"","광고 형식":d.ad_type||"","광고 문구":d.ad_copy||"","윤리 체크":`${(d.ethics||[]).length}/${ETHICS.length}`}});
   const supp=[];list.forEach(r=>((r.data||{}).supplies||[]).forEach(s=>supp.push({"접수번호":r.app_code,"팀명":r.team_name,"부스":r.booth_title,"상태":r.status,"품목":s.item,"수량":s.qty,"단가":s.price,"금액":s.qty*s.price,"구매 링크":s.link})));
   const act=list.filter(r=>r.status!=="취소");
   const sumRows=AREAS.map(a=>({"진로 영역":`${a.n} ${a.name}`,"목표 부스":a.target,"신청":act.filter(r=>r.area1===a.k).length,"선정":act.filter(r=>r.area1===a.k&&r.status==="선정").length,"1학년":act.filter(r=>r.area1===a.k&&r.grade==1).length,"2학년":act.filter(r=>r.area1===a.k&&r.grade==2).length,"신청 예산(원)":act.filter(r=>r.area1===a.k).reduce((s,r)=>s+(+(r.data||{}).budget||0),0)}));
   const wb=XLSX.utils.book_new();
-  const ws1=XLSX.utils.json_to_sheet(rows);ws1["!cols"]=Object.keys(rows[0]).map(k=>({wch:["맞이","체험","AI가 틀리는 순간","정리·진로 카드","배운 내용 연결","프롬프트","현장의 AI","Plan B","팀원","선생님 의견"].includes(k)?40:14}));ws1["!autofilter"]={ref:ws1["!ref"]};
+  const ws1=XLSX.utils.json_to_sheet(rows);ws1["!cols"]=Object.keys(rows[0]).map(k=>({wch:["맞이","체험","AI가 틀리는 순간","정리·진로 카드","배운 내용 연결","현장의 AI","Plan B","팀원","선생님 의견"].includes(k)?40:14}));ws1["!autofilter"]={ref:ws1["!ref"]};
   XLSX.utils.book_append_sheet(wb,ws1,"신청서 전체");
   XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(sumRows),"영역별 요약");
   if(supp.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(supp),"준비물 구매 목록");
@@ -1390,16 +1385,16 @@ const GUIDE_COMMON=[
 const STEP_NAMES=["팀 정보","진로 영역","부스 기획","체험 시나리오","준비물·광고","안전·제출"];
 const EX_SECS=[["learn","🎓 배운 것 활용"],["study","📚 먼저 익힐 내용"],["need","🧰 필요한 것"],["steps","🛠️ 만드는 과정"],["run","🎪 운영 방법"],["caution","⚠️ 주의·Plan B"]];
 const EX_NOW={0:["run"],1:["learn"],2:["learn","study"],3:["steps","run"],4:["need","caution"],5:["caution"]};
-const EX_TIP=["팀 정보 단계 — ‘운영 방법’의 역할(진행·체험 도우미·기기·기록)을 보고 팀원 역할을 나누세요.",
- "진로 영역 단계 — ‘배운 것 활용’에서 우리 팀이 들은 캠프·수업이 무엇인지 확인하고, 희망 진로와 ‘그 직업에서 AI는 어떻게 쓰이나요?’ 칸을 채우세요.",
- "부스 기획 단계 — ‘배운 것 활용’은 「배운 내용을 어떻게 연결했나요?」 칸에, ‘먼저 익힐 내용’은 「방문자가 바꿔 볼 수 있는 AI의 원리」 칸에 우리 말로 고쳐 적으세요. 그대로 베끼지 말고 우리 팀만의 변형을 하나 더하세요.",
- "체험 시나리오 단계 — ‘운영 방법’의 흐름을 맞이·체험·AI가 틀리는 순간·정리 칸에 나눠 적고, ‘만드는 과정’의 프롬프트(복사 버튼)를 「핵심 프롬프트」 칸에 붙여 우리 부스에 맞게 고치세요.",
- "준비물·광고 단계 — ‘필요한 것’ 중 사야 할 것만 준비물 표에 적고(빌릴 기자재는 대여 칸), ‘주의·Plan B’를 Plan B 칸에 옮기세요.",
- "안전·제출 단계 — ‘주의·Plan B’와 영역 공통 약속을 다시 읽고 안전·윤리 약속을 체크하세요."];
+const EX_TIP=["팀 정보 단계 — ‘박람회 날 운영’의 흐름을 보고 진행·체험 도우미·기기·기록 역할을 나누세요.",
+ "진로 영역 단계 — ‘이 부스 한눈에’의 진로 연결을 참고해 희망 진로와 ‘그 직업에서 AI는 어떻게 쓰이나요?’ 칸을 우리 말로 채우세요.",
+ "부스 기획 단계 — 아래 ‘신청서 작성 예시’의 [칸에 넣고 고치기]로 문장을 넣은 뒤, 우리 팀만의 변형(대상·데이터·장소)을 하나 이상 더해 고쳐 쓰세요.",
+ "체험 시나리오 단계 — ‘박람회 날 운영’의 흐름을 맞이·체험·AI가 틀리는 순간·정리 칸에 옮기고, 앱을 만들 때는 아래 ‘바이브 코딩 프롬프트’ 예시를 복사해 제미나이 캔버스에 붙여 쓰세요(신청서에는 적지 않아요).",
+ "준비물·광고 단계 — ‘준비물·예산’의 [준비물 표에 넣기]를 누른 뒤 우리 팀에 맞게 고치세요. 빌릴 기자재는 대여 칸에 체크하세요.",
+ "안전·제출 단계 — ‘Plan B · 4주 일정’과 영역 공통 약속을 다시 읽고 안전·윤리 약속을 체크하세요."];
 const OWN_TIP=["팀 정보 단계 — 직접 기획하는 팀은 아래 10단계를 따라가면 됩니다. 먼저 역할을 나누세요.",
  "진로 영역 단계 — 1단계(주제 문장)와 2단계(현장 사례)를 채우면 「희망 진로」·「그 직업에서 AI는…」 칸이 완성됩니다.",
  "부스 기획 단계 — 3단계 AI 유형을 하나로 정하고, 5단계 도구 지도에서 도구를, 6단계에서 데이터를 고르세요. 비슷한 예시 번호는 ‘예시 프로그램’ 탭에서 열어 보세요.",
- "체험 시나리오 단계 — 4단계 5박자 공식으로 시나리오 칸을, 7단계 프롬프트 틀로 「핵심 프롬프트」 칸을 채우세요.",
+ "체험 시나리오 단계 — 4단계 5박자 공식으로 시나리오 칸을, 앱은 7단계 프롬프트 틀로 제미나이 캔버스에서 만드세요(신청서에는 프롬프트를 적지 않아요).",
  "준비물·광고 단계 — 8단계로 사야 할 것·빌릴 것을 나누고 유형별 한도 안에서 예산을 짜세요.",
  "안전·제출 단계 — 제출 전에 자기 점검 10항목을 확인하세요."];
 let gTab="ex",gEx="",gAll=false,gUserTab=false;
@@ -1513,11 +1508,11 @@ function guideRender(keepScroll){
   body.innerHTML=gTab==="ex"?gExHTML():gTab==="own"?gOwnHTML():gListHTML(GUIDE_COMMON,null);gBindExtra(body);
   $$(".gprompt",body).forEach(d=>{const pre=d.querySelector("pre");const b=document.createElement("button");b.type="button";b.className="gCopy";b.textContent="복사";b.dataset.copy=pre.textContent;d.prepend(b)});
   $$(".gCopy",body).forEach(b=>b.onclick=()=>{let t=b.dataset.copy;const m=t.match(/[“"]([\s\S]+)[”"]/);if(m&&!b.closest(".gprompt"))t=m[1];
-    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("복사했어요. 「핵심 프롬프트」 칸에 붙여 넣고 우리 팀에 맞게 고치세요.")).catch(()=>{const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("복사했어요.")}catch(e){toast("복사가 안 되면 글을 길게 눌러 복사하세요.")}ta.remove()})});
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("복사했어요. 제미나이 캔버스에 붙여 넣고 우리 팀에 맞게 고쳐 쓰세요.")).catch(()=>{const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("복사했어요.")}catch(e){toast("복사가 안 되면 글을 길게 눌러 복사하세요.")}ta.remove()})});
   const sel=$("#gExSel");if(sel)sel.onchange=()=>{gEx=sel.value;guideRender()};
   const use=$("#gUseEx");if(use)use.onclick=()=>pickExample(+gEx);
   const all=$("#gAllBtn");if(all)all.onclick=()=>{gAll=!gAll;guideRender(true)};
-  if(keepScroll)body.scrollTop=top;else{const f=body.querySelector(".gSec.now");body.scrollTop=f&&gTab!=="ex"?f.offsetTop-body.offsetTop-8:0}
+  if(keepScroll)body.scrollTop=top;else{const f=body.querySelector(".gSec.now");body.scrollTop=f&&gTab==="com"?f.offsetTop-body.offsetTop-8:0}
 }
 function guideSync(){const v=$("#example_ref").value;if(v!==gEx&&v){gEx=v;if(!gUserTab||gTab!=="com")gTab="ex"}else if(!v&&!gEx&&!gUserTab)gTab="own";guideRender()}
 $$(".gTabs button").forEach(b=>b.onclick=()=>{gTab=b.dataset.t;gUserTab=true;guideRender()});
