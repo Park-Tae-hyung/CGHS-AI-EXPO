@@ -1402,7 +1402,7 @@ const gFmt=s=>esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$
 function gSecHTML(title,body,now,open){return `<details class="gSec${now?" now":""}"${open?" open":""}><summary>${title}${now?"<em>지금 단계</em>":""}</summary><div class="gc">${body}</div></details>`}
 const EX_SECS2=[["idea","🎯 이 부스 한눈에"],["learned","🎓 배운 것을 어디에 쓰나"],["study","📚 먼저 공부할 것"],["steps","🛠️ 만드는 과정 요약"],["inq","🔬 탐구 과정"],["run","🎪 박람회 날 운영"],["buy","🧰 준비물·예산"],["planB","🛟 Plan B · 4주 일정"],["prompt","📋 바이브 코딩 프롬프트"]];
 const EX_NOW2={0:["idea","run"],1:["idea"],2:["idea","learned","study"],3:["steps","run","inq","prompt"],4:["buy"],5:["planB"]};
-const AF=[["one_line","한 줄 소개",2],["learned","배운 내용 연결",2],["ai_principle","바꿔 볼 수 있는 AI의 원리",2],["sc_greet","맞이",3],["sc_do","체험",3],["sc_fail","AI가 틀리는 순간",3],["sc_end","정리·진로 카드",3],["plan_b","Plan B",5]];
+const AF=[["one_line","한 줄 소개",2],["learned","배운 내용 연결",2],["ai_principle","바꿔 볼 수 있는 AI의 원리",2],["sc_greet","맞이",3],["sc_do","체험",3],["sc_fail","AI가 틀리는 순간",3],["sc_end","정리·진로 카드",3],["plan_b","Plan B",4]];
 const TYLIM={S:50000,C:130000,P:180000,H:120000,M:120000};
 const gB=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\[\[.+?\]\]/g,"");
 function gApplyHTML(ap,stepOnly){const rows=AF.filter(f=>ap[f[0]]&&(!stepOnly||f[2]===cur));if(!rows.length)return "";
